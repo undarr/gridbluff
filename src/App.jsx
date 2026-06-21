@@ -7,19 +7,30 @@ function App() {
   const [activeTool, setActiveTool] = useState(null);
 
   const initializeGrid = () => {
+    // 1. Create the pool
     const pool = [
       ...Array(3).fill({ type: 'empty' }),
       ...Array(3).fill({ type: 'evil' }),
       ...Array(10).fill({ type: 'good' })
     ];
 
+    // 2. Shuffle
     const shuffled = [...pool];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    setGrid(shuffled);
+    // 3. Assign IDs (Skipping empty cells)
+    let currentId = 1;
+    const gridWithIds = shuffled.map(cell => {
+      if (cell.type !== 'empty') {
+        return { ...cell, id: currentId++ };
+      }
+      return cell;
+    });
+
+    setGrid(gridWithIds);
     setTurns(0);
     setActiveTool(null);
   };
@@ -28,8 +39,10 @@ function App() {
     initializeGrid();
   }, []);
 
-  const handleCellClick = () => {
-    setTurns(prev => prev + 1);
+  const handleCellClick = (type) => {
+    if (type !== 'empty') {
+      setTurns(prev => prev + 1);
+    }
   };
 
   const toggleTool = (tool) => {
@@ -37,64 +50,73 @@ function App() {
   };
 
   return (
-    <div className="fullscreen-container">
-      <div className="game-wrapper">
+    <div className="main-viewport">
+      <div className="game-container">
         
-        {/* Branding Section */}
         <header className="branding">
           <h1 className="title">GridBluff</h1>
           <p className="subtitle">minimal solo social deduction game</p>
         </header>
 
-        {/* Top Controls Bar */}
-        <div className="header-bar">
-          <div className="header-left">
-            <button className="icon-button" onClick={() => alert('Settings')}>⚙️</button>
-            <span className="turns-text">Turn used: {turns}</span>
-          </div>
-          <button className="icon-button" onClick={initializeGrid}>🔄</button>
+        <div className="control-bar">
+        <div className="control-left">
+          <button className="square-btn" onClick={() => alert('Settings')}>⚙️</button>
+          <span className="turns">Turn used: {turns}</span>
         </div>
+        
+        {/* New container for the right side elements */}
+        <div className="control-right">
+          <span className="stats-text">5/1/1/2</span>
+          <button className="square-btn" onClick={initializeGrid}>🔄</button>
+        </div>
+      </div>
 
-        {/* The 4x4 Grid */}
-        <main className="grid-board">
+        <div className="grid-layer">
           {grid.map((cell, index) => (
             <div 
               key={index} 
-              className={`cell cell-${cell.type}`}
-              onClick={handleCellClick}
+              className={`cell cell-${cell.type} ${cell.type !== 'empty' ? 'is-clickable' : ''}`}
+              onClick={() => handleCellClick(cell.type)}
             >
+              {/* The ID Triangle */}
+              {cell.id && (
+                <div className="id-triangle">
+                  <span className="id-number">{cell.id}</span>
+                </div>
+              )}
+
               {cell.type === 'empty' ? (
-                <span className="main-text">X</span>
+                <span className="text-xl">X</span>
               ) : (
                 <>
-                  <span className="label-text">{cell.type}</span>
-                  <span className="main-text">{cell.type}</span>
-                  <span className="label-text">{cell.type}</span>
+                  <span className="text-xs">⚙️GD (⏱️AB)</span>
+                  <span className="text-xs">🗝️11🔪11🔪11</span>
+                  <span className="text-xs">(⏱️AB) #11,12,23</span>
+                  <span className="text-xs">🔫10,11,12,13</span>
+                  <span className="text-xs">✨💫🕶️🚫</span>
                 </>
               )}
             </div>
           ))}
-        </main>
+        </div>
 
-        {/* Action Tools */}
-        <div className="footer-bar">
+        <div className="tool-bar">
           <button 
-            className={`action-button ${activeTool === 'paint' ? 'active-paint' : ''}`}
+            className={`tool-btn ${activeTool === 'paint' ? 'bg-paint' : ''}`}
             onClick={() => toggleTool('paint')}
           >
             🎨 Paint
           </button>
           <button 
-            className={`action-button ${activeTool === 'kill' ? 'active-kill' : ''}`}
+            className={`tool-btn ${activeTool === 'kill' ? 'bg-kill' : ''}`}
             onClick={() => toggleTool('kill')}
           >
             💀 Kill
           </button>
         </div>
 
-        {/* Credits Section */}
-        <footer className="credits">
-          <p>an Undarfly Project since 20th June 2026, by Ulfred Chan</p>
+        <footer className="footer-credits">
+          an Undarfly Project since 20th June 2026, by Ulfred Chan
         </footer>
 
       </div>
