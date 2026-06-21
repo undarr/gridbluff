@@ -90,8 +90,8 @@ function App() {
               ) : (
                 <>
                   <span className="text-xs">⚙️GD (⏱️AB)</span>
-                  <span className="text-xs">🗝️11🔪11🔪11</span>
-                  <span className="text-xs">(⏱️AB) #11,12,23</span>
+                  <span className="text-xs">🗝️22🔪22🔪22</span>
+                  <span className="text-xs">⏱️AB #11,12,23</span>
                   <span className="text-xs">🔫10,11,12,13</span>
                   <span className="text-xs">✨💫🕶️🚫</span>
                 </>
