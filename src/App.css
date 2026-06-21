@@ -1,7 +1,7 @@
-/* 1. FORCE NO SCROLL & BOX MODEL */
+/* 1. GLOBAL RESET & SCROLL LOCK */
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent; /* Removes blue tap box on mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -9,38 +9,37 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* No scroll allowed */
-  position: fixed; /* Prevents "bounce" scroll on iOS */
+  overflow: hidden;
+  position: fixed;
   background-color: #faf8ef;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #776e65;
+  touch-action: none; /* Prevents pull-to-refresh and gestures */
 }
 
-/* 2. THE VIEWPORT CONTAINER (Prevents Overflow) */
+/* 2. LAYOUT CONTAINERS */
 .main-viewport {
   width: 100%;
-  height: 100dvh; /* Dynamic height for mobile browsers */
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-/* 3. THE GAME WRAPPER (Centers everything) */
 .game-container {
-  width: 90%; /* Leaves small gap on sides to prevent right-overflow */
-  max-width: 400px;
+  width: 92%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   text-align: center;
 }
 
-/* 4. BRANDING & TEXT */
+/* 3. BRANDING & BARS */
 .title { font-size: 2.8rem; font-weight: 800; margin: 0; line-height: 1; }
 .subtitle { font-size: 0.85rem; margin: 2px 0; opacity: 0.7; font-style: italic; }
 
-/* 5. BARS (Centered by Flexbox) */
 .control-bar, .tool-bar {
   display: flex;
   justify-content: space-between;
@@ -48,29 +47,19 @@ html, body {
   width: 100%;
 }
 
-.control-left { display: flex; align-items: center; gap: 10px; }
-.turns { font-weight: bold; font-size: 0.95rem; }
-
-/* ... existing styles ... */
-
-.control-right {
+.control-left, .control-right {
   display: flex;
   align-items: center;
-  gap: 12px; /* Space between the text and the reset button */
+  gap: 10px;
 }
 
-.stats-text {
+.turns, .stats-text {
   font-weight: bold;
   font-size: 0.95rem;
-  color: #776e65;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
-
-/* ... rest of your styles ... */
-
-
-/* 6. BUTTONS */
+/* 4. BUTTONS */
 .square-btn {
   background-color: #8f7a66;
   border: none;
@@ -80,6 +69,9 @@ html, body {
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tool-btn {
@@ -93,22 +85,23 @@ html, body {
   font-size: 1rem;
   cursor: pointer;
   margin: 0 4px;
+  transition: transform 0.1s ease;
 }
 
-/* 7. THE GRID */
+.tool-btn:active { transform: scale(0.96); }
+
+/* 5. THE GRID SYSTEM */
 .grid-layer {
   background-color: #bbada0;
   width: 100%;
   aspect-ratio: 1 / 1;
-  padding: 10px;
+  padding: 8px;
   border-radius: 6px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
-
-/* THE ID TRIANGLE */
 
 .cell {
   background-color: #cdc1b4;
@@ -117,70 +110,58 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  padding: 6px 2px;
   font-weight: bold;
+  position: relative;
+  overflow: hidden;
   transition: transform 0.1s ease;
-  position: relative; /* Added to allow absolute triangle positioning */
-  overflow: hidden; /* Keeps triangle corners from sticking out */
 }
 
+/* Role Specific Colors */
+.cell-villager { background-color: #eee4da; }
+.cell-outcast  { background-color: #e2d8cf; }
+.cell-minion   { background-color: #ede0c8; }
+.cell-empty    { justify-content: center; }
+
+/* Interactive State */
+.cell.is-clickable:active {
+  transform: scale(0.96) !important;
+}
+
+/* 6. ID TRIANGLE */
 .id-triangle {
   position: absolute;
   top: 0;
   left: 0;
-  width: 24px; /* Size of the triangle corner */
-  height: 24px;
-  background-color: #8f7a66; /* Theme color */
-  /* Creates a triangle from Top-Left to Bottom-Left to Top-Right */
-  clip-path: polygon(0 0, 100% 0, 0 100%); 
+  width: 22px;
+  height: 22px;
+  background-color: #8f7a66;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
   display: flex;
-  padding-left: 2px;
-  padding-top: 1px;
+  padding: 1px 0 0 2px;
+  z-index: 5;
 }
 
 .id-number {
   color: white;
   font-size: 0.6rem;
-  font-weight: bold;
   line-height: 1;
 }
 
-.cell.is-clickable:active {
-  transform: scale(0.96) !important;
+/* 7. UTILITY & TEXT */
+.text-xs {
+  font-size: clamp(0.55rem, 2vw, 0.7rem);
+  line-height: 1.2;
+  white-space: nowrap;
+  display: block;
+  height: 1.1em;
 }
 
-/* 8. CELL STYLES & TRANSFORM FIX */
-.cell {
-  background-color: #cdc1b4;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
-  font-weight: bold;
-  transition: transform 0.1s ease; /* Fast transition for the snap effect */
-}
+.text-xl { font-size: 2.8rem; font-weight: bold; }
 
-/* This is the scale transform for non-empty cells */
-.cell.is-clickable:active {
-  transform: scale(0.96) !important;
-}
-
-.cell-good { background-color: #eee4da; }
-.cell-evil { background-color: #ede0c8; }
-.cell-empty { justify-content: center; }
-
-/* Text Sizing */
-.text-xs { font-size: 0.6rem; text-transform: uppercase;}
-.text-md { font-size: 1.2rem; }
-.text-xl { font-size: 2.8rem; }
-
-/* 9. TOOL STATES */
 .bg-paint { background-color: #4CAF50; }
-.bg-kill { background-color: #f44336; }
+.bg-kill  { background-color: #f44336; }
 
-/* 10. FOOTER */
 .footer-credits {
   font-size: 0.7rem;
   opacity: 0.6;
@@ -188,9 +169,10 @@ html, body {
   line-height: 1.4;
 }
 
-/* FIX FOR SMALLER PHONES */
+/* 8. SMALL SCREEN ADJUSTMENTS */
 @media (max-height: 650px) {
   .title { font-size: 2rem; }
   .game-container { gap: 8px; }
   .grid-layer { gap: 6px; padding: 6px; }
+  .tool-btn { padding: 10px 0; }
 }
