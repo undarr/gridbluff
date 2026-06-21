@@ -1,0 +1,86 @@
+/* Reset and Full Screen setup */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Prevents accidental scrolling */
+}
+
+.fullscreen-container {
+  background-color: #faf8ef;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Small buffer for mobile edges */
+}
+
+/* The 4x4 Board */
+.grid-board {
+  background-color: #bbada0;
+  width: 100%;
+  max-width: 500px; /* Maximum size on desktop */
+  aspect-ratio: 1 / 1; /* Keeps it square */
+  padding: 12px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Cell Styles */
+.cell {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #776e65;
+}
+
+.cell-empty {
+  background-color: #cdc1b4;
+  justify-content: center;
+}
+
+.cell-good {
+  background-color: #eee4da;
+}
+
+.cell-evil {
+  background-color: #ede0c8;
+}
+
+/* Typography Scaling for Responsiveness */
+.main-text {
+  font-size: clamp(1.2rem, 5vw, 2.5rem); /* Scales between mobile and desktop */
+}
+
+.label-text {
+  font-size: clamp(0.5rem, 2vw, 0.8rem);
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* Specific styling for the 'X' in empty cells */
+.cell-empty .main-text {
+  font-size: clamp(2rem, 8vw, 4rem);
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 350px) {
+  .grid-board {
+    gap: 8px;
+    padding: 8px;
+  }
+}
