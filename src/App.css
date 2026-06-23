@@ -150,12 +150,27 @@ html, body {
   align-items: center;
 }
 
-.cell-empty { justify-content: center; cursor: default !important; }
+.cell-empty { justify-content: center; cursor: default; }
 
 /* Highlighting */
 .b-lime   { border: 3px solid limegreen !important; }
-.b-yellow { border: 3px solid yellow !important; }
+.b-yellow { border: 3px solid yellow !important; cursor: pointer; }
+.kill-mode .b-yellow { cursor: crosshair; }
+.dark-kill-mode .b-yellow { cursor: crosshair; }
 .id-number-y-txt    { font-size: 0.6rem; line-height: 1; color: yellow !important; }
+
+.b-lime-mod {
+  /* Remove the standard border entirely */
+  border: 1px solid transparent !important; 
+  
+  /* Use inset box-shadow to simulate a 3px border inside the cell */
+  /* This prevents the "clipping" and ensures it follows the rounded corners */
+  box-shadow: inset 0 0 0 2px limegreen !important;
+  
+  /* Optional: keeps the cell looking "on top" */
+  position: relative;
+  z-index: 1;
+}
 
 /* ID Triangle */
 .id-triangle {
@@ -210,6 +225,8 @@ html, body {
 /* ============================================================
    7. MODAL SYSTEM 
    ============================================================ */
+h2 {margin: 20px 0px 10px 0px;}
+
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.6); z-index: 100;
@@ -232,9 +249,9 @@ html, body {
 .tab-btn.active { opacity: 1; border-bottom: 3px solid #8f7a66; }
 
 /* Current Tab Table */
-.stats-summary { font-weight: bold; margin-bottom: 5px; background: #bbada0; color: white; padding: 8px; border-radius: 4px; }
+.stats-summary { display:flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; background: #bbada0; color: white; padding: 8px; border-radius: 4px; }
 .char-grid-table { width: 100%; border-collapse: collapse;}
-.char-grid-table td { padding: 8px 2px; font-size: 0.65rem; font-weight: bold; text-align: center; width: 25%; border: 4px solid #faf8ef; border-radius: 15px;}
+.char-grid-table td { padding: 8px 2px; font-size: 0.65rem; font-weight: bold; text-align: center; width: 25%; border: 4px solid #faf8ef; border-radius: 20px;}
 .table-divider { border: 0; border-top: 2px dashed #bbada0; margin: 15px 0; }
 
 /* Settings Controls */
