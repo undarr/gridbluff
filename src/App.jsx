@@ -1,9 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const villagerPool = ['🔧AR', '⚜️BI', '🙏CF', '🎭CP', '🎀CU', '💭DM', '🩺DR', '🔮FT', '🐐GT', '💖HL', '🔍IN', '⚖️JG', '🧵KT', '📌LC', '📚LI', '🖌️MA', '📬MM', '🧮MT', '☯️NJ', '💊NR', '✝️PR', '✏️PT', '📡RD', '🐦RK', '🏹SL', '📊ST', '🛡️TK', '🕵UC', '☂️WM', '🧙🏻WZ', '👁️XR']
-const outcastPool = ['🚨AL', '💣BM', '🤵🏻BT', '🐱CC', '🍺DK', '🔗FG', '🤡JK', '⚡JM', '💕LV', '🤪PV', '❓SS', '🧸VD', '👦🏻YS']
-const minionPool = ['🧬CL', '👤CM', '🗣️CR', '👥ET', '👻GH', '👽HK', '🎃MB', '🧪PN', '🐛PS', '📣RC', '🐀RT', '👾VR', '🧹WI']
+const villagerPool = 
+['🔧AR', '⚜️BI', '🍞BK', '🙏CF', '📸CM',
+  '🎭CP', '🎀CU', '💭DM', '🩺DR', '📝DT', 
+  '🛠️EG', '🎥FM', '🔮FT', '💎GC', '💖HL', 
+  '🤒IF', '🔍IN', '⚖️JG', '🧵KT', '🐑LB', 
+  '📌LC', '📚LI', '🖌️MA', '📬MM', '🧮MT', 
+  '👑NB', '☯️NJ', '💊NR', '📣PA', '📡RD', 
+  '🐦RK', '🥼SC', '🎖️SH', '🏹SL', '📊ST', 
+  '🎓TE', '🎯 TG', '🛡️TK', '☂️WM', '✏️WR', 
+  '🧙🏻WZ', '👁️XR'];
+const outcastPool = 
+['🚨AL', '💰BH', '💣BM', '🤵🏻BT', '🐱CC', 
+  '🍺DK', '🔌ET', '🔗FG', '🤝GT', '🙃ID', 
+  '⚡JM', '💕LV', '🐮MK', '🎵NM', '✝️PR',
+   '🤪PV', '🤖RB', '💉SG', '🦑SQ', '❓SS',
+    '⚰️SU', '🦇VB', '🧸VD', '👦🏻YS'];
+const minionPool = 
+['🧬CL', '🗣️CR', '🔒CT', '👥ET', '👻GH', 
+  '🦴GR', '👽HK', '🔫HM', '🤡JK', '🎃MB',
+   '🧪PN', '🐛PS', '🔔RC', '🥛RM', '🐀RT',
+    '🏴󠁧󠁢󠁳󠁣󠁴󠁿SB','👤SD', '🧛🏻‍♀️VP', '👾VR', '🧹WI'];
+const disguises = 
+['🔧AR', '⚜️BI', '🍞BK', '🙏CF', '📸CM', 
+  '🎭CP', '🎀CU', '💭DM', '🩺DR', '📝DT', 
+  '🛠️EG', '🎥FM', '🔮FT', '💎GC', '💖HL', 
+  '🤒IF', '🔍IN', '⚖️JG', '🧵KT', '🐑LB', 
+  '📌LC', '📚LI', '🖌️MA', '📬MM', '🧮MT', 
+  '☯️NJ', '💊NR', '📣PA', '📡RD', '🐦RK', 
+  '🥼SC', '🎖️SH', '🏹SL', '📊ST', '🎓TE', 
+  '🎯 TG', '🛡️TK', '☂️WM', '✏️WR', '🧙🏻WZ', 
+  '👁️XR', '🚨AL', '💰BH', '💣BM', '🤵🏻BT', 
+  '🍺DK', '🔌ET', '🔗FG', '🤝GT', '⚡JM', 
+  '💕LV', '🐮MK', '🎵NM', '✝️PR', '🤖RB',
+  '💉SG', '🦑SQ', '⚰️SU', '🧸VD', 
+  '👦🏻YS'];
+const disguiseMins = 
+['🧬CL', '🗣️CR', '🔒CT', '👻GH', '🦴GR',
+  '👽HK', '🔫HM', '🤡JK', '🧪PN', '🔔RC',
+  '🐀RT', '👤SD', '🧛🏻‍♀️VP', '👾VR', '🧹WI'];
+
 const selectcount = {"🙏CF":0,"🏹SL":1,"🎀CP":2,"🐐GT":0,"💖HL":0,"🔮FT":0,"🩺DC":0,"🧙🏻WZ":3,"⚖️JG":1,"🧵KT":0,"☯️NJ":0,"🕵UC":0,"🔍IN":2,"📡RD":0,"📌LC":0,"📬MM":0,"☂️WM":0,"🧮MT":0,"⚜️BI":0,"👁️XR":1,"📚LI":3,"🎭MA":0,"✏️PT":0};
 
 function App() {
@@ -56,11 +93,12 @@ function App() {
   };
 
   const createPlayer = (role, type, id) => ({
-    type, id, char: role, app: role, reg: role,
-    highlight: [], adjacent: [],
+    type, regtype: type, id, char: role, app: role, reg: role,
+    highlight: [], adjs: {},
     announce: "",
-    revealed: -1, used: 0, killed: -1,
-    converted: false, corrupt: false, jammed: false, blurred: false,
+    revealed: 0, used: 0, killed: -1,
+    lie: false, convert: '✅', corrupt: '✅', jammed: '✅', blurred: '✅',
+    note: "",
   });
 
   const triggerAnimation = (indices, type, targetGrid, turnAdd) => {
@@ -77,27 +115,27 @@ function App() {
 
   const initializeGrid = () => {
     setRoleCounts(nextroleCounts);
+    localStorage.setItem('roleCounts',JSON.stringify(nextroleCounts));
     if (animatingIndices.size > 0) return;
 
     const pickRoles = (pool, targetCount) => {
       const forced = pool.filter(c => getStatus(c) === 1);
       const maybe = pool.filter(c => getStatus(c) === 0);
-      
-      const combined = [...forced, ...shuffle(maybe)].slice(0, targetCount);
+      const combined = [...shuffle(forced), ...shuffle(maybe)].slice(0, targetCount);
       return combined;
     };
 
     const slV = suspectList ? pickRoles(villagerPool, nextroleCounts.v + nextroleCounts.sv).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : villagerPool;
     const slO = suspectList ? pickRoles(outcastPool, nextroleCounts.o + nextroleCounts.so).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : outcastPool;
-    const slM = suspectList ? pickRoles(minionPool, nextroleCounts.m + nextroleCounts.sm).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : minionPool;
+    const slM = suspectList ? pickRoles(minionPool.filter(c => c !=='🧛🏻‍♀️VP' && c !=='🥛RM'), nextroleCounts.m + nextroleCounts.sm).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : minionPool.filter(c => c !=='🧛🏻‍♀️VP' && c !=='🥛RM');
 
     setvillagersus(JSON.stringify(slV));
     setoutcastsus(JSON.stringify(slO));
     setminionsus(JSON.stringify(slM));
 
-    const sV = pickRoles(slV, nextroleCounts.v);
-    const sO = pickRoles(slO, nextroleCounts.o);
-    const sM = pickRoles(slM, nextroleCounts.m);
+    let sV = pickRoles(slV, nextroleCounts.v);
+    let sO = pickRoles(slO, nextroleCounts.o);
+    let sM = pickRoles(slM, nextroleCounts.m);
 
     const pCount = sV.length + sO.length + sM.length;
     let p = shuffle([
@@ -109,13 +147,509 @@ function App() {
 
     let curId = 1;
     const nextG = p.map(x => x.t !== 'empty' ? createPlayer(x.r, x.t, curId++) : x);
+    const finalGrid = nextG.map((cell, i) => {
+      if (cell.type === 'empty') return cell;
 
+      const row = Math.floor(i / 4), col = i % 4, adjs = { N: null, S: null, W: null, E: null };
+      for (let r = row - 1; r >= 0; r--) if (nextG[r * 4 + col].type !== 'empty') { adjs.N = nextG[r * 4 + col].id; break; }
+      for (let r = row + 1; r < 4; r++) if (nextG[r * 4 + col].type !== 'empty') { adjs.S = nextG[r * 4 + col].id; break; }
+      for (let c = col - 1; c >= 0; c--) if (nextG[row * 4 + c].type !== 'empty') { adjs.W = nextG[row * 4 + c].id; break; }
+      for (let c = col + 1; c < 4; c++) if (nextG[row * 4 + c].type !== 'empty') { adjs.E = nextG[row * 4 + c].id; break; }
+      return { ...cell, adjs };
+    });
+
+    const getRand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    function joker_ability(p, cV) {
+      const adjIds = Object.values(p.adjs).filter(id => id !== null);
+      const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id) && !cV.includes(c.id));
+      const target = adjVills[Math.floor(Math.random() * adjVills.length)];
+      const B = getRand(slO.filter(r => !sO.includes(r)));
+      if (target) {
+        cV.push(target.id);
+        target.type = "outcast";
+        target.char = B;
+        target.app = B;
+        target.reg = B;
+        target.convert = '🤡';
+        p.note = '🤡#'+target.id;
+        sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
+        sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
+      }
+      else {
+        p.note = '⚠️🤡';
+      }
+    }
+
+    function clone_ability(p, cV) {
+      const adjIds = Object.values(p.adjs).filter(id => id !== null);
+      const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id) && !cV.includes(c.id));
+      const target = adjVills[Math.floor(Math.random() * adjVills.length)];
+      if (target) {
+        const ranVills = finalGrid.filter(c => c.type === 'villager' && !cV.includes(c.id) && target.id!==c.id);
+        const ran = ranVills[Math.floor(Math.random() * ranVills.length)];
+        const B = getRand(slV.filter(r => !sV.includes(r)));
+        if (ran) {
+          cV.push(target.id);
+          cV.push(ran.id);
+          target.app = B;
+          target.char = B;
+          target.reg = B;
+          target.convert = '🧬'; 
+          ran.app = B;
+          ran.char = B;
+          ran.reg = B;
+          ran.convert = '🧬';
+          const [aa,bb]=[target.id,ran.id].sort((a, b) => a - b);
+          p.note = '🧬#'+aa+','+bb;
+          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
+        }
+        else {
+          p.note = '⚠️🧬';
+        }
+      }
+      else {
+        p.note = '⚠️🧬';
+      }
+    }
+
+    // 1. Setup initial sets and helpers
+    const order = ['🤡JK', "🧬CL"].sort(() => Math.random() - 0.5);
+    let cV = [];
+    order.forEach(x =>
+    // 2. Perform Transformations
+    finalGrid.forEach(p => {
+      if (x === '🤡JK' && p.char === '🤡JK') {
+        joker_ability(p, cV);
+      }
+      if (x === "🧬CL" && p.char === "🧬CL") {
+        clone_ability(p, cV);
+      }
+    }));
+
+    finalGrid.forEach(p => {
+      if (p.char === '💰BH') {
+        const ranVills = finalGrid.filter(c => c.type === 'villager' && !cV.includes(c.id));
+        const ran = ranVills[Math.floor(Math.random() * ranVills.length)];
+        const B = getRand(slM.filter(r => !sM.includes(r)));
+        if (ran) {
+          cV.push(ran.id);
+          ran.type = "minion";
+          ran.char = B;
+          ran.app = B;
+          ran.reg = B;
+          ran.convert = '💰';
+          p.note = '💰#'+ran.id;
+          if (ran.char==='🤡JK') {
+            joker_ability(ran, cV);
+          }
+          if (ran.char==="🧬CL") {
+            clone_ability(ran, cV);
+          }
+          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
+          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
+          sM = [...new Set(finalGrid.filter(p => p.type === 'minion').map(p => p.char))];
+        }
+        else {
+          p.announce = '⚠️💰';
+          p.note = '⚠️💰';
+        }
+      }
+      
+    });
+
+    finalGrid.forEach(p => {
+      if (p.char === '🔔RC') {
+        const adjIds = Object.values(p.adjs).filter(id => id !== null);
+        const adjOut = finalGrid.filter(c => c.type === 'outcast' && adjIds.includes(c.id) && !cV.includes(c.id) && c.char!=='💰BH');
+        const target = adjOut[Math.floor(Math.random() * adjOut.length)];
+        const B = getRand(slM.filter(r => !sM.includes(r)));
+        if (target) {
+          cV.push(target.id);
+          target.type = "minion";
+          target.char = B;
+          target.app = B;
+          target.reg = B;
+          target.convert = '🔔';
+          p.note = '🔔#'+target.id;
+          if (target.char==='🤡JK') {
+            joker_ability(target, cV);
+          }
+          if (target.char==="🧬CL") {
+            clone_ability(target, cV);
+          }
+          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
+          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
+          sM = [...new Set(finalGrid.filter(p => p.type === 'minion').map(p => p.char))];
+        }
+        else {
+          p.note = '⚠️🔔';
+        }
+      }
+    });
+
+    finalGrid.forEach(p => {
+      if (p.char === '❓SS') {
+        const adjIds = Object.values(p.adjs).filter(id => id !== null);
+        const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id));
+        const target = adjVills[Math.floor(Math.random() * adjVills.length)];
+        if (target) {
+          cV.push(target.id);
+          p.type = 'villager';
+          p.char = target.char;
+          p.app = target.app;
+          p.reg = target.reg;
+          p.convert = '❓';
+          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
+          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
+        }
+        else {
+          p.note = '⚠️❓';
+        }
+      }
+    });
+
+    //disguises
+    const alldisguise = disguises.filter(r => slV.includes(r) || slO.includes(r));
+    let nipdisguise = alldisguise.filter(r => !sV.includes(r) && !sO.includes(r));
+    let ipdisguise = alldisguise.filter(r => sV.includes(r) || sO.includes(r));
+    let disguisingmin = disguiseMins.filter(r => sM.includes(r));
+    let dV = [];
+
+    finalGrid.forEach(p => {
+      if (p.char === "🙃ID") {
+        const target = getRand(nipdisguise.filter(r => slV.includes(r)));
+        if (target) {
+          p.app = target;
+          nipdisguise = nipdisguise.filter(r => r !== target);
+        }
+        else {
+          p.note="⚠️🙃"
+        }
+      }
+      if (p.char === "🐱CC") {
+        const target = getRand(finalGrid.filter(c => c.type === 'villager'));
+        if (target) {
+          p.app = target.app;
+          p.note = '🐱#'+target.id;
+        }
+        else {
+          p.note = '⚠️🐱';
+        }
+      }
+      if (p.char === "🤪PV") {
+        p.app = getRand(slM);
+        const target = getRand(finalGrid.filter(r => disguiseMins.includes(r.char)));
+        if (target) {
+          disguisingmin = disguisingmin.filter(r => r !== target.char);
+          p.note = '🤪#'+target.id;
+        }
+        else {
+          p.note = '⚠️🤪';
+        }
+      }
+    });
+    
+    const order2 = ['🤝GT', "👥ET"].sort(() => Math.random() - 0.5);
+    dV=[];
+    order2.forEach(x =>
+    finalGrid.forEach(p => {
+      if (x === '🤝GT' && p.char === '🤝GT') {
+        const target = getRand(finalGrid.filter(c => c.type === 'villager' && !dV.includes(c.id)));
+        if (target) {
+          target.app = "🤝GT";
+          dV.push(target.id);
+          p.note = '🤝#'+target.id;
+        }
+        else {
+          p.note = '⚠️🤝';
+        }
+      }
+      if (x === "👥ET" && p.char === "👥ET") {
+        const target = getRand(finalGrid.filter(c => c.type === 'villager' && !dV.includes(c.id)));
+        if (target) {
+          target.app = "👥ET";
+          dV.push(target.id);
+          p.note = '👥#'+target.id;
+        }
+        else {
+          p.note = '⚠️👥';
+        }
+      }
+    }));
+
+    let dlist = [...nipdisguise, ...ipdisguise].slice(0, disguisingmin.length);
+    const leftover = getRand(ipdisguise.filter(r => !dlist.includes(r)));
+    if (Math.random() < 0.5 && leftover) {
+      dlist[0] = leftover;
+    }
+    dlist = shuffle(dlist);
+
+    finalGrid.forEach(p => {
+      if (disguisingmin.includes(p.char)) {
+        const D = dlist[0];
+        if (D) {
+          p.app = D;
+          dlist = dlist.slice(1);
+        }
+      }
+    });
+
+    //Liars & Betrayals
+    finalGrid.forEach((p) => {
+      if (disguiseMins.includes(p.char)) {
+        p.corrupt='🤥';
+      }
+      if (p.char==="🙃ID") {
+        p.corrupt='🙃';
+      }
+    });
+
+    finalGrid.forEach((p) => {
+      if (p.char === "🐀RT") {
+        const adjIds = Object.values(p.adjs).filter(id => id !== null);
+        const adjLies = finalGrid.filter(c => c.corrupt !== '✅' && adjIds.includes(c.id));
+        if (adjLies.length > 0) {
+          const y = adjLies[Math.floor(Math.random() * adjLies.length)];
+          y.corrupt = '🐀';
+          p.note = "🐀#"+y.id;
+        }
+      }
+    });
+    //Registers
+    finalGrid.forEach((p) => {
+      if (p.app === "🔗FG") {
+        if (['✅','🐀'].includes(p.corrupt)) {
+          p.reg=getRand(slM);
+          p.regtype="minion";
+          p.announce="["+p.reg+"]";
+        }
+        else {
+          p.announce="["+p.char+"]";
+        }
+      }
+      if (p.char === "🔒CT") {
+        p.reg="🔗FG";
+        p.regtype="outcast";
+      }
+      if (p.char === "🧹WI") {
+        const adjIds = Object.values(p.adjs).filter(id => id !== null);
+        const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id));
+        if (adjVills.length > 0) {
+          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
+          y.reg = getRand(slM.filter(r => !["🔒CT","👤SD"].includes(r)));
+          y.regtype = "minion";
+          p.note="🧹#"+y.id;
+        }
+        else {
+          p.note="⚠️🧹";
+        }
+      }
+      if (p.app === "🍺DK") {
+        if (['✅','🐀'].includes(p.corrupt)) {
+          p.reg=getRand(slO.filter(r => r!=="🍺DK"));
+          p.announce="["+p.reg+"]";
+        }
+        else {
+          p.announce="["+getRand(slO.filter(r => r!=="🍺DK"))+"]";
+        }
+      }
+      if (p.char === "👤SD") {
+        p.reg=getRand(slM.filter(r => !["🔒CT","👤SD"].includes(r)));
+      }
+    });
+
+    finalGrid.forEach((p) => {
+      if (p.app === "🥼SC") {
+        const nonvils = finalGrid.filter(c => c.regtype !== 'villager');
+        const target = getRand(nonvils);
+        if (target) {
+          p.announce = '#'+target.id;
+          p.highlight.push(target.id);
+          if (['✅','🐀'].includes(p.corrupt)) {
+            p.regtype=target.regtype;
+            p.reg=target.reg;
+          }
+          else {
+            if (target.regtype==='outcast') {
+              p.regtype='minion';
+              p.reg=getRand(slM.filter(r => r!=="👤SD"));
+            }
+            else {
+              p.regtype='outcast';
+              p.reg=getRand(slO.filter(r => r!=="🍺DK"));
+            }
+          }
+        }
+        else {
+          p.announce="⚠️🥼"
+        }
+      }
+    });
+
+    //Corruptions
+    const order3 = ["🧪PN", "🐛PS"].sort(() => Math.random() - 0.5);
+    order3.forEach(xx =>
+    finalGrid.forEach((x) => {
+      if (xx==="🧪PN" && x.char === "🧪PN") {
+        const adjIds = Object.values(x.adjs).filter(id => id !== null);
+        const adjVills = finalGrid.filter(c => c.regtype === 'villager' && adjIds.includes(c.id) && c.corrupt=='✅');
+        if (adjVills.length > 0) {
+          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
+          y.corrupt = "🧪";
+          x.note = "🧪#"+y.id;
+        }
+        else {
+          x.note = "⚠️🧪";
+        }
+      }
+      if (xx==="🐛PS" && x.char === "🐛PS") {
+        const adjIds = Object.values(x.adjs).filter(id => id !== null);
+        const adjVills = finalGrid.filter(c => c.regtype === 'villager' && adjIds.includes(c.id) && c.corrupt=='✅');
+        if (adjVills.length > 0) {
+          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
+          y.corrupt = "🐛";
+          x.note = "🐛#"+y.id;
+        }
+        else {
+          x.note = "⚠️🐛";
+        }
+      }
+    }));
+
+    finalGrid.forEach((p) => {
+      if (p.app === "🤵🏻BT") {
+        if (['✅','🐀'].includes(p.corrupt)) {
+          const vils = finalGrid.filter(c => c.regtype === 'villager' && c.corrupt=='✅');
+          const v = vils[Math.floor(Math.random() * vils.length)]
+          const others = finalGrid.filter(c => c.type !== 'empty' && c.id !== p.id && c.id !== v.id);
+          const o = others[Math.floor(Math.random() * others.length)];
+          const [a,b] = [v.id,o.id].sort((a, b) => a - b);
+          p.highlight.push(a);
+          p.highlight.push(b);
+          v.corrupt = "🤵🏻";
+          p.announce = `🤵🏻#${a},${b}`;
+        }
+        else {
+          const mini = finalGrid.filter(c => !['✅','🐀'].includes(c.corrupt) && c !== p);
+          const m = mini[Math.floor(Math.random() * mini.length)]
+          const others = finalGrid.filter(c => c.type !== 'empty' && c.id !== p.id && c.id !== m.id);
+          const o = others[Math.floor(Math.random() * others.length)];
+          const [a,b] = [m.id,o.id].sort((a, b) => a - b);
+          p.highlight.push(a);
+          p.highlight.push(b);
+          p.announce = `🤵🏻#${a},${b}`;
+        }
+      }
+    });
+
+    //jam
+    finalGrid.forEach((p) => {
+      if (p.app === "⚡JM") {
+        p.announce = Math.random()<0.5 ? '↔️' : '↕️';
+        let tars = [];
+        if (p.announce==='↔️') {
+          tars.push(p.adjs.E);
+          tars.push(p.adjs.W);
+        }
+        else {
+          tars.push(p.adjs.N);
+          tars.push(p.adjs.S);
+        }
+        tars.forEach((tid) => {
+          if (tid) {
+            const target = finalGrid.filter(r => r.id === tid)[0];
+            p.highlight.push(tid);
+            if (['✅','🐀'].includes(p.corrupt) && target.regtype!=="minion") {target.jammed = "⚡";}
+            if (!['✅','🐀'].includes(p.corrupt) && target.regtype=="minion") {target.jammed = "⚡";}
+          }
+        })
+      }
+    });
+
+    finalGrid.forEach((p) => {
+      if (p.app === "🤖RB") {
+        const vills = finalGrid.filter(r => r.regtype === 'villager' && r.jammed === '✅');
+        const minis = finalGrid.filter(r => r.regtype === 'minion' && r.jammed === '✅');
+        if (['✅','🐀'].includes(p.corrupt)) {
+          if (vills && minis) {
+            const jv = getRand(vills);
+            const jm = getRand(minis);
+            jv.jammed = '🤖';
+            jm.jammed = '🤖';
+            const [a,b] = [jv.id,jm.id].sort((a, b) => a - b);
+            p.note = '🤖#'+a+','+b;
+          }
+          else {
+            p.note = '⚠️🤖';
+          }
+        }
+        else {
+          if (vills.length>=2) {
+            const jvs = shuffle(vill);
+            jvs[0].jammed = '🤖';
+            jvs[1].jammed = '🤖';
+            const [a,b] = [jvs[0].id,jvs[1].id].sort((a, b) => a - b);
+            p.note = '🤖#'+a+','+b;
+          }
+          else {
+            p.note = '⚠️🤖';
+          }
+        }
+      }
+    });
+
+    finalGrid.forEach((p) => {
+      if (p.char === "👽HK") {
+        const jams = shuffle(finalGrid.filter(r => r.jammed === '✅' && r.regtype !== 'minion'));
+        if (jams.length>=2) {
+          jams[0].jammed = '👽';
+          jams[1].jammed = '👽';
+          const [a,b] = [jams[0].id,jams[1].id].sort((a, b) => a - b);
+          p.note = '👽#'+a+','+b;
+        }
+        else {
+          p.note = '⚠️👽';
+        }
+      }
+    });
+
+    //blur
+    finalGrid.forEach((p) => {
+      if (p.app === "🚨AL") {
+        const adjIds = Object.values(p.adjs).filter(id => id !== null);
+        const adjMins = finalGrid.filter(c => c.type === 'minion' && adjIds.includes(c.id));
+        if (['✅','🐀'].includes(p.corrupt) && adjMins.length>=1) {p.blurred="🚨";}
+        if (!['✅','🐀'].includes(p.corrupt) && adjMins.length<1) {p.blurred="🚨";}
+      }
+    });
+
+    finalGrid.forEach((p) => {
+      if (p.char === "👾VR") {
+        const blurs = shuffle(finalGrid.filter(r => r.blurred === '✅' && r.regtype !== 'outcast'));
+        if (blurs) {
+          blurs[0].blurred = '👾';
+          p.note = '👾#'+blurs[0].id;
+        }
+        else {
+          p.note = '⚠️👾';
+        }
+      }
+    });
+
+    //debuff swap
+
+
+
+    console.log('newboard');
+    console.log(sV, sO, sM);
+    console.log(finalGrid);
     
     setGameMode('Default');
     setAbilityUserIdx(null); 
     setSelectedIndices([]);
     setShowSettings(false);
-    triggerAnimation([...Array(16).keys()], 'flip', nextG, -turns);
+    triggerAnimation([...Array(16).keys()], 'flip', finalGrid, -turns);
   };
 
   useEffect(() => { if(grid.length === 0) initializeGrid(); }, []);
@@ -220,7 +754,9 @@ function App() {
       if (type === 'sv' && newVal < prev.m) return prev;
       const otherRolesSum = (type === 'v' ? 0 : prev.v) + (type === 'o' ? 0 : prev.o) + (type === 'm' ? 0 : prev.m);
       if (type[0]!=='s' && otherRolesSum + newVal > 16) return prev;
-      return { ...prev, [type]: newVal };
+      const newrole = { ...prev, [type]: newVal };
+      localStorage.setItem('nextroleCounts', JSON.stringify(newrole));
+      return newrole;
     });
   };
 
@@ -229,12 +765,12 @@ function App() {
       <div className="game-container">
         <header className="branding">
           <h1 className="title">GridBluff</h1>
-          <p className="subtitle">minimal solo social deduction game</p>
+          <p className="subtitle">minimal solo social deduction game inspired by Demon Bluff & Dupery</p>
         </header>
 
         <div className="control-bar">
           <div className="control-left">
-            <button className="square-btn" onClick={() => setShowSettings(true)}>🌣</button>
+            <button className="square-btn" onClick={() => setShowSettings(true)}>☆</button>
             <span className="turns">🕒{turns}</span>
           </div>
           <div className="control-right">
@@ -253,11 +789,14 @@ function App() {
                <div key={index} className={`cell ${getCellStateClass(cell, gameMode)} cell-${cell.type} ${cell.type !== 'empty' ? 'is-clickable' : ''} ${bCls} ${animatingIndices.has(index) ? `anim-${animType}` : ''}`}
                  onClick={() => handleCellClick(index)} onMouseEnter={() => cell.type !== 'empty' && setHoveredIdx(index)} onMouseLeave={() => setHoveredIdx(null)}>
                  <div className="cell-inner">
-                   {cell.type !== 'empty' && <div className={`id-triangle ${cell.killed !== -1 ? 'id-triangle-dead' : ''}`}><span className={abilityUserIdx === index ? 'y-txt' : 'id-number'}>{cell.id}</span></div>}
+                   {cell.type !== 'empty' && <div className={`id-triangle ${cell.killed !== -1 ? 'id-triangle-dead' : ''}`}><span className={abilityUserIdx === index ? 'id-number-y-txt' : 'id-number'}>{cell.id}</span></div>}
                    {cell.type === 'empty' ? <span className="text-xl"></span> : (cell.revealed === -1 && cell.killed === -1 && gameMode!=="Ended") ? <span className="text-xl">?</span> : (
-                     <div className="c-info"><span className="text-xs" /><span className="text-xs">{cell.char} ({cell.app})</span><span className="text-xs" />
-                       <span className="text-xs">{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
-                       <span className="text-xs">{cell.converted ? "✨" : ""}{cell.corrupt ? "😵" : ""}{cell.blurred ? "🕶️" : ""}{cell.jammed ? "🚫" : ""}</span>
+                     <div className="c-info">
+                      <span className="text-xs">⠀⠀{cell.convert}{cell.corrupt}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}{cell.jammed}{cell.blurred}</span>
+                      <span className="text-xs">{cell.char!==cell.app ? cell.char+" ("+cell.app+")" : cell.char}</span>
+                      <span className="text-xs">{cell.announce}</span>
+                      <span className="text-xs">{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
+                      <span className="text-xs">{cell.note}</span>
                      </div>
                    )}
                  </div>
@@ -320,7 +859,6 @@ function App() {
                                   </td>
                                 );
                               })}
-                              {/* Fill empty cells in partial row */}
                               {row.length < 4 && Array(4 - row.length).fill(0).map((_, i) => (
                                 <td key={`empty-${i}`} className="td-empty" />
                               ))}
@@ -391,7 +929,7 @@ function App() {
                             <div key={v} className={`char-row ${statusClasses[status]}`}>
                               <span className="char-name">{v}</span>
                               <div className="row-btns">
-                                <button 
+                                {(v !=='🧛🏻‍♀️VP' && v !=='🥛RM') ?  <button 
                                   className={`toggle-btn-ternary status-btn-${status}`}
                                   onClick={() => {
                                     setCharStatus(prev => ({
@@ -401,7 +939,7 @@ function App() {
                                   }}
                                 >
                                   {statusLabels[status]}
-                                </button>
+                                </button> : <></>}
                                 <button className="info-circle" onClick={() => setDetailedChar(v)}>ⓘ</button>
                               </div>
                             </div>
