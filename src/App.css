@@ -119,8 +119,8 @@ html, body {
   padding: 8px;
   border-radius: 6px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   gap: 8px;
 }
 
@@ -187,7 +187,7 @@ html, body {
 .id-number { color: white; font-size: 0.6rem; line-height: 1; }
 
 /* Typography */
-.text-xs { font-size: clamp(0.55rem, 2vw, 0.7rem); line-height: 1.2; white-space: nowrap; height: 1.1em; }
+.text-xs { font-size: 0.4rem ; line-height: 1.2; white-space: nowrap; height: 1.1em; } /*clamp(0.55rem, 2vw, 0.7rem)*/
 .text-xl { font-size: 2.6rem; font-weight: 900; pointer-events: none; }
 
 /* ============================================================
