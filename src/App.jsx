@@ -2,46 +2,537 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const villagerPool = 
-['🔧AR', '⚜️BI', '🍞BK', '🙏CF', '📸CM',
-  '🎭CP', '🎀CU', '💭DM', '🩺DR', '📝DT', 
-  '🛠️EG', '🎥FM', '🔮FT', '💎GC', '💖HL', 
-  '🤒IF', '🔍IN', '⚖️JG', '🧵KT', '🐑LB', 
-  '📌LC', '📚LI', '🖌️MA', '📬MM', '🧮MT', 
-  '👑NB', '☯️NJ', '💊NR', '📣PA', '📡RD', 
-  '🐦RK', '🥼SC', '🎖️SH', '🏹SL', '📊ST', 
-  '🎓TE', '🎯 TG', '🛡️TK', '☂️WM', '✏️WR', 
-  '🧙🏻WZ', '👁️XR'];
+['👁️AB', '😇AG', '📏AR', '🪕BA', '⚜️BI',
+'🍞BK', '🍖CB', '🙏CF', '🗺️CG', '📸CM',
+'🎭CP', '🎀CU', '💭DM', '📝DT', //'🩺DR', 
+'🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC', '⚰️GK', 
+'🐐GO', '🛡️GU', '💔HB', '💖HL', '🔍IN', 
+'🤐IV', '🤹JE', '⚖️JG', '💍JS', '👑KI', 
+'🗡️KN', '🧵KT', '🐑LB', '📌LC', '📚LI', 
+'💼LW', '🖌️MA', '📬MM', '🧮MT', '☯️NJ', 
+'📣PA', '🕊️PC', '🎤PF', '📡RD', //'💊NR', 
+'🕯️RI', '🔭RG', '🐦RK', '🗿SE', //, '🥼SC'
+'🎖️SH', '🏹SL', '📊ST', '📐SV', '🎓TE',
+'☕TL', '☂️WM', '✏️WR', '🧙🏻WZ', '🎞️XR'];
+
 const outcastPool = 
-['🚨AL', '💰BH', '💣BM', '🤵🏻BT', '🐱CC', 
-  '🍺DK', '🔌ET', '🔗FG', '🤝GT', '🙃ID', 
-  '⚡JM', '💕LV', '🐮MK', '🎵NM', '✝️PR',
-   '🤪PV', '🤖RB', '💉SG', '🦑SQ', '❓SS',
-    '⚰️SU', '🦇VB', '🧸VD', '👦🏻YS'];
+['🍷AC', '🤖AI', '🚨AL', '💰BH', '💣BM',
+'🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
+'🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
+'🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
+'🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV',
+'✨PX', '💉SG', '🍬SH', '🦑SQ', '❓SS',
+'🦇VB', '👦🏻YS'];
+
 const minionPool = 
-['🧬CL', '🗣️CR', '🔒CT', '👥ET', '👻GH', 
-  '🦴GR', '👽HK', '🔫HM', '🤡JK', '🎃MB',
-   '🧪PN', '🐛PS', '🔔RC', '🥛RM', '🐀RT',
-    '🏴󠁧󠁢󠁳󠁣󠁴󠁿SB','👤SD', '🧛🏻‍♀️VP', '👾VR', '🧹WI'];
-const disguises = 
-['🔧AR', '⚜️BI', '🍞BK', '🙏CF', '📸CM', 
-  '🎭CP', '🎀CU', '💭DM', '🩺DR', '📝DT', 
-  '🛠️EG', '🎥FM', '🔮FT', '💎GC', '💖HL', 
-  '🤒IF', '🔍IN', '⚖️JG', '🧵KT', '🐑LB', 
-  '📌LC', '📚LI', '🖌️MA', '📬MM', '🧮MT', 
-  '☯️NJ', '💊NR', '📣PA', '📡RD', '🐦RK', 
-  '🥼SC', '🎖️SH', '🏹SL', '📊ST', '🎓TE', 
-  '🎯 TG', '🛡️TK', '☂️WM', '✏️WR', '🧙🏻WZ', 
-  '👁️XR', '🚨AL', '💰BH', '💣BM', '🤵🏻BT', 
-  '🍺DK', '🔌ET', '🔗FG', '🤝GT', '⚡JM', 
-  '💕LV', '🐮MK', '🎵NM', '✝️PR', '🤖RB',
-  '💉SG', '🦑SQ', '⚰️SU', '🧸VD', 
-  '👦🏻YS'];
+['🧬CL', '🤬CR', '👥ET', '👗FD', '👻GH',
+'🦴GR', '👽HK', '🔫HM', '🃏JK', '🎃MB', 
+'🎩MG', '🐺MU', '🧪PN', '🐛PS', '🔔RC', 
+'🕹️SB', '👤SD', '🪓SK', '🐍SN', '🧸VD',
+'🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
+
+const disguises = villagerPool;
+
 const disguiseMins = 
 ['🧬CL', '🗣️CR', '🔒CT', '👻GH', '🦴GR',
-  '👽HK', '🔫HM', '🤡JK', '🧪PN', '🔔RC',
-  '🐀RT', '👤SD', '🧛🏻‍♀️VP', '👾VR', '🧹WI'];
+ '👽HK', '🔫HM', '🤡JK', '🧪PN', '🔔RC',
+ '🐀RT', '👤SD', '🧛🏻‍♀️VP', '👾VR', '🧹WI'];
 
 const selectcount = {"🙏CF":0,"🏹SL":1,"🎀CP":2,"🐐GT":0,"💖HL":0,"🔮FT":0,"🩺DC":0,"🧙🏻WZ":3,"⚖️JG":1,"🧵KT":0,"☯️NJ":0,"🕵UC":0,"🔍IN":2,"📡RD":0,"📌LC":0,"📬MM":0,"☂️WM":0,"🧮MT":0,"⚜️BI":0,"👁️XR":1,"📚LI":3,"🎭MA":0,"✏️PT":0};
+
+function details(p) {
+  if (p=="👁️AB") {
+    return (<>The <b>Arbiter (👁️AB)</b> checks if a selected member is in a disguise.<br/><br/>
+            <b>Ability:</b> Selects 1 player with member id x,<br/>
+            <b>When neither lying nor corrupted,</b> announces "#x✅🤓" if the selected member is in a disguise 
+            and announce "#x❌🤓" if the selected member is not in a disguise.<br/>
+            <b>When lying or corrupted,</b> announce the opposite of that above.<br/>
+            </>)
+  }
+  else if (p=="😇AG") {
+    return (<>The <b>Angel (😇AG)</b> heals a row or column, whichever more corrupted.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            <b>CorruptRemove: When neither lying nor corrupted,</b> if there are more corrupted members in its row than its column, remove corruption from all members in its row,
+            if there are more corrupted members in its column than its row, remove corruption from all members in its column,
+            if there are equal amount of corrupted members in its row and its column, remove corruption from all members in either its row or its column randomly.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if it removed corruption from all members in its row, announce "😇↔️", if it removed corruption from all members in its column, announce "😇↕️".<br/>
+            <b>When lying or corrupted,</b> if it removed corruption from any member, announce the opposite of that above, else announce one of the option above randomly.
+            </>)
+  }
+  else if (p=="📏AR") {
+    return (<>The <b>Architect (📏AR)</b> checks if there are more or less corruption in its row or column.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if there are more corrupted members in its row than its column, announce "↔️{'>'}↕️", 
+            if there are more corrupted members in its column than its row, announce "↔️{'<'}↕️", 
+            if there are equal amount of corrupted members in its row and its column, announce "↔️=↕️".<br/>
+            <b>When lying or corrupted,</b> announce one of the options different from that above.
+            </>)
+  }
+  else if (p=="🪕BA") {
+    return (<>The <b>Bard (🪕BA)</b> counts the number of corrupted members.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🪕😵n", where n is the total number of corrupted members.<br/>
+            <b>When lying or corrupted,</b> announce "🪕😵n", where n is 1 off the total number of corrupted members.
+            </>)
+  }
+  else if (p=="⚜️BI") {
+    return (<>The <b>Bishop (⚜️BI)</b> finds 3 members of different roles.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "⚜️#x,y,z", where x, y and z are the member ids 
+            of a random villager, a random outcast and a random minion, in random order.<br/>
+            <b>When lying or corrupted,</b> if possible, announces "⚜️#x,y,z", where x, y and z are the member ids 
+            of a random villager, a random outcast and a different random non-minion, in random order.
+            </>)
+  }
+  else if (p=="🍞BK") {
+    return (<>The <b>Baker (🍞BK)</b> keep baking unrevealed villagers into itself.<br/><br/>
+            A member who was not baked by any baker is defined as an original baker. Let the baker count of an original baker be 1, and the baker count of a non-original baker be 1 more than the baker count of the baker that baked it.<br/>
+            <b>Ability:</b> When revealed,<br/>
+            Announces "🍞n,p", where p is my original appearance and n is the baker count of the baker.<br/>
+            <b>When neither lying nor corrupted,</b> if possible, a random unrevealed villager, will be baked and now disguise as a baker.<br/>
+            <b>When lying or corrupted,</b> if possible, a random unrevealed non-villager who was disguising as a villager, will be baked and now disguise as a baker.<br/><br/>
+            Note: An original baker can be baked by another baker.
+            </>)
+  }
+  else if (p=="🙏CF") {
+    return (<>The <b>Confesser (🙏CF)</b> confesses if it's a liar or not.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🙏👍"<br/>
+            <b>When lying or corrupted,</b> announces "🙏👎"
+            </>)
+  }
+  else if (p=="🍖CB") {
+    return (<>The <b>Cannibal (🍖CB)</b> eats a member and reports its character type.<br/><br/>
+            <b>Ability:</b> Select a member with id x,<br/>
+            x becomes a final excution target. If x did not die, announce "🍖⚠️#x", else x dies and keeps its original appearance.
+            <b>When neither lying nor corrupted,</b> announces "🍖#x=t" where t is "😄" if x is a villager, "🥴" if x is an outcast and 
+            "😈" if x is a minion.<br/>
+            <b>When lying or corrupted,</b> announces one of the options different from that above.
+            </>)
+  }
+  else if (p=="🗺️CG") {
+    return (<>The <b>Cartography (🗺️CG)</b> locates a nearby Outcast and Minion.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "🗺️:pq", where p is the character of the nearest non-self Outcast and q is the character of the nearest non-self Minion.<br/>
+            <b>When lying or corrupted,</b> announces "🗺️:pq", where p is an Outcast different from that above and q is a Minion different from that above. Note that p and q can both independently be either in play or not in-play.
+            </>)
+  }
+  else if (p=="📸CM") {
+    return (<>The <b>Cameraman (📸CM)</b> counts the number of revealed minions.<br/><br/>
+            <b>Ability:</b> When activated,<br/>
+            <b>When neither lying nor corrupted,</b> announces "📸n", where n is the total number of revealed minions.<br/>
+            <b>When lying or corrupted,</b> announces "📸n", where n is a reasonable random number different from above.
+            </>)
+  }
+  else if (p=="🎭CP") {
+    return (<>The <b>Cosplayer (🎭CP)</b> counts the number of disguised members.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🎭n", where n is the total number of disguised members.<br/>
+            <b>When lying or corrupted,</b> announces "🎭n", where n is 1 off the total number of disguised members.
+            </>)
+  }
+  else if (p=="🎀CU") {
+    return (<>The <b>Cupid (🎀CU)</b> checks if 2 members are of the same alignment.<br/><br/>
+            <b>Ability:</b> Select 2 members with member ids x,y,<br/>
+            <b>When neither lying nor corrupted,</b> if the two selected players are both minions or both non-minions, announces "🎀#x=y", else announce "🎀#x≠y".<br/>
+            <b>When lying or corrupted,</b> announces the opposite of that above.
+            </>)
+  }
+  else if (p=="💭DM") {
+    return (<>The <b>Dreamer (💭DM)</b> checks a member's character among 2 selected roles.<br/><br/>
+            <b>Ability:</b> Select 2 members with member ids x,y,<br/>
+            <b>When neither lying nor corrupted,</b> announces "💭#x,y=p", where p is a character of either x or y.<br/>
+            <b>When lying or corrupted,</b> announces "💭#x,y=p", where if at least 1 of x or y is in disguise, p is the diguise of either x or y, else
+            if possible, p is a character that can disguise, and is preferably in-play.
+            </>)
+  }
+  /*
+  else if (p=="🩺DR") {
+    return (<>The <b>Doctor (🩺DR)</b> checks for the debuff of a random role.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🩺#x,n", where n is the number of debuff x has.<br/>
+            <b>When lying or corrupted,</b> announces "🩺#x,n", where n is between 0 and 2, and 1 off the number of debuffs x has.
+            </>)
+  }
+  */
+  else if (p=="📝DT") {
+    return (<>The <b>Detective (📝DT)</b> finds an unrevealed liar at halftime.<br/><br/>
+            <b>Ability:</b> When revealed, and after halftime, whichever latter,<br/>
+            <b>When neither lying nor corrupted,</b> if there is at least 1 unrevealed member that is lying or corrupted, announces "📝#x",
+            where x is the id of a random unrevealed member that is lying or corrupted, else, announce "📝👍"<br/>
+            <b>When lying or corrupted,</b> if there is at least 1 unrevealed member that is neither lying nor corrupted, announces "📝#x",
+            where x is the id of a random unrevealed member that is neither lying nor corrupted, else, announce "📝👍"
+            </>)
+  }
+  else if (p=="🛠️EG") {
+    return (<>The <b>Engineer (🛠️EG)</b> fixs nearby jamming and blurness.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Jamblur removal: Removes jamming and blurness from all adjacent members.<br/>
+            <b>When lying or corrupted,</b> corrupts all adjacent non-minion members who has jamming and blurness removed by it.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            Announce "🛠️n", where n is the number of members who had their jamming or blur or both, removed by it.<br/>
+            </>)
+  }
+  else if (p=="🧠EL") {
+    return (<>The <b>Enlightened (🧠EL)</b> focuses to learn its own morality.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When not corrupted,</b> Announce "🧠:t", where t is "👍" if I am a villager, "👎" if I am a minion and "👍" or "👎" randomly if I am an outcast.<br/>
+            <b>When corrupted,</b> Announce "🧠:t", where t is "👎" if I am a villager, "👍" if I am a minion and "👍" or "👎" randomly if I am an outcast.<br/>
+            Note: lying does not affect my ability.
+            </>)
+  }
+  else if (p=="😎EV") {
+    return (<>The <b>Extrovert (😎EV)</b> finds friends of different types across the grid.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announce "😎:pqr", where p, q and r are an in-play villager character, an in-play outcast character and an in-play minion character.<br/>
+            <b>When lying or corrupted,</b> announce "😎:pqr", where p, q and r are a villager character, an outcast character and a minion character where exactly 1 or exactly 2 of them are in-play characters.
+            </>) 
+  }
+  else if (p=="🔮FT") {
+    return (<>The <b>Fortune Teller (🔮FT)</b> checks if minions are among 2 members.<br/><br/>
+            <b>Ability:</b> Select 2 members with member ids x,y,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🔮👍#x,y", if neither x or y are minions, else announce "🔮👎#x,y".<br/>
+            <b>When lying or corrupted,</b> announce the opposite of that above.
+            </>) 
+  }
+  else if (p=="🔨FX") {
+    return (<>The <b>Fixer (🔨FX)</b> fixs jamming and blurness on request.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            If x is jammed or corrupted, removes jamming and blurness from x and announce "🔨#x"
+            <b>When lying or corrupted,</b> if x is non-minion, corrupts x.
+            Else, announce "🔨⚠️#x".
+            </>) 
+  }
+  else if (p=="💎GC") {
+    return (<>The <b>Gemcrafter (💎GC)</b> finds a good member.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announce "💎👍#x", where x is a random non-minion member appearing as a non-minion.
+            <b>When lying or corrupted,</b> if possible, announce "💎👍#x", where x is a random minion member disguising as a non-minion.
+            </>) 
+  }
+  else if (p=="⚰️GK") {
+    return (<>The <b>Gravekeeper (⚰️GK)</b> investigates a dead member.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            Announces "⚰️#x" if x is alive, else
+            <b>When neither lying nor corrupted,</b> announce "⚰️#x:pq", where p is the source of x's death q is "👍" if x is not corrupted, else q is the source of q's corruption.
+            <b>When lying or corrupted,</b> announce "⚰️#x:pq", where p and q are both different from that of above.<br/>
+            Note: Ability only works when I am alive.
+            </>) 
+  }
+  else if (p=='🐐GO') {
+    return (<>The <b>Goat (🐐GO)</b> locates a minion.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🐐n", where n is the tile-distance between it and the nearest minion.<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            </>)
+  }
+  else if (p=='🛡️GU') {
+    return (<>The <b>Guard (🛡️GU)</b> protects a member.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            If x is alive, announce "🛡️#x". When x is killed for the first time, announce "🛡️#x:p", where p is the source of x's death.<br/>
+            <b>When neither lying nor corrupted,</b> and x is not corrupted, when x is killed for the first time, x does not die.
+            </>) 
+  }
+  else if (p=="💔HB") {
+    return (<>The <b>Heartbrokened (💔HB)</b> cries out lies.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
+            <b>When neither lying nor corrupted,</b> announces whatever p would announce were it lying and corrupted.
+            <b>When lying or corrupted,</b> announces whatever p would announce were it truthful and uncorrupted.
+            </>) 
+  }
+  else if (p=="💖HL") {
+    return (<>The <b>Healer (💖HL)</b> heals nearby corruptions.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            CorruptRemove: <b>When neither lying nor corrupted,</b> removes corruption from adjacent neighbours.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            Let m be the number of members who had corruption removed by it.<br/>
+            Let n be the number of adjacent members who had corruption.<br/>
+            <b>When neither lying nor corrupted,</b> announces "💖m"
+            <b>When lying or corrupted,</b> if m is non-zero, announces "💖k" where k is 1 off from m, else if n is non-zero, 
+            announce "💖n", else announce "💖k" where k is either 1 or 2 randomly.
+            </>) 
+  }
+  else if (p=="🔍IN") {
+    return (<>The <b>Investigator (🔍IN)</b> finds a minion.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🔍p#x,y", where x and y are the ids of a minion and a non-minion in random order and p is the character of the minion.<br/>
+            <b>When lying or corrupted,</b> announces "🔍p#x,y", where x and y are the ids of 2 non-minions in random order and p is a in-play minion character.
+            </>)
+  }
+  else if (p=="🤐IV") {
+    return (<>The <b>Introvert (🤐IV)</b> befriends one of its neighbours.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🤐:p", where p is a character of one of its neighbours.<br/>
+            <b>When lying or corrupted,</b> announces "🤐:p", where p is a character that does not belong to any of its neighbours.
+            </>) 
+  }
+  else if (p=="🤹JE") {
+    return (<>The <b>Jester (🤹JE)</b> counts and juggles minions.<br/><br/>
+            <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🤹#x,y,z=n", where n is the number of minions among x, y and z.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="⚖️JG") {
+    return (<>The <b>Judge (⚖️JG)</b> judges a member's honesty.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            <b>When neither lying nor corrupted,</b> announces "⚖️#x✅🤥" if the selected member is a liar 
+            and announce "⚖️#x❌🤥" if the selected member is not a liar.<br/>
+            <b>When lying or corrupted,</b> announces the opposite of that above.
+            </>) 
+  }
+  else if (p=="💍JS") {
+    return (<>The <b>Jewelsmith (💍JS)</b> finds a honest member.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announce "💍👍#x", where x is a random non-liar.
+            <b>When lying or corrupted,</b> if possible, announce "💍👍#x", where x is a random liar.
+            </>) 
+  }
+  else if (p=="👑KI") {
+    return (<>The <b>King (👑KI)</b> is always good.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Minions cannot disguise as the King.<br/>
+            <b>When corrupted,</b> registers as a random in-play minion.
+            </>)
+  }
+  else if (p=="🗡️KN") {
+    return (<>The <b>Knight (🗡️KN)</b> protects itself.<br/><br/>
+            <b>Ability:</b> When killed for the first time,<br/>
+            Announces "🗡️:p", where p is the source of death. Use up this ability<br/>
+            <b>When neither lying nor corrupted,</b> does not die.<br/>
+            Note: A truthful minion disguising as a knight will not die upon the first execution.
+            </>) 
+  }
+  else if (p=="🧵KT") {
+    return (<>The <b>Knitter (🧵KT)</b> counts knitted minions.<br/><br/>
+            Let n be the number of pairs of minion. A pair of minion consists of 2 adjacent members in which both are minions. 
+            Note that a minion can be in up to 4 pairs. <br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🧵n".<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            </>)
+  }
+  else if (p=="🐑LB") {
+    return (<>The <b>Lamb (🐑LB)</b> locates an outcast.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🐑n", where n is the tile-distance between it and the nearest outcast.<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            </>)
+  }
+  else if (p=="🧭LC") {
+    return (<>The <b>Locator (🧭LC)</b> helps a member locate someone similar.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x<br/>
+            <b>When neither lying nor corrupted,</b> announces "🧭#x:n", where n is the tile-distance between it and y, where y the nearest member from x that has the same character type as x.<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            </>)
+  }
+  else if (p=='📚LI') {
+    return (<>The <b>Librarian (📚LI)</b> finds an outcast.<br/><br/>
+            <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
+            <b>When neither lying nor corrupted,</b> if there is an outcast among x,y and z, announces "📚#x,y,z=p", where p is an Outcast character among x,y and z, else announce "📚⚠️#x,y,z".<br/>
+            <b>When lying or corrupted,</b> either announces "📚#x,y,z=p", where p is an Outcast character not among x,y and z, or announce "📚⚠️#x,y,z", randomly. Note that if the prior is selected, p can either be in-play or not-in-play.
+            </>)
+  }
+  else if (p=='💼LW') {
+    return (<>The <b>Lawyer (💼LW)</b> counts liars.<br/><br/>
+            <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
+            <b>When neither lying nor corrupted,</b> announces "💼#x,y,z=🤥n", where n is the number of liars among x, y and z.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>)
+  }
+  else if (p=="🖌️MA") {
+    return (<>The <b>Make-up artist (🖌️MA)</b> finds a disguise used by minions.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🖌️:p", where p is the appearance of a disguising minion.<br/>
+            <b>When lying or corrupted,</b> announce "🖌️:p", where p is the appearance of a good in-play member.
+            </>) 
+  }
+  else if (p=="📬MM") {
+    return (<>The <b>Mailman (📬MM)</b> finds people in town.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "📬:✅p❌q", where p is an in-play character and q is a not in-play character.<br/>
+            <b>When lying or corrupted,</b> announce "📬:✅p❌q", where p is a not in-play character and q is an in-play character.
+            </>) 
+  }
+  else if (p=="🧮MT") {
+    return (<>The <b>Mathematician (🧮MT)</b> sums up the minions.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🧮:n", where n is the sum of all minions member ids.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="☯️NJ") {
+    return (<>The <b>Ninja (☯️NJ)</b> counts adjacent minions.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "☯️:n", where n is the number of adjacent minions.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="📣PA") {
+    return (<>The <b>Patrol (📣PA)</b> wakes up a truthful member.<br/><br/>
+            <b>Ability:</b> In the beginning,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, wake up an adjacent villager or outcast member with id x and announce "📣#x"<br/>
+            <b>When lying or corrupted,</b>  if possible, wake up an adjacent outcast or minion member with id x and announce "📣#x"<br/>
+            Else, announce "📣⚠️".
+            </>) 
+  }
+  else if (p=="🕊️PC") {
+    return (<>The <b>Pacifist (🕊️PC)</b> protects its neighbours.<br/><br/>
+            <b>Ability:</b> When any neighbour with member id x is killed for the first time,<br/>
+            Announces "🕊️#x:p", where p is the source of x's death. Use up this ability.<br/>
+            <b>When neither lying nor corrupted,</b> and x is not corrupted, x does not die.<br/>
+            Note: A Pacifist's ability is activated even when not woken up.
+            </>) 
+  }
+  else if (p=="🎤PF") {
+    return (<>The <b>Performer (🎤PF)</b> announces, but is trembled by evil.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
+            <b>When neither lying nor corrupted and all its neighbours are non-minions,</b> announces whatever p would announce were it truthful and uncorrupted.
+            <b>When lying or corrupted or at least one of its neighbours is a minion,</b> announces whatever p would announce were it lying and corrupted.
+            </>) 
+  }
+  else if (p=="📡RD") {
+    return (<>The <b>Radar (📡RD)</b> detects a disguised member.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.<br/>
+            <b>When lying or corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.
+            </>) 
+  }
+  else if (p=="🕯️RI") {
+    return (<>The <b>Ritualist (🕯️RI)</b> counts different types of members.<br/><br/>
+            <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🕯️#x,y,z=n", where n is the number of member types among x, y and z.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.<br/>
+            Note: There are 3 member types: Villagers, Outcasts and Minions.
+            </>) 
+  }
+  else if (p=="🔭RG") {
+    return (<>The <b>Ranger (🔭RG)</b> locates a far minion.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🔭n", where n is the tile-distance between it and the furthest.<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            </>)
+  }
+  else if (p=="🐦RK") {
+    return (<>The <b>Ravenkeeper (🐦RK)</b> finds a minion after death.<br/><br/>
+            <b>Ability:</b> When dead,<br/>
+            Keep my original appearance,
+            <b>When neither lying nor corrupted,</b> announces "🐦#x", where x is the member id of an alive minion.<br/>
+            <b>When lying or corrupted,</b> announces "🐦#x", where x is the member id of an alive non-minion.
+            </>)
+  }
+  else if (p=="🗿SE") {
+    return (<>The <b>Sentinel (🗿SE)</b> finds corrupted members.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of a corrupted member and a non-corrupted member in random order.<br/>
+            <b>When lying or corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of 2 non-corrupted members.
+            </>) 
+  }
+  else if (p=="🎖️SH") {
+    return (<>The <b>Sheriff (🎖️SH)</b> finds corrupted characters.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member who was corrupted by a different member.<br/>
+            <b>When lying or corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member of a non-corrupted member.
+            </>) 
+  }
+  else if (p=="✏️WR") {
+    return (<>The <b>Writer (✏️WR)</b> writes down random information.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
+            <b>When neither lying nor corrupted,</b> announces whatever p would announce were it truthful and uncorrupted.
+            <b>When lying or corrupted,</b> announces whatever p would announce were it lying and corrupted.
+            </>)
+  }
+  else if (p=='🧙🏻WZ') {
+    return (<>The <b>Wizard (🧙🏻WZ)</b> finds hidden members.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of a disguising member and a non-disguising member in random order and p is the character of the member who was disguising.<br/>
+            <b>When lying or corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of 2 non-disguising members in random order and p is a random character that can disguise itself and preferably in-play.
+            </>) 
+  }
+  else if (p=='🎞️XR') {
+    return (<>The <b>XRay operator (🎞️XR)</b> counts the number of members in disguises.<br/><br/>
+            <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
+            <b>When neither lying nor corrupted,</b> announces "🎞️#x,y,z=n", where n is the number of members wearing disguises among x, y and z.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>)
+  }
+  //Outcast
+  else if (p=='🔗FG') {
+    return (<>The <b>Fallguy (🔗FG)</b> is always seen as evil.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Register: <br/>
+            <b>When neither lying nor corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
+            <b>When lying or corrupted,</b> register as a Fallguy (🔗FG).
+            </>) 
+  }
+  else if (p=='🎲GB') {
+    return (<>The <b>Gambler (🎲GB)</b> gambles on an unwoken minion.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> if the next woken card is a minion, make it the final execute target, else blur it. <br/>
+            <b>When lying or corrupted,</b> blur the next woken card. 
+            </>) 
+  }
+  else if (p=='🎮GM') {
+    return (<>The <b>Gamemaster (🎮GM)</b> makes villagers register as itself.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Register: <br/>
+            <b>When neither lying nor corrupted,</b> all truthful villagers who register as themselves now registers as a Gamemaster (🎮GM). <br/>
+            <b>When lying or corrupted,</b> all corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). 
+            </>) 
+  }
+  //Minion
+  else if (p=='👗FD') {
+    return (<>The <b>Fashion Designer (👗FD)</b> dresses up a nearby Outcast and Minion.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/>
+            Disguise2: Choose two Villager characters p and q, preferably different and both preferably not to be chosen as a disguise,
+            if possible, one of the nearest non-disguised Outcast now disguises as p and, 
+            if possible, one of the nearest non-disguised Minions now disguises as q.<br/>
+            </>) 
+  }
+  else if (p=='🎩MG') {
+    return (<>The <b>Magician (🎩MG)</b> registers as its disguise.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/>
+            Register: <br/>
+            <b>When lying,</b> registers as my appearance.
+            </>) 
+  }
+  else if (p=='🧪PN') {
+    return (<>The <b>Poisoner (🧪PN)</b> poisons an adjacent neighbour.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie, unless targetted by the Rat (🐀RT)<br/>
+            Disguise: Performs general diguise.<br/>
+            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
+            </>) 
+  }
+  else if (p=='🐛PS') {
+    return (<>The <b>Parasite (🐛PS)</b> lives within an adjacent villager.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie, unless targetted by the Rat (🐀RT)<br/>
+            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
+
+            <b>Execution:</b>
+            If I am alive, when I am executed, the execution target is transferred to another random good member.
+            If x exists and I am alive, when x is executed, the execution target is transferred to me, this cannot be affected by other execution transfers.
+            </>) 
+  }
+  else if (p=='🐀RT') {
+    return (<>The <b>Witch (🐀RT)</b> betrays an ally.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert: If possible, an adjacent villager converts into a truthful Vampire (🧛🏻‍♀️VP).
+            Lie: Makes myself lie, an adjacent lying non-Magician (🎩MG) minion is selected and does not lie.<br/>
+            Disguise: Performs general diguise.<br/>
+            </>) 
+  }
+  else {return p;}
+}
 
 function App() {
   // --- Persisted State ---
@@ -586,7 +1077,7 @@ function App() {
         }
         else {
           if (vills.length>=2) {
-            const jvs = shuffle(vill);
+            const jvs = shuffle(vills);
             jvs[0].jammed = '🤖';
             jvs[1].jammed = '🤖';
             const [a,b] = [jvs[0].id,jvs[1].id].sort((a, b) => a - b);
@@ -791,13 +1282,15 @@ function App() {
                  <div className="cell-inner">
                    {cell.type !== 'empty' && <div className={`id-triangle ${cell.killed !== -1 ? 'id-triangle-dead' : ''}`}><span className={abilityUserIdx === index ? 'id-number-y-txt' : 'id-number'}>{cell.id}</span></div>}
                    {cell.type === 'empty' ? <span className="text-xl"></span> : (cell.revealed === -1 && cell.killed === -1 && gameMode!=="Ended") ? <span className="text-xl">?</span> : (
+                     <><span className="text-xs-cellstat">{cell.convert}{cell.corrupt}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}{cell.jammed}{cell.blurred}</span>
                      <div className="c-info">
-                      <span className="text-xs">⠀⠀{cell.convert}{cell.corrupt}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}{cell.jammed}{cell.blurred}</span>
+                      <span className="text-xs"></span>
                       <span className="text-xs">{cell.char!==cell.app ? cell.char+" ("+cell.app+")" : cell.char}</span>
                       <span className="text-xs">{cell.announce}</span>
                       <span className="text-xs">{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
                       <span className="text-xs">{cell.note}</span>
                      </div>
+                     </>
                    )}
                  </div>
                </div>
@@ -867,7 +1360,7 @@ function App() {
                         </tbody>
                       </table>
                     </div>
-                  )}
+                    )}
                     {activeTab === 'Game' && (
                       <div className="game-tab">
                         <h2>Game Settings</h2>
@@ -947,11 +1440,17 @@ function App() {
                         })}
                       </div>
                     </div>
-                  )}
+                    )}
                   </div>
                 </>
               ) : (
-                <div className="char-detail"><button className="back-btn" onClick={() => setDetailedChar(null)}>← Back</button><h2>{detailedChar}</h2><p>{detailedChar}</p></div>
+                <>
+                  <button className="back-btn" onClick={() => setDetailedChar(null)}>← Back</button>
+                  <h2>{detailedChar}</h2>
+                  <div className="tab-scroll-container">
+                    <div className="detailp">{details(detailedChar)}</div>
+                  </div>
+                </>
               )}
             </div>
           </div>
