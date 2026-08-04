@@ -16,7 +16,7 @@ const villagerPool =
 '☕TL', '☂️WM', '✏️WR', '🧙🏻WZ', '🎞️XR'];
 
 const outcastPool = 
-['🍷AC', '🤖AI', '🚨AL', '💰BH', '💣BM',
+['🍷AC', '🤖AI', '🚨AL', '💣BM', //'💰BH', 
 '🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
 '🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
 '🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
@@ -55,14 +55,14 @@ function details(p) {
             <b>CorruptRemove: When neither lying nor corrupted,</b> if there are more corrupted members in its row than its column, remove corruption from all members in its row,
             if there are more corrupted members in its column than its row, remove corruption from all members in its column,
             if there are equal amount of corrupted members in its row and its column, remove corruption from all members in either its row or its column randomly.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if it removed corruption from all members in its row, announce "😇↔️", if it removed corruption from all members in its column, announce "😇↕️".<br/>
             <b>When lying or corrupted,</b> if it removed corruption from any member, announce the opposite of that above, else announce one of the option above randomly.
             </>)
   }
   else if (p=="📏AR") {
     return (<>The <b>Architect (📏AR)</b> checks if there are more or less corruption in its row or column.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if there are more corrupted members in its row than its column, announce "↔️{'>'}↕️", 
             if there are more corrupted members in its column than its row, announce "↔️{'<'}↕️", 
             if there are equal amount of corrupted members in its row and its column, announce "↔️=↕️".<br/>
@@ -71,14 +71,14 @@ function details(p) {
   }
   else if (p=="🪕BA") {
     return (<>The <b>Bard (🪕BA)</b> counts the number of corrupted members.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🪕😵n", where n is the total number of corrupted members.<br/>
             <b>When lying or corrupted,</b> announce "🪕😵n", where n is 1 off the total number of corrupted members.
             </>)
   }
   else if (p=="⚜️BI") {
     return (<>The <b>Bishop (⚜️BI)</b> finds 3 members of different roles.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "⚜️#x,y,z", where x, y and z are the member ids 
             of a random villager, a random outcast and a random minion, in random order.<br/>
             <b>When lying or corrupted,</b> if possible, announces "⚜️#x,y,z", where x, y and z are the member ids 
@@ -88,7 +88,7 @@ function details(p) {
   else if (p=="🍞BK") {
     return (<>The <b>Baker (🍞BK)</b> keep baking unrevealed villagers into itself.<br/><br/>
             A member who was not baked by any baker is defined as an original baker. Let the baker count of an original baker be 1, and the baker count of a non-original baker be 1 more than the baker count of the baker that baked it.<br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             Announces "🍞n,p", where p is my original appearance and n is the baker count of the baker.<br/>
             <b>When neither lying nor corrupted,</b> if possible, a random unrevealed villager, will be baked and now disguise as a baker.<br/>
             <b>When lying or corrupted,</b> if possible, a random unrevealed non-villager who was disguising as a villager, will be baked and now disguise as a baker.<br/><br/>
@@ -97,7 +97,7 @@ function details(p) {
   }
   else if (p=="🙏CF") {
     return (<>The <b>Confesser (🙏CF)</b> confesses if it's a liar or not.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🙏👍"<br/>
             <b>When lying or corrupted,</b> announces "🙏👎"
             </>)
@@ -113,7 +113,7 @@ function details(p) {
   }
   else if (p=="🗺️CG") {
     return (<>The <b>Cartography (🗺️CG)</b> locates a nearby Outcast and Minion.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "🗺️:pq", where p is the character of the nearest non-self Outcast and q is the character of the nearest non-self Minion.<br/>
             <b>When lying or corrupted,</b> announces "🗺️:pq", where p is an Outcast different from that above and q is a Minion different from that above. Note that p and q can both independently be either in play or not in-play.
             </>)
@@ -127,7 +127,7 @@ function details(p) {
   }
   else if (p=="🎭CP") {
     return (<>The <b>Cosplayer (🎭CP)</b> counts the number of disguised members.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🎭n", where n is the total number of disguised members.<br/>
             <b>When lying or corrupted,</b> announces "🎭n", where n is 1 off the total number of disguised members.
             </>)
@@ -158,7 +158,7 @@ function details(p) {
   */
   else if (p=="📝DT") {
     return (<>The <b>Detective (📝DT)</b> finds an unrevealed liar at halftime.<br/><br/>
-            <b>Ability:</b> When revealed, and after halftime, whichever latter,<br/>
+            <b>Ability:</b> When woken, and after halftime, whichever latter,<br/>
             <b>When neither lying nor corrupted,</b> if there is at least 1 unrevealed member that is lying or corrupted, announces "📝#x",
             where x is the id of a random unrevealed member that is lying or corrupted, else, announce "📝👍"<br/>
             <b>When lying or corrupted,</b> if there is at least 1 unrevealed member that is neither lying nor corrupted, announces "📝#x",
@@ -170,13 +170,13 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Jamblur removal: Removes jamming and blurness from all adjacent members.<br/>
             <b>When lying or corrupted,</b> corrupts all adjacent non-minion members who has jamming and blurness removed by it.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             Announce "🛠️n", where n is the number of members who had their jamming or blur or both, removed by it.<br/>
             </>)
   }
   else if (p=="🧠EL") {
     return (<>The <b>Enlightened (🧠EL)</b> focuses to learn its own morality.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When not corrupted,</b> Announce "🧠:t", where t is "👍" if I am a villager, "👎" if I am a minion and "👍" or "👎" randomly if I am an outcast.<br/>
             <b>When corrupted,</b> Announce "🧠:t", where t is "👎" if I am a villager, "👍" if I am a minion and "👍" or "👎" randomly if I am an outcast.<br/>
             Note: lying does not affect my ability.
@@ -184,7 +184,7 @@ function details(p) {
   }
   else if (p=="😎EV") {
     return (<>The <b>Extrovert (😎EV)</b> finds friends of different types across the grid.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announce "😎:pqr", where p, q and r are an in-play villager character, an in-play outcast character and an in-play minion character.<br/>
             <b>When lying or corrupted,</b> announce "😎:pqr", where p, q and r are a villager character, an outcast character and a minion character where exactly 1 or exactly 2 of them are in-play characters.
             </>) 
@@ -206,7 +206,7 @@ function details(p) {
   }
   else if (p=="💎GC") {
     return (<>The <b>Gemcrafter (💎GC)</b> finds a good member.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announce "💎👍#x", where x is a random non-minion member appearing as a non-minion.
             <b>When lying or corrupted,</b> if possible, announce "💎👍#x", where x is a random minion member disguising as a non-minion.
             </>) 
@@ -222,7 +222,7 @@ function details(p) {
   }
   else if (p=='🐐GO') {
     return (<>The <b>Goat (🐐GO)</b> locates a minion.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🐐n", where n is the tile-distance between it and the nearest minion.<br/>
             <b>When lying or corrupted,</b> announce a reasonable output different from that above.
             </>)
@@ -236,7 +236,7 @@ function details(p) {
   }
   else if (p=="💔HB") {
     return (<>The <b>Heartbrokened (💔HB)</b> cries out lies.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
             <b>When neither lying nor corrupted,</b> announces whatever p would announce were it lying and corrupted.
             <b>When lying or corrupted,</b> announces whatever p would announce were it truthful and uncorrupted.
@@ -246,7 +246,7 @@ function details(p) {
     return (<>The <b>Healer (💖HL)</b> heals nearby corruptions.<br/><br/>
             <b>Initial Phase:</b><br/>
             CorruptRemove: <b>When neither lying nor corrupted,</b> removes corruption from adjacent neighbours.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             Let m be the number of members who had corruption removed by it.<br/>
             Let n be the number of adjacent members who had corruption.<br/>
             <b>When neither lying nor corrupted,</b> announces "💖m"
@@ -256,14 +256,14 @@ function details(p) {
   }
   else if (p=="🔍IN") {
     return (<>The <b>Investigator (🔍IN)</b> finds a minion.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🔍p#x,y", where x and y are the ids of a minion and a non-minion in random order and p is the character of the minion.<br/>
             <b>When lying or corrupted,</b> announces "🔍p#x,y", where x and y are the ids of 2 non-minions in random order and p is a in-play minion character.
             </>)
   }
   else if (p=="🤐IV") {
     return (<>The <b>Introvert (🤐IV)</b> befriends one of its neighbours.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🤐:p", where p is a character of one of its neighbours.<br/>
             <b>When lying or corrupted,</b> announces "🤐:p", where p is a character that does not belong to any of its neighbours.
             </>) 
@@ -285,7 +285,7 @@ function details(p) {
   }
   else if (p=="💍JS") {
     return (<>The <b>Jewelsmith (💍JS)</b> finds a honest member.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announce "💍👍#x", where x is a random non-liar.
             <b>When lying or corrupted,</b> if possible, announce "💍👍#x", where x is a random liar.
             </>) 
@@ -309,14 +309,14 @@ function details(p) {
     return (<>The <b>Knitter (🧵KT)</b> counts knitted minions.<br/><br/>
             Let n be the number of pairs of minion. A pair of minion consists of 2 adjacent members in which both are minions. 
             Note that a minion can be in up to 4 pairs. <br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🧵n".<br/>
             <b>When lying or corrupted,</b> announce a reasonable output different from that above.
             </>)
   }
   else if (p=="🐑LB") {
     return (<>The <b>Lamb (🐑LB)</b> locates an outcast.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🐑n", where n is the tile-distance between it and the nearest outcast.<br/>
             <b>When lying or corrupted,</b> announce a reasonable output different from that above.
             </>)
@@ -344,28 +344,28 @@ function details(p) {
   }
   else if (p=="🖌️MA") {
     return (<>The <b>Make-up artist (🖌️MA)</b> finds a disguise used by minions.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "🖌️:p", where p is the appearance of a disguising minion.<br/>
             <b>When lying or corrupted,</b> announce "🖌️:p", where p is the appearance of a good in-play member.
             </>) 
   }
   else if (p=="📬MM") {
     return (<>The <b>Mailman (📬MM)</b> finds people in town.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "📬:✅p❌q", where p is an in-play character and q is a not in-play character.<br/>
             <b>When lying or corrupted,</b> announce "📬:✅p❌q", where p is a not in-play character and q is an in-play character.
             </>) 
   }
   else if (p=="🧮MT") {
     return (<>The <b>Mathematician (🧮MT)</b> sums up the minions.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "🧮:n", where n is the sum of all minions member ids.<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
   }
   else if (p=="☯️NJ") {
     return (<>The <b>Ninja (☯️NJ)</b> counts adjacent minions.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "☯️:n", where n is the number of adjacent minions.<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
@@ -388,7 +388,7 @@ function details(p) {
   }
   else if (p=="🎤PF") {
     return (<>The <b>Performer (🎤PF)</b> gives a speech, but is trembled by evil.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
             <b>When neither lying nor corrupted and all its neighbours are non-minions,</b> announces whatever p would announce were it truthful and uncorrupted.
             <b>When lying or corrupted or at least one of its neighbours is a minion,</b> announces whatever p would announce were it lying and corrupted.
@@ -396,7 +396,7 @@ function details(p) {
   }
   else if (p=="📡RD") {
     return (<>The <b>Radar (📡RD)</b> detects a disguised member.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.<br/>
             <b>When lying or corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.
             </>) 
@@ -411,7 +411,7 @@ function details(p) {
   }
   else if (p=="🔭RG") {
     return (<>The <b>Ranger (🔭RG)</b> locates a far minion.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announces "🔭n", where n is the tile-distance between it and the furthest.<br/>
             <b>When lying or corrupted,</b> announce a reasonable output different from that above.
             </>)
@@ -426,14 +426,14 @@ function details(p) {
   }
   else if (p=="🗿SE") {
     return (<>The <b>Sentinel (🗿SE)</b> finds corrupted members.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of a corrupted member and a non-corrupted member in random order.<br/>
             <b>When lying or corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of 2 non-corrupted members.
             </>) 
   }
   else if (p=="🎖️SH") {
     return (<>The <b>Sheriff (🎖️SH)</b> finds corrupted characters.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member who was corrupted by a different member.<br/>
             <b>When lying or corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member of a non-corrupted member.
             </>) 
@@ -447,14 +447,14 @@ function details(p) {
   }
   else if (p=="📊ST") {
     return (<>The <b>Statistician (📊ST)</b> finds the range of minions.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "📊:n", where n is the range of all minions member ids. (max id - min id)<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
   }
   else if (p=="📐SV") {
     return (<>The <b>Surveyor (📐SV)</b> measures the nearest minions in its range and column<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "📐:⬆️", "📐:⬇️", "📐:⬅️" and "📐:➡️" to indicate the direction of the nearest minion (tile-distance wise) in my row or column. 
             If the closest minions are of the same distance, announce "📐:🟰", if there are no minions in my row or column, announce "📐:⚠️".<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
@@ -462,23 +462,24 @@ function details(p) {
   }
   else if (p=="🎓TE") {
     return (<>The <b>Teacher (🎓TE)</b> checks who is in the villager.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "🎓:pqr=n", where p, q and r are 3 characters and n is the number of in-play characters among p, q and r.<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
   }
   else if (p=="☕TL") {
     return (<>The <b>Tea Lady (☕TL)</b> protects its neightbours if they are good.<br/><br/>
-            Choose d as "↕️" or "↔️" randomly and announce "☕:d",<br/>
-            <b>Ability:</b> When any neighbour with member id x in the corresponding direction of d is killed for the first time,<br/>
-            <b>When neither lying nor corrupted,</b> announce "🎓:pqr=n", where p, q and r are 3 characters and n is the number of in-play characters among p, q and r.<br/>
-            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            Choose d as "↕️" or "↔️" randomly,<br/>
+            <b>Ability:</b> When woken, or when any neighbour with member id x in the corresponding direction of d is killed for the first time,<br/>
+            When woken, announce "☕:d", and when any neighbour with member id x in the corresponding direction of d is killed for the first time,
+            <b>When neither lying nor corrupted, and both neighbours in the corresponding direction of d are non-minions,</b>
+            announces "☕#x:p", where p is the source of x's death, and x does not die.<br/>
             </>) 
   }
   else if (p=="☂️WM") {
     return (<>The <b>Weatherman (☂️WM)</b> forecasts which side of the village is more evil.<br/><br/>
             Choose ↕️ or ↔️ randomly,<br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             If ↕️ is chosen,<br/>
             <b>When neither lying nor corrupted,</b> announce "☂️:⬆️" if there are more minions in the top half than the bottom half, 
             announce "☂️:⬇️" if there are more minions in the bottom half than the top half, else announce ☂️:⬆️=⬇️.<br/>
@@ -491,7 +492,7 @@ function details(p) {
   }
   else if (p=="✏️WR") {
     return (<>The <b>Writer (✏️WR)</b> writes down random information.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
             <b>When neither lying nor corrupted,</b> announces whatever p would announce were it truthful and uncorrupted.
             <b>When lying or corrupted,</b> announces whatever p would announce were it lying and corrupted.
@@ -499,7 +500,7 @@ function details(p) {
   }
   else if (p=='🧙🏻WZ') {
     return (<>The <b>Wizard (🧙🏻WZ)</b> finds hidden members.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of a disguising member and a non-disguising member in random order and p is the character of the member who was disguising.<br/>
             <b>When lying or corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of 2 non-disguising members in random order and p is a random character that can disguise itself and preferably in-play.
             </>) 
@@ -512,8 +513,54 @@ function details(p) {
             </>)
   }
   //Outcast
+  /*
+  '🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
+'🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
+'🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
+'🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV',
+'✨PX', '💉SG', '🍬SH', '🦑SQ', '❓SS',
+'🦇VB', '👦🏻YS'];
+  */
+  else if (p=='🍷AC') {
+    return (<>The <b>Alchemist (🍷AC)</b> drinks blood from 2 selected members.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert2: Choose 2 members with id x and y, if either of them is a minion, convert myself into a vampire disguised as a minion.<br/>
+            <b>Ability:</b> When woken,<br/>
+            Announce "🍷#x,y"
+            </>) 
+  }
+  else if (p=='🤖AI') {
+    return (<>The <b>Artifical Intelligence (🤖AI)</b> jams members<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Jam: <br/>
+            <b>When neither lying nor corrupted,</b> if possible, jam 2 villagers. <br/>
+            <b>When lying or corrupted,</b> if possible, jam 1 villager and 1 minion, preferably one disguising as a villager.
+            </>) 
+  }
+  else if (p=='🚨AL') {
+    return (<>The <b>Alerter (🚨AL)</b> blurs<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Blur: <br/>
+            <b>When neither lying nor corrupted,</b> if at least 1 of my neighbours is a minion, blur myself. <br/>
+            <b>When lying or corrupted,</b> if none of my neighbours are minions, blur myself.
+            </>) 
+  }
+  else if (p=='💣BM') {
+    return (<>The <b>Bombardier (💣BM)</b> explodes on death.<br/><br/>
+            <b>Ability:</b> When dead,<br/>
+            <b>When neither lying nor corrupted,</b> choose a random adjacent member with member id x, announce "💣#x" and execute x.
+            <b>When lying or corrupted,</b> announce "💣⚠️".
+            </>) 
+  }
+  else if (p=='🤵🏻BT') {
+    return (<>The <b>Bartender (🤵🏻BT)</b> makes a villager drunk.<br/><br/>
+            <b>Ability:</b> When dead,<br/>
+            <b>When neither lying nor corrupted,</b> choose a random adjacent member with member id x, announce "💣#x" and execute x.
+            <b>When lying or corrupted,</b> announce "💣⚠️".
+            </>) 
+  }
   else if (p=='🔗FG') {
-    return (<>The <b>Fallguy (🔗FG)</b> is always seen as evil.<br/><br/>
+    return (<>The <b>Fallguy (🔗FG)</b> is seen as evil.<br/><br/>
             <b>Initial Phase:</b><br/>
             Register: <br/>
             <b>When neither lying nor corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
@@ -522,7 +569,7 @@ function details(p) {
   }
   else if (p=='🎲GB') {
     return (<>The <b>Gambler (🎲GB)</b> gambles on an unwoken minion.<br/><br/>
-            <b>Ability:</b> When revealed,<br/>
+            <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> if the next woken card is a minion, make it the final execute target, else blur it. <br/>
             <b>When lying or corrupted,</b> blur the next woken card. 
             </>) 
