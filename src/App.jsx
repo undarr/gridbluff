@@ -230,7 +230,7 @@ function details(p) {
   else if (p=='🛡️GU') {
     return (<>The <b>Guard (🛡️GU)</b> protects a member.<br/><br/>
             <b>Ability:</b> Select 1 member with member id x,<br/>
-            If x is alive, announce "🛡️#x". When x is killed for the first time, announce "🛡️#x:p", where p is the source of x's death.<br/>
+            If x is alive, announce "🛡️#x". When x is killed for the first time, member x keeps its original appearance, announce "🛡️#x:p", where p is the source of x's death.<br/>
             <b>When neither lying nor corrupted,</b> and x is not corrupted, when x is killed for the first time, x does not die.
             </>) 
   }
@@ -381,13 +381,13 @@ function details(p) {
   else if (p=="🕊️PC") {
     return (<>The <b>Pacifist (🕊️PC)</b> protects its neighbours.<br/><br/>
             <b>Ability:</b> When any neighbour with member id x is killed for the first time,<br/>
-            Announces "🕊️#x:p", where p is the source of x's death. Use up this ability.<br/>
+            Member x keeps its original appearance. Announces "🕊️#x:p", where p is the source of x's death. Use up this ability.<br/>
             <b>When neither lying nor corrupted,</b> and x is not corrupted, x does not die.<br/>
             Note: A Pacifist's ability is activated even when not woken up.
             </>) 
   }
   else if (p=="🎤PF") {
-    return (<>The <b>Performer (🎤PF)</b> announces, but is trembled by evil.<br/><br/>
+    return (<>The <b>Performer (🎤PF)</b> gives a speech, but is trembled by evil.<br/><br/>
             <b>Ability:</b> When revealed,<br/>
             If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
             <b>When neither lying nor corrupted and all its neighbours are non-minions,</b> announces whatever p would announce were it truthful and uncorrupted.
@@ -436,6 +436,57 @@ function details(p) {
             <b>Ability:</b> When revealed,<br/>
             <b>When neither lying nor corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member who was corrupted by a different member.<br/>
             <b>When lying or corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member of a non-corrupted member.
+            </>) 
+  }
+  else if (p=="🏹SL") {
+    return (<>The <b>Slayer (🏹SL)</b> shoots minions<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            <b>When neither lying nor corrupted and x is a minion,</b>  announces "🏹🔪#x" and kill x.<br/>
+            Else, announce "🏹⚠️#x"
+            </>) 
+  }
+  else if (p=="📊ST") {
+    return (<>The <b>Statistician (📊ST)</b> finds the range of minions.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "📊:n", where n is the range of all minions member ids. (max id - min id)<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="📐SV") {
+    return (<>The <b>Surveyor (📐SV)</b> measures the nearest minions in its range and column<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "📐:⬆️", "📐:⬇️", "📐:⬅️" and "📐:➡️" to indicate the direction of the nearest minion (tile-distance wise) in my row or column. 
+            If the closest minions are of the same distance, announce "📐:🟰", if there are no minions in my row or column, announce "📐:⚠️".<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="🎓TE") {
+    return (<>The <b>Teacher (🎓TE)</b> checks who is in the villager.<br/><br/>
+            <b>Ability:</b> When revealed,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🎓:pqr=n", where p, q and r are 3 characters and n is the number of in-play characters among p, q and r.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="☕TL") {
+    return (<>The <b>Tea Lady (☕TL)</b> protects its neightbours if they are good.<br/><br/>
+            Choose d as "↕️" or "↔️" randomly and announce "☕:d",<br/>
+            <b>Ability:</b> When any neighbour with member id x in the corresponding direction of d is killed for the first time,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🎓:pqr=n", where p, q and r are 3 characters and n is the number of in-play characters among p, q and r.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+            </>) 
+  }
+  else if (p=="☂️WM") {
+    return (<>The <b>Weatherman (☂️WM)</b> forecasts which side of the village is more evil.<br/><br/>
+            Choose ↕️ or ↔️ randomly,<br/>
+            <b>Ability:</b> When revealed,<br/>
+            If ↕️ is chosen,<br/>
+            <b>When neither lying nor corrupted,</b> announce "☂️:⬆️" if there are more minions in the top half than the bottom half, 
+            announce "☂️:⬇️" if there are more minions in the bottom half than the top half, else announce ☂️:⬆️=⬇️.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.<br/>
+            If ↔️ is chosen,<br/>
+            <b>When neither lying nor corrupted,</b> announce "☂️:⬅️" if there are more minions in the left half than the right half, 
+            announce "☂️:➡️" if there are more minions in the right half than the left half, else announce ☂️:⬅️=➡️.<br/>
+            <b>When lying or corrupted,</b> announces a reasonable output different from that above.<br/>
             </>) 
   }
   else if (p=="✏️WR") {
