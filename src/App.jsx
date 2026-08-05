@@ -554,9 +554,38 @@ function details(p) {
   }
   else if (p=='🤵🏻BT') {
     return (<>The <b>Bartender (🤵🏻BT)</b> makes a villager drunk.<br/><br/>
-            <b>Ability:</b> When dead,<br/>
-            <b>When neither lying nor corrupted,</b> choose a random adjacent member with member id x, announce "💣#x" and execute x.
-            <b>When lying or corrupted,</b> announce "💣⚠️".
+            <b>Initial Phase:</b><br/>
+            Corrupt: <br/>
+            <b>When neither lying nor corrupted,</b> choose 2 random members with member id x and y respectively which includes at least 1 villager member, corrupt the villager member.
+            <b>When lying or corrupted,</b> choose 2 random members with member ids x and y.<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            Announce "🤵🏻#x,y"
+            </>) 
+  }
+  else if (p=='🐱CC') {
+    return (<>The <b>Copy Cat (🐱CC)</b> copies a villager<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as an in-play villger member.
+            </>) 
+  }
+  else if (p=='🍺DK') {
+    return (<>The <b>Drunk (🍺DK)</b> drinks too much.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as a not-in-play villager.<br/>
+            Corrupt: Corrupt myself<br/>
+            Note: The Drunk can be cured.
+            </>) 
+  }
+  else if (p=='😔DP') {
+    return (<>The <b>Depressed (😔DP)</b> count on his good friends.<br/><br/>
+            <b>Ability:</b> When a non-minion dies,<br/>
+            <b>When neither lying nor corrupted,</b> execute myself.
+            </>) 
+  }
+  else if (p=='🔊EC') {
+    return (<>The <b>Echoer (🔊EC)</b> count on his good friends.<br/><br/>
+            <b>Ability:</b> When a non-minion dies,<br/>
+            <b>When neither lying nor corrupted,</b> execute myself.
             </>) 
   }
   else if (p=='🔗FG') {
@@ -582,6 +611,7 @@ function details(p) {
             <b>When lying or corrupted,</b> all corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). 
             </>) 
   }
+  
   //Minion
   else if (p=='👗FD') {
     return (<>The <b>Fashion Designer (👗FD)</b> dresses up a nearby Outcast and Minion.<br/><br/>
@@ -621,11 +651,11 @@ function details(p) {
             If x exists and I am alive, when x is executed, the execution target is transferred to me, this cannot be affected by other execution transfers.
             </>) 
   }
-  else if (p=='🐀RT') {
-    return (<>The <b>Witch (🐀RT)</b> betrays an ally.<br/><br/>
+  else if (p=='🧹WI') {
+    return (<>The <b>Witch (🧹WI)</b> creates a Vampire.<br/><br/>
             <b>Initial Phase:</b><br/>
             Convert: If possible, an adjacent villager converts into a truthful Vampire (🧛🏻‍♀️VP).
-            Lie: Makes myself lie, an adjacent lying non-Magician (🎩MG) minion is selected and does not lie.<br/>
+            Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
             </>) 
   }
