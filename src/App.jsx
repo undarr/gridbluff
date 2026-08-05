@@ -583,9 +583,11 @@ function details(p) {
             </>) 
   }
   else if (p=='🔊EC') {
-    return (<>The <b>Echoer (🔊EC)</b> count on his good friends.<br/><br/>
-            <b>Ability:</b> When a non-minion dies,<br/>
-            <b>When neither lying nor corrupted,</b> execute myself.
+    return (<>The <b>Echoer (🔊EC)</b> registers as perhaps anything.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Register: <br/>
+            <b>When neither lying nor corrupted,</b> register as a random villager or outcast ut itself, not-necessarily in-play. <br/>
+            <b>When lying or corrupted,</b> register as an Echoer (🔊EC).
             </>) 
   }
   else if (p=='🔗FG') {
