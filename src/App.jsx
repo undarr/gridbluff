@@ -278,16 +278,16 @@ function details(p) {
   else if (p=="⚖️JG") {
     return (<>The <b>Judge (⚖️JG)</b> judges a member's honesty.<br/><br/>
             <b>Ability:</b> Select 1 member with member id x,<br/>
-            <b>When neither lying nor corrupted,</b> announces "⚖️#x✅🤥" if the selected member is a liar 
-            and announce "⚖️#x❌🤥" if the selected member is not a liar.<br/>
+            <b>When neither lying nor corrupted,</b> announces "⚖️#x✅🤥" if the selected member is lying or corrupted
+            and announce "⚖️#x❌🤥" if the selected member is neither lying nor corrupted.<br/>
             <b>When lying or corrupted,</b> announces the opposite of that above.
             </>) 
   }
   else if (p=="💍JS") {
     return (<>The <b>Jewelsmith (💍JS)</b> finds a honest member.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> if possible, announce "💍👍#x", where x is a random non-liar.
-            <b>When lying or corrupted,</b> if possible, announce "💍👍#x", where x is a random liar.
+            <b>When neither lying nor corrupted,</b> if possible, announce "💍👍#x", where x is not lying nor corrupted
+            <b>When lying or corrupted,</b> if possible, announce "💍👍#x", where x is a random member that is lying or corrupted
             </>) 
   }
   else if (p=="👑KI") {
@@ -338,7 +338,7 @@ function details(p) {
   else if (p=='💼LW') {
     return (<>The <b>Lawyer (💼LW)</b> counts liars.<br/><br/>
             <b>Ability:</b> Select 3 members with member ids x,y and z,<br/>
-            <b>When neither lying nor corrupted,</b> announces "💼#x,y,z=🤥n", where n is the number of liars among x, y and z.<br/>
+            <b>When neither lying nor corrupted,</b> announces "💼#x,y,z=🤥n", where n is the number of members that are lying or corrupted among x, y and z.<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>)
   }
@@ -590,12 +590,35 @@ function details(p) {
             <b>When lying or corrupted,</b> register as an Echoer (🔊EC).
             </>) 
   }
+  else if (p=='🔌ET') {
+    return (<>The <b>Electrian (🔌ET)</b> blurs a jammed member.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Blur: <br/>
+            <b>When neither lying nor corrupted,</b> if possible, blur a jammed member. <br/>
+            <b>When lying or corrupted,</b> blur a non-jammed member.
+            </>) 
+  }
   else if (p=='🔗FG') {
     return (<>The <b>Fallguy (🔗FG)</b> is seen as evil.<br/><br/>
             <b>Initial Phase:</b><br/>
             Register: <br/>
-            <b>When neither lying nor corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
-            <b>When lying or corrupted,</b> register as a Fallguy (🔗FG).
+            <b>When not corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
+            <b>When corrupted,</b> register as a Fallguy (🔗FG).
+            </>) 
+  }
+  else if (p=='😣FR') {
+    return (<>The <b>Frightened (😣FR)</b> is scared by minions.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lies: If there are 2  lie.<br/>
+            Disguise: Disguise as a not-in-play villager.<br/>
+            </>) 
+  }
+  else if (p=='🤢FP') {
+    return (<>The <b>Fatal Patient (🤢FP)</b> dies without healing.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Corrupt: Corrupt myself<br/>
+            <b>Ability:</b> At halftime, even if not yet woken,<br/>
+            <b>When corrupted,</b> execute myself.
             </>) 
   }
   else if (p=='🎲GB') {
