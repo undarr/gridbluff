@@ -609,7 +609,7 @@ function details(p) {
   else if (p=='😣FR') {
     return (<>The <b>Frightened (😣FR)</b> is scared by minions.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Lies: If there are 2  lie.<br/>
+            Lies: If there is at least 1 adjacent minion, make myself lie.<br/>
             Disguise: Disguise as a not-in-play villager.<br/>
             </>) 
   }
@@ -636,8 +636,35 @@ function details(p) {
             <b>When lying or corrupted,</b> all corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). 
             </>) 
   }
+  else if (p=='🤝GT') {
+    return (<>The <b>Good Twin (🤝GT)</b> makes a villager his twin.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Have a villager disguise as a Good Twin (🤝GT)<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            If possible, announce "🤝#x", where x is the member id of a member who is not me, and disguising as a Good Twin (🤝GT).
+            </>) 
+  }
+  else if (p=='⚡JM') {
+    return (<>The <b>Jammer (⚡JM)</b> blurs truthful information<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Choose ↕️ or ↔️ randomly,<br/>
+            Blur: <br/>
+            <b>When neither lying nor corrupted,</b> blur neighbours in the chosen direction if they are neither lying nor corrupted. <br/>
+            <b>When lying or corrupted,</b> blur neighbours in the chosen direction if they are lying or corrupted. <br/>
+            <b>Ability:</b> When woken,<br/>
+            Announce "⚡:↕️" or "⚡:↔️" respectively.
+            </>) 
+  }
   
   //Minion
+  else if (p=='👥ET') {
+    return (<>The <b>Evil Twin (👥ET)</b> makes a villager his twin.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Have a villager disguise as an Evil Twin (👥ET)<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            If possible, announce "👥#x", where x is the member id of a member who is not me, and disguising as an Evil Twin (👥ET).<br/>
+            </>) 
+  }
   else if (p=='👗FD') {
     return (<>The <b>Fashion Designer (👗FD)</b> dresses up a nearby Outcast and Minion.<br/><br/>
             <b>Initial Phase:</b><br/>
