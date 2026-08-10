@@ -614,7 +614,7 @@ function details(p) {
             </>) 
   }
   else if (p=='🤢FP') {
-    return (<>The <b>Fatal Patient (🤢FP)</b> dies without healing.<br/><br/>
+    return (<>The <b>Fatal Patient (🤢FP)</b> dies without medicine.<br/><br/>
             <b>Initial Phase:</b><br/>
             Corrupt: Corrupt myself<br/>
             <b>Ability:</b> At halftime, even if not yet woken,<br/>
