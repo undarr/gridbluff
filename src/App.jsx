@@ -4,13 +4,13 @@ import './App.css';
 const villagerPool = 
 ['👁️AB', '😇AG', '📏AR', '🪕BA', '⚜️BI',
 '🍞BK', '🍖CB', '🙏CF', '🗺️CG', '📸CM',
-'🎭CP', '🎀CU', '💭DM', '📝DT', //'🩺DR', 
+'🎭CP', '🎀CU', '💭DM', '📝DT', '🩺DR', 
 '🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC', '⚰️GK', 
 '🐐GO', '🛡️GU', '💔HB', '💖HL', '🔍IN', 
 '🤐IV', '🤹JE', '⚖️JG', '💍JS', '👑KI', 
 '🗡️KN', '🧵KT', '🐑LB', '📌LC', '📚LI', 
-'💼LW', '🖌️MA', '📬MM', '🧮MT', '☯️NJ', 
-'📣PA', '🕊️PC', '🎤PF', '📡RD', //'💊NR', 
+'💼LW', '🖌️MA', '📬MM', '🧮MT', '☯️NJ', '💊NR',
+'📣PA', '🕊️PC', '🎤PF', '📡RD',  
 '🕯️RI', '🔭RG', '🐦RK', '🗿SE', //, '🥼SC'
 '🎖️SH', '🏹SL', '📊ST', '📐SV', '🎓TE',
 '☕TL', '☂️WM', '✏️WR', '🧙🏻WZ', '🎞️XR'];
@@ -20,7 +20,7 @@ const outcastPool =
 '🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
 '🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
 '🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
-'🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV',
+'🌙MC', '🎵NM', '✝️PR', '🤪PV', //'😝PD', 
 '✨PX', '💉SG', '🍬SH', '🦑SQ', '❓SS',
 '🦇VB', '👦🏻YS'];
 
@@ -140,22 +140,22 @@ function details(p) {
             </>)
   }
   else if (p=="💭DM") {
-    return (<>The <b>Dreamer (💭DM)</b> checks a member's character among 2 selected roles.<br/><br/>
-            <b>Ability:</b> Select 2 members with member ids x,y,<br/>
-            <b>When neither lying nor corrupted,</b> announces "💭#x,y=p", where p is a character of either x or y.<br/>
-            <b>When lying or corrupted,</b> announces "💭#x,y=p", where if at least 1 of x or y is in disguise, p is the diguise of either x or y, else
-            if possible, p is a character that can disguise, and is preferably in-play.
+    return (<>The <b>Dreamer (💭DM)</b> checks a member's character among 2 characters.<br/><br/>
+            <b>Ability:</b> Select 1 member with member id x,<br/>
+            <b>When neither lying nor corrupted,</b> announces "💭#x=pq", where p is a non-minion character, q is a minion character, and x is either x or y.<br/>
+            <b>When lying or corrupted,</b> announces "💭#x=pq", where p is a non-minion character, q is a minion character, and x is neither p nor q.
             </>)
   }
-  /*
   else if (p=="🩺DR") {
     return (<>The <b>Doctor (🩺DR)</b> checks for the debuff of a random role.<br/><br/>
             <b>Ability:</b> Select 1 member with member id x,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🩺#x,n", where n is the number of debuff x has.<br/>
-            <b>When lying or corrupted,</b> announces "🩺#x,n", where n is between 0 and 2, and 1 off the number of debuffs x has.
+            <b>When neither lying nor corrupted,</b> announce "🩺#x:pqr", where p is "👍" if x is not corrupted, else p is the source of x's corruption, 
+            q is "👍" if it is not jammed, else q is the source of x's jamming, r is "👍" if it is not blurred, else r is the source of x's blurness.<br/>
+            <b>When lying or corrupted,</b> announce "🩺#x:pqr", where p is "👍" if x is corrupted, else p is a random way of corruption, 
+            q is "👍" if it is not jammed, else q is a random source of jamming different from that caused to x, 
+            r is "👍" if it is not blurred, else r is a random source of blurness different from that caused to x.<br/>
             </>)
   }
-  */
   else if (p=="📝DT") {
     return (<>The <b>Detective (📝DT)</b> finds an unrevealed liar at halftime.<br/><br/>
             <b>Ability:</b> When woken, and after halftime, whichever latter,<br/>
@@ -370,6 +370,15 @@ function details(p) {
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
   }
+  else if (p=="💊NR") {
+    return (<>The <b>Nurse (💊NR)</b> performs self diagnosis on herself.<br/><br/>
+            <b>When woken,</b>
+            <b>When not lying,</b> announce "💊:pqr", where p is "👍" if it is not corrupted, else p is the source of its corruption, 
+            q is "👍" if it is not jammed, else q is the source of its jamming, r is "👍" if it is not blurred, else r is the source of its blurness.<br/>
+            <b>When lying,</b> choose an adjacent member with id x, announce "💊:pqr", where p is "👍" if x is not corrupted, else p is the source of x's corruption, 
+            q is "👍" if it is not jammed, else q is the source of x's jamming, r is "👍" if it is not blurred, else r is the source of x's blurness.<br/>
+            </>) 
+  }
   else if (p=="📣PA") {
     return (<>The <b>Patrol (📣PA)</b> wakes up a truthful member.<br/><br/>
             <b>Ability:</b> In the beginning,<br/>
@@ -517,7 +526,7 @@ function details(p) {
   '🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
 '🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
 '🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
-'🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV',
+'🌙MC', '🎵NM', '✝️PR', '🤪PV',
 '✨PX', '💉SG', '🍬SH', '🦑SQ', '❓SS',
 '🦇VB', '👦🏻YS'];
   */
@@ -548,8 +557,9 @@ function details(p) {
   else if (p=='💣BM') {
     return (<>The <b>Bombardier (💣BM)</b> explodes on death.<br/><br/>
             <b>Ability:</b> When dead,<br/>
-            <b>When neither lying nor corrupted,</b> choose a random adjacent member with member id x, announce "💣#x" and execute x.
-            <b>When lying or corrupted,</b> announce "💣⚠️".
+            <b>When neither lying nor corrupted,</b> choose a random adjacent member with member id x, announce "💣#x" and execute x.<br/>
+            <b>When lying or corrupted,</b> announce "💣⚠️".<br/>
+            Note: It is possible that x is a minion.
             </>) 
   }
   else if (p=='🤵🏻BT') {
@@ -645,14 +655,55 @@ function details(p) {
             </>) 
   }
   else if (p=='⚡JM') {
-    return (<>The <b>Jammer (⚡JM)</b> blurs truthful information<br/><br/>
+    return (<>The <b>Jammer (⚡JM)</b> jams truthful information<br/><br/>
             <b>Initial Phase:</b><br/>
             Choose ↕️ or ↔️ randomly,<br/>
             Blur: <br/>
-            <b>When neither lying nor corrupted,</b> blur neighbours in the chosen direction if they are neither lying nor corrupted. <br/>
+            <b>When neither lying nor corrupted,</b> jams neighbours in the chosen direction if they are neither lying nor corrupted. <br/>
             <b>When lying or corrupted,</b> blur neighbours in the chosen direction if they are lying or corrupted. <br/>
             <b>Ability:</b> When woken,<br/>
             Announce "⚡:↕️" or "⚡:↔️" respectively.
+            </>) 
+  }
+  else if (p=='🤡JX') {
+    return (<>The <b>Jinx (🤡JX)</b> corrupts the next woken member.<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            <b>When neither lying nor corrupted,</b> corrupt the next woken card. <br/>
+            </>) 
+  }
+  else if (p=='💕LV') {
+    return (<>The <b>Lover (💕LV)</b> falls in love with a neighbour.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Choose a non-minion neighbour with member id x randomly,<br/>
+            <b>Ability:</b> When dead, or x dies, whichever first,<br/>
+            <b>When neither lying nor corrupted,</b> announce "💕#x", if I die, execute x, else if x dies, execute myself.<br/>
+            <b>When lying or corrupted,</b> announce "💕#x⚠️".
+            </>) 
+  }
+  else if (p=='🌙MC') {
+    return (<>The <b>Moonchild (🌙MC)</b> may turn into a vampire.<br/><br/>
+            <b>Ability:</b> At halftime,<br/>
+            <b>When neither lying nor corrupted,</b> 50% of the time, convert myself into a Vampire (🧛🏻‍♀️VP) disguising as a Moonchild (🌙MC).<br/>
+            <b>When lying or corrupted,</b> 100% of the time, convert myself into a Vampire (🧛🏻‍♀️VP) disguising as a Moonchild (🌙MC).<br/>
+            </>) 
+  }
+  else if (p=='🎵NM') {
+    return (<>The <b>Noisemaker (🎵NM)</b> annoys its neighbours with noise.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Choose ↕️ or ↔️ randomly,<br/>
+            <b>Ability:</b> In the beginning,<br/>
+            Wake myself, announce "🎵:↕️" or "🎵:↔️" respectively.<br/>
+            <b>When neither lying nor corrupted,</b> neighbours in the chosen direction take 1 more round to wake up. <br/>
+            </>) 
+  }
+  else if (p=='✝️PR') {
+    return (<>The <b>Priest (✝️PR)</b> jams corruptness.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            <b>When neither lying nor corrupted,</b> jam all corrupted neighbours. <br/>
+            <b>When lying or corrupted,</b> jam all corrupted neighbours and jam one more non-corrupted neighbour, or unjam one corrupted neighbour. <br/>
+            Let the number of neighbours jammed by me be n.<br/>
+            <b>Ability:</b> When woken,<br/>
+            Announce "✝️:↕n".
             </>) 
   }
   
