@@ -704,9 +704,30 @@ function details(p) {
             Let the number of neighbours jammed by me be n.<br/>
             <b>Ability:</b> When woken,<br/>
             Announce "✝️:↕n".
-            </>) 
+            </>)
   }
-  
+  else if (p=='🤪PV') {
+    return (<>The <b>Play Villain (🤪PV)</b> pretends to be a minion.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as an in-play minion.<br/>
+            Disguise2: 1 disguising minion loses their disguise.<br/>
+            </>)
+  }
+  else if (p=='✨PX') {
+    return (<>The <b>Pixie (✨PX)</b> copies a minion's ability.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Copy: Choose an in-play minion p, does whatever p does during the disguising phase expect for lying, general disguise and register.<br/>
+            <b>Ability:</b> When woken,<br/>
+            <b>When neither lying nor corrupted,</b> announce "✨:p".<br/>
+            <b>When lying or corrupted,</b> announce "✨:p", where p is the character of a random minion, not necessarily in play.<br/>
+            </>)
+  }
+  else if (p=='💉SG') {
+    return (<>The <b>Surgeon (💉SG)</b> performs fatal surgery at halftime.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Make a random villager lie.<br/>
+            </>)
+  }
   //Minion
   else if (p=='👥ET') {
     return (<>The <b>Evil Twin (👥ET)</b> makes a villager his twin.<br/><br/>
