@@ -9,27 +9,38 @@ const villagerPool =
 '🐐GO', '🛡️GU', '💔HB', '💖HL', '🔍IN', 
 '🤐IV', '🤹JE', '⚖️JG', '💍JS', '👑KI', 
 '🗡️KN', '🧵KT', '🐑LB', '📌LC', '📚LI', 
-'💼LW', '🖌️MA', '📬MM', '🧮MT', '☯️NJ', '💊NR',
+'💼LW', '🖌️MA', '📬MM', '🧮MT', '🏛️MY', '☯️NJ', '💊NR',
 '📣PA', '🕊️PC', '🎤PF', '📡RD',  
 '🕯️RI', '🔭RG', '🐦RK', '🗿SE', //, '🥼SC'
 '🎖️SH', '🏹SL', '📊ST', '📐SV', '🎓TE',
 '☕TL', '☂️WM', '✏️WR', '🧙🏻WZ', '🎞️XR'];
 
+//Lookout: Select 1 member x, show 1 member that x affected.
+//Mayor: Recounts number of each type of member, and announces the difference.
+//Accountant: Learns numbers from number roles.
+
 const outcastPool = 
 ['🍷AC', '🤖AI', '🚨AL', '💣BM', //'💰BH', 
 '🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
 '🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
-'🎮GM', '🤝GT', '⚡JM', '🤡JX', '💕LV',
-'🌙MC', '🎵NM', '✝️PR', '🤪PV', //'😝PD', 
-'✨PX', '💉SG', '🍬SH', '🦑SQ', '❓SS',
+'🎮GM', '🦴GR', '🤝GT', '⚡JM', '🤡JX', '💕LV',
+'🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV', 
+'💉SG', '🍬SH', '🦑SQ', '❓SS',
 '🦇VB', '👦🏻YS'];
 
+//Scientist: Disguise as a random in-play member. Register: a neighbour registers as a Scientist.
+
 const minionPool = 
-['🧬CL', '🤬CR', '👥ET', '👗FD', '👻GH',
-'🦴GR', '👽HK', '🔫HM', '🃏JK', '🎃MB', 
-'🎩MG', '🐺MU', '🧪PN', '🐛PS', '🔔RC', 
-'🕹️SB', '👤SD', '🪓SK', '🐍SN', '🧸VD',
+['✨AP', '🧬CL', '🤬CR', '👥ET', '👗FD',
+'👻GH', '👽HK', '🔫HM', '🃏JK', '🎃MB', 
+'🎩MG', '🐺MU', '🧪PN', '🐛PS', 
+'🔔RC', '🕹️SB', '👤SD', '🪓SK', //'🐍SN', '🧸VD', 
 '🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
+
+//Parasite swaps
+//SN🌀 When executed, swap places with another minion
+//Trickster: Corrupt myself. If I am corrupted, I speak the truth, else I lie.
+//Hider: SoulCorrupt all minions into myself?
 
 const disguises = villagerPool;
 
@@ -574,7 +585,7 @@ function details(p) {
     return (<>The <b>Drunk (🍺DK)</b> drinks too much.<br/><br/>
             <b>Initial Phase:</b><br/>
             Disguise: Disguise as a not-in-play villager.<br/>
-            Corrupt: Corrupt myself<br/>
+            Corrupt: Corrupt myself<br/><br/>
             Note: The Drunk can be cured.
             </>) 
   }
@@ -638,6 +649,15 @@ function details(p) {
             <b>When lying or corrupted,</b> all corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). 
             </>) 
   }
+  else if (p=='🦴GR') {
+    return (<>The <b>Grim Reaper (🦴GR)</b> make deaths come faster.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as a not-in-play villager.<br/>
+            Halftime: Choose t as an integer between 0.5*n and n-1, where n is the number of members, set halftime to t.<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            <b>When neither lying nor corrupted,</b> change the time to halftime immediately.
+            </>) 
+  }
   else if (p=='🤝GT') {
     return (<>The <b>Good Twin (🤝GT)</b> makes a villager his twin.<br/><br/>
             <b>Initial Phase:</b><br/>
@@ -682,11 +702,19 @@ function details(p) {
   else if (p=='🎵NM') {
     return (<>The <b>Noisemaker (🎵NM)</b> annoys its neighbours with noise.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Choose ↕️ or ↔️ randomly,<br/>
+            Choose n as 2 or 3 randomly.<br/><br/>
             <b>Ability:</b> In the beginning,<br/>
-            Wake myself, announce "🎵:↕️" or "🎵:↔️" respectively.<br/>
-            <b>When neither lying nor corrupted,</b> neighbours in the chosen direction take 1 more round to wake up. <br/>
+            Wake myself,<br/>
+            <b>When neither lying nor corrupted,</b> n of my neighbours take 1 more round to wake up. <br/>
             </>) 
+  }
+  else if (p=='😝PD') {
+    return (<>The <b>Play Dead (😝PD)</b> pretends to be dead.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Performs general disguise.<br/><br/>
+            <b>Ability:</b> At halftime,<br/>
+            <b>When neither lying nor corrupted,</b> execute myself, if I die this way, I deal 0 blood and keep my original appearance.<br/>
+            </>)
   }
   else if (p=='✝️PR') {
     return (<>The <b>Priest (✝️PR)</b> jams corruptness.<br/><br/>
@@ -784,13 +812,21 @@ function details(p) {
             </>) 
   }
   else if (p=='👗FD') {
-    return (<>The <b>Fashion Designer (👗FD)</b> dresses up a nearby Outcast and Minion.<br/><br/>
+    return (<>The <b>Fashion Designer (👗FD)</b> may steal a neighbour's costume.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Choose a member with member id x among myself and all non-minion neighbours.<br/>
+            Disguise: If I am x, does nothing, else disguise as x and x now disguises as a Fashion Designer (👗FD).<br/>
+            </>) 
+  }
+  else if (p=='👻GH') {
+    return (<>The <b>Ghost (👻GH)</b> makes a neighbour ghosty.<br/><br/>
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
-            Disguise2: Choose two Villager characters p and q, preferably different and both preferably not to be chosen as a disguise,
-            if possible, one of the nearest non-disguised Outcast now disguises as p and, 
-            if possible, one of the nearest non-disguised Minions now disguises as q.<br/>
+            Register: If possible, a villager neighbour registers as a Ghost (👻GH)<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            If possible, announce "👥#x", where x is the member id of a member who is not me, and disguising as an Evil Twin (👥ET).<br/>
             </>) 
   }
   else if (p=='👽HK') {
@@ -804,8 +840,21 @@ function details(p) {
   }
   else if (p=='🔫HM') {
     return (<>The <b>Hitman (🔫HM)</b> executes when you do.<br/><br/>
-            <b>When alive, and in true form,</b> <br/>
+            <b>When alive,</b> <br/>
             <b>When you execute a true non-minion member,</b> execute a random true non-minion member.<br/>
+            </>) 
+  }
+  else if (p=='🃏JK') {
+    return (<>The <b>Joker (🃏JK)</b> creates an outcast.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert: If possible, convert a random villager neightbour into an outcast.<br/>
+            </>) 
+  }
+  else if (p=='🎃MB') {
+    return (<>The <b>Mafia Boss (🎃MB)</b> shall only be executed last.<br/><br/>
+            <b>When dead</b><br/>
+            If I am not in a disguise and the game doesn't end, deal 4 extra blood.<br/><br/>
+            Note: The Mafia Boss should only be executed after all other minions are dead.
             </>) 
   }
   else if (p=='🎩MG') {
@@ -817,12 +866,26 @@ function details(p) {
             When any other minion dies, they keep their original appearance.<br/>
             </>) 
   }
+  else if (p=='🐺MU') {
+    return (<>The <b>Mutant (🐺MU)</b> mutates its neighbours.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert: If possible, if I am not being converted by a mutant, convert a random neighbour into a Mutant (🐺MU).<br/>
+            Disguise: Performs general diguise.<br/><br/>
+            Note: The Mutant can mutate neighbouring minions too.
+            </>) 
+  }
   else if (p=='🧪PN') {
     return (<>The <b>Poisoner (🧪PN)</b> poisons an adjacent villager.<br/><br/>
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie<br/>
             Disguise: Performs general diguise.<br/>
             Corrupt: If possible, corrupt an adjacent villager member.
+            </>) 
+  }
+  else if (p=='🔔RC') {
+    return (<>The <b>Recruiter (🔔RC)</b> creates a minion.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert: If possible, convert a random outcast neightbour into a minion.<br/>
             </>) 
   }
   else if (p=='🕹️SB') {
@@ -840,6 +903,12 @@ function details(p) {
             Disguise: Performs general diguise.<br/>
             Register: <b>When lying,</b> registers as my appearance.<br/><br/>
             <b>When dead,</b> keeps my original appearance.<br/> 
+            </>) 
+  }
+  else if (p=='🪓SK') {
+    return (<>The <b>Serial Killer (🪓SK)</b> executes at halftime.<br/><br/>
+            <b>When alive at halftime,</b> <br/>
+            Execute a random true non-minion member at halftime.
             </>) 
   }
   /*
@@ -1032,20 +1101,14 @@ function App() {
       if (target) {
         const ranVills = finalGrid.filter(c => c.type === 'villager' && !cV.includes(c.id) && target.id!==c.id);
         const ran = ranVills[Math.floor(Math.random() * ranVills.length)];
-        const B = getRand(slV.filter(r => !sV.includes(r)));
         if (ran) {
           cV.push(target.id);
           cV.push(ran.id);
-          target.app = B;
-          target.char = B;
-          target.reg = B;
-          target.convert = '🧬'; 
-          ran.app = B;
-          ran.char = B;
-          ran.reg = B;
+          ran.app = target.app;
+          ran.char = target.char;
+          ran.reg = target.reg;
           ran.convert = '🧬';
-          const [aa,bb]=[target.id,ran.id].sort((a, b) => a - b);
-          p.note = '🧬#'+aa+','+bb;
+          p.note = '🧬#'+target.id+'->'+ran.id;
           sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
         }
         else {
