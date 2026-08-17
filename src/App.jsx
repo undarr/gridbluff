@@ -4,43 +4,36 @@ import './App.css';
 const villagerPool = 
 ['👁️AB', '😇AG', '📏AR', '🪕BA', '⚜️BI',
 '🍞BK', '🍖CB', '🙏CF', '🗺️CG', '📸CM',
-'🎭CP', '🎀CU', '💭DM', '📝DT', '🩺DR', 
-'🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC', '⚰️GK', 
-'🐐GO', '🛡️GU', '💔HB', '💖HL', '🔍IN', 
-'🤐IV', '🤹JE', '⚖️JG', '💍JS', '👑KI', 
-'🗡️KN', '🧵KT', '🐑LB', '📌LC', '📚LI', 
-'💼LW', '🖌️MA', '📬MM', '🧮MT', '🏛️MY', '☯️NJ', '💊NR',
-'📣PA', '🕊️PC', '🎤PF', '📡RD',  
-'🕯️RI', '🔭RG', '🐦RK', '🗿SE', //, '🥼SC'
-'🎖️SH', '🏹SL', '📊ST', '📐SV', '🎓TE',
-'☕TL', '☂️WM', '✏️WR', '🧙🏻WZ', '🎞️XR'];
-
-//Lookout: Select 1 member x, show 1 member that x affected.
-//Mayor: Recounts number of each type of member, and announces the difference.
-//Accountant: Learns numbers from number roles.
+'🎭CP', '🎀CU', '💭DM', '📝DT', '🩺DR',
+'🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC',
+'⚰️GK', '🐐GO', '🛡️GU', '💔HB', '💖HL',
+'🔍IN', '🤐IV', '🤹JE', '⚖️JG', '💍JS',
+'👑KI', '🗡️KN', '🧵KT', '🐑LB', '🧭LC',
+'📚LI', '💼LW', '🖌️MA', '📬MM',
+'🧮MT', '🏛️MY', '☯️NJ', '💊NR', '📣PA',
+'🕊️PC', '🎤PF', '📡RD', '🕯️RI', '🔭RG',
+'🐦RK', '🗿SE', '🎖️SH', '🏹SL', '📊ST',
+'📐SV', '🎓TE', '☕TL', '☂️WM', '✏️WR',
+'🧙🏻WZ', '🎞️XR'];
 
 const outcastPool = 
-['🍷AC', '🤖AI', '🚨AL', '💣BM', //'💰BH', 
-'🤵🏻BT', '🐱CC', '🍺DK', '😔DP', '🔊EC',
-'🔌ET', '🔗FG', '🤢FP', '😣FR', '🎲GB',
-'🎮GM', '🦴GR', '🤝GT', '⚡JM', '🤡JX', '💕LV',
+['🍷AC', '🤖AI', '🚨AL', '💣BM', '🤵🏻BT', //'💰BH', 
+'🐱CC', '🍺DK', '😔DP', '🔊EC', '🔌ET', 
+'🔗FG', '🤢FP', '🎲GB', '🎮GM', //'😣FR', 
+'🦴GR', '🤝GT', '⚡JM', '🤡JX', '💕LV',
 '🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV', 
-'💉SG', '🍬SH', '🦑SQ', '❓SS',
-'🦇VB', '👦🏻YS'];
+'🥼SC', '💉SG', '🍬SH', '🦑SQ', '❓SS', 
+'🦇VB', '🧸VD', '👦🏻YS'];
 
-//Scientist: Disguise as a random in-play member. Register: a neighbour registers as a Scientist.
 
 const minionPool = 
-['✨AP', '🧬CL', '🤬CR', '👥ET', '👗FD',
-'👻GH', '👽HK', '🔫HM', '🃏JK', '🎃MB', 
-'🎩MG', '🐺MU', '🧪PN', '🐛PS', 
-'🔔RC', '🕹️SB', '👤SD', '🪓SK', //'🐍SN', '🧸VD', 
-'🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
+['✨AP', '🧬CL', '🤬CR', '👹DE', '👥ET', 
+'👗FD', '👻GH', '👽HK', '🔫HM', '🃏JK', 
+'🎃MB', '🎩MG', '🐺MU', '🧪PN', '🐛PS', 
+'🔔RC', '🕹️SB', '👤SD', '🪓SK', '🚬SM', '🐍SN',
+'🌀TP', '🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
 
-//Parasite swaps
-//SN🌀 When executed, swap places with another minion
-//Trickster: Corrupt myself. If I am corrupted, I speak the truth, else I lie.
-//Hider: SoulCorrupt all minions into myself?
+//Trickster?: Corrupt myself. If I am corrupted, I speak the truth, else I lie.
 
 const disguises = villagerPool;
 
@@ -335,7 +328,7 @@ function details(p) {
   else if (p=="🧭LC") {
     return (<>The <b>Locator (🧭LC)</b> helps a member locate someone similar.<br/><br/>
             <b>Ability:</b> Select 1 member with member id x<br/>
-            <b>When neither lying nor corrupted,</b> announces "🧭#x:n", where n is the tile-distance between it and y, where y the nearest member from x that has the same character type as x.<br/>
+            <b>When neither lying nor corrupted,</b> if possible, announces "🧭#x:n", where n is the tile-distance between it and y, where y the nearest member from x that has the same character type as x.<br/>
             <b>When lying or corrupted,</b> announce a reasonable output different from that above.
             </>)
   }
@@ -373,6 +366,13 @@ function details(p) {
             <b>When neither lying nor corrupted,</b> announce "🧮:n", where n is the sum of all minions member ids.<br/>
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>) 
+  }
+  else if (p=='🏛️MY') {
+    return (<>The <b>Mayor (🏛️MY)</b> governs the village.<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            <b>When neither lying nor corrupted,</b> announce "🏛️:a😄/b🥴/c😈", where a,b and c are the number of villagers, outcasts and minions respectively.<br/>
+            <b>When lying or corrupted,</b> announce the above but have 2 numbers are off by 1.
+            </>)
   }
   else if (p=="☯️NJ") {
     return (<>The <b>Ninja (☯️NJ)</b> counts adjacent minions.<br/><br/>
@@ -568,11 +568,12 @@ function details(p) {
   else if (p=='🤵🏻BT') {
     return (<>The <b>Bartender (🤵🏻BT)</b> makes a villager drunk.<br/><br/>
             <b>Initial Phase:</b><br/>
+            <b>When neither lying nor corrupted,</b> Choose a villager member and a different random member with member ids x and y respectively.<br/>
+            <b>When lying nor corrupted,</b> Choose 2 random members with member ids x and y.<br/>
             Corrupt: <br/>
-            <b>When neither lying nor corrupted,</b> choose 2 random members with member id x and y respectively which includes at least 1 villager member, corrupt the villager member.
-            <b>When lying or corrupted,</b> choose 2 random members with member ids x and y.<br/><br/>
+            <b>When neither lying nor corrupted,</b>  corrupt x.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            Announce "🤵🏻#x,y"
+            Announce "🤵🏻#x,y" if x{"<"}y, else announce "🤵🏻#y,x".
             </>) 
   }
   else if (p=='🐱CC') {
@@ -619,13 +620,15 @@ function details(p) {
             <b>When corrupted,</b> register as a Fallguy (🔗FG).
             </>) 
   }
+  /*
   else if (p=='😣FR') {
     return (<>The <b>Frightened (😣FR)</b> is scared by minions.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Lies: If there is at least 1 adjacent minion, make myself lie.<br/>
+            Lies: If there is at least 1 adjacent minion, corrupt myself.<br/>
             Disguise: Disguise as a not-in-play villager.<br/>
             </>) 
   }
+  */
   else if (p=='🤢FP') {
     return (<>The <b>Fatal Patient (🤢FP)</b> dies without medicine.<br/><br/>
             <b>Initial Phase:</b><br/>
@@ -664,7 +667,7 @@ function details(p) {
             Disguise: Have a villager disguise as a Good Twin (🤝GT)<br/><br/>
             <b>Ability:</b> When woken,<br/>
             If possible, announce "🤝#x", where x is the member id of a member who is not me, and disguising as a Good Twin (🤝GT).
-            </>) 
+            </>)
   }
   else if (p=='⚡JM') {
     return (<>The <b>Jammer (⚡JM)</b> jams truthful information<br/><br/>
@@ -684,12 +687,19 @@ function details(p) {
             </>) 
   }
   else if (p=='💕LV') {
-    return (<>The <b>Lover (💕LV)</b> falls in love with a neighbour.<br/><br/>
+    return (<>The <b>Lover (💕LV)</b> falls in love with a good soulmate.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Choose a non-minion neighbour with member id x randomly,<br/>
-            <b>Ability:</b> When dead, or x dies, whichever first,<br/>
-            <b>When neither lying nor corrupted,</b> announce "💕#x", if I die, execute x, else if x dies, execute myself.<br/>
-            <b>When lying or corrupted,</b> announce "💕#x⚠️".
+            Choose a non-minion member with member id x randomly,<br/>
+            Corrupt: When not lying, if I am corrupted, I corrupt x, if x is corrupted, x corrupts me.<br/>
+            Jam: When not lying, if I am jammed, I jam x, if x is jammed, x jams me.<br/>
+            Blur: When not lying, if I am blurred, I blur x, if x is blurred, x blurs me.<br/><br/>
+
+            <b>When I am dead:</b> <br/> When not lying, I execute x.<br/>
+            <b>When x is dead:</b> <br/> When not lying, x executes me.<br/><br/>
+
+            <b>Ability:</b> When woken,<br/>
+            <b>When not lying,</b> announce "💕#x"<br/>
+            <b>When lying,</b> announce "💕#y", where y is the member id of someone that is not myself.
             </>) 
   }
   else if (p=='🌙MC') {
@@ -713,14 +723,14 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Disguise: Performs general disguise.<br/><br/>
             <b>Ability:</b> At halftime,<br/>
-            <b>When neither lying nor corrupted,</b> execute myself, if I die this way, I deal 0 blood and keep my original appearance.<br/>
+            <b>When neither lying nor corrupted,</b> execute myself. If I die this way, I deal 0 blood and keep my original appearance.<br/>
             </>)
   }
   else if (p=='✝️PR') {
     return (<>The <b>Priest (✝️PR)</b> jams corruptness.<br/><br/>
             <b>Initial Phase:</b><br/>
-            <b>When neither lying nor corrupted,</b> jam all corrupted neighbours. <br/>
-            <b>When lying or corrupted,</b> jam all corrupted neighbours and jam one more non-corrupted neighbour, or unjam one corrupted neighbour. <br/>
+            Jam: Jam all corrupted neighbours. <br/>
+            <b>When lying or corrupted,</b> jam one more non-corrupted neighbour, or unjam one corrupted neighbour. <br/>
             Let the number of neighbours jammed by me be n.<br/>
             <b>Ability:</b> When woken,<br/>
             Announce "✝️:n".
@@ -733,6 +743,7 @@ function details(p) {
             Disguise2: 1 disguising minion loses their disguise.<br/>
             </>)
   }
+  /*
   else if (p=='✨PX') {
     return (<>The <b>Pixie (✨PX)</b> copies a minion's ability.<br/><br/>
             <b>Initial Phase:</b><br/>
@@ -741,6 +752,14 @@ function details(p) {
             <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> announce "✨:p".<br/>
             <b>When lying or corrupted,</b> announce "✨:p", where p is the character of a random minion, not necessarily in play.<br/>
+            </>)
+  }
+  */
+  else if (p=='🥼SC') {
+    return (<>The <b>Scientist (🥼SC)</b> makes its neightbours misregister.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Register:<br/>
+            <b>When neither lying nor corrupted,</b> if possible, 2 non-minion neighbours register as a Scientist (🥼SC).<br/>
             </>)
   }
   else if (p=='💉SG') {
@@ -768,7 +787,8 @@ function details(p) {
   else if (p=='❓SS') {
     return (<>The <b>Shapeshifter (❓SS)</b> converts into an adjacent character.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Convert: Convert into a random neighbour's character.<br/>
+            Convert: Convert into a random neighbour's character.<br/><br/>
+            Note: The Shapeshifter can convert into a minion.
             </>)
   }
   else if (p=='🦇VB') {
@@ -779,28 +799,52 @@ function details(p) {
             <b>When unwoken, and neither lying nor corrupted,</b> convert myself into a lying Vampire (🧛🏻‍♀️VP).<br/>
             </>)
   }
+  else if (p=='🧸VD') {
+    return (<>The <b>Vodouisant (🧸VD)</b> practices Voodoo on someone.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            <b>When not lying,</b> Choose a villager member and a different random member with member ids x and y respectively.<br/>
+            <b>When lying,</b> Choose a minion member and a different random member with member ids x and y respectively.<br/>
+            Corrupt: When not lying, if someone corrupts me, have that someone corrupt member x as well, add 1 to n.<br/>
+            CorruptRemove: Remove any corruption on me.<br/>
+            Jam: If someone jams me, have that someone jam x as well, add 1 to n.<br/>
+            JamRemove: Remove any jamming from myself.<br/>
+            Blur: If someone blurs me, have that someone blur x as well, add 1 to n.<br/>
+            BlurRemove: Remove any blurness from myself.<br/><br/>
+            
+            <b>Ability:</b> When woken,<br/>
+            Announce "🧸:n-{">"}#x,y" if x{"<"}y, else announce "🧸:n-{">"}#y,x".
+            </>) 
+  }
   else if (p=='👦🏻YS') {
     return (<>The <b>Youngster (👦🏻YS)</b> punishes you if you wrongly execute them.<br/><br/>
             <b>When dead, and neither lying nor corrupted,</b> deal 2 extra blood.<br/>
             </>)
   }
   //Minion
-  //['🧬CL', '🤬CR', '👥ET', '👗FD', '👻GH',
-  //'🦴GR', '👽HK', '🔫HM', '🃏JK', '🎃MB', 
-  //'🎩MG', '🐺MU', '🧪PN', '🔔RC', 
-  //'🕹️SB', '👤SD', '🪓SK', '🐍SN', '🧸VD',
-  //'🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
   else if (p=='🧬CL') {
     return (<>The <b>Cloner (🧬CL)</b> clones a villager.<br/><br/>
             <b>Initial Phase:</b><br/>
             Convert: If possible, convert a random villager member into an adjacent villager's character.<br/>
+            Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
             </>) 
   }
   else if (p=='🤬CR') {
     return (<>The <b>Critic (🤬CR)</b> punishes innocent kills.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
             <b>When alive, and in true form,</b> <br/>
             <b>When you execute a true non-minion member,</b> deal 2 extra blood.<br/>
+            </>) 
+  }
+  else if (p=='👹DE') {
+    return (<>The <b>Demon (👹DE)</b> think that all minions are demons.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/>
+            Register: All minions who register as themselves now register as a Demon (👹DE).
+            <br/><br/>
             </>) 
   }
   else if (p=='👥ET') {
@@ -840,6 +884,9 @@ function details(p) {
   }
   else if (p=='🔫HM') {
     return (<>The <b>Hitman (🔫HM)</b> executes when you do.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
             <b>When alive,</b> <br/>
             <b>When you execute a true non-minion member,</b> execute a random true non-minion member.<br/>
             </>) 
@@ -848,6 +895,8 @@ function details(p) {
     return (<>The <b>Joker (🃏JK)</b> creates an outcast.<br/><br/>
             <b>Initial Phase:</b><br/>
             Convert: If possible, convert a random villager neightbour into an outcast.<br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
             </>) 
   }
   else if (p=='🎃MB') {
@@ -863,13 +912,23 @@ function details(p) {
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/><br/>
             <b>When alive,</b> <br/>
-            When any other minion dies, they keep their original appearance.<br/>
+            Right before any other disguising minion dies, they soulconvert into a Magician (🎩MG) disguising as who they were disguising.<br/>
+            </>) 
+  }
+  else if (p=='🐙MI') {
+    return (<>The <b>Mimic (🐙MI)</b> mimics a minion on death.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
+            <b>Right before death,</b><br/>
+            If I am in a disguise, I soulconvert into a random in-play minion.<br/>
             </>) 
   }
   else if (p=='🐺MU') {
     return (<>The <b>Mutant (🐺MU)</b> mutates its neighbours.<br/><br/>
             <b>Initial Phase:</b><br/>
             Convert: If possible, if I am not being converted by a mutant, convert a random neighbour into a Mutant (🐺MU).<br/>
+            Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/><br/>
             Note: The Mutant can mutate neighbouring minions too.
             </>) 
@@ -882,10 +941,19 @@ function details(p) {
             Corrupt: If possible, corrupt an adjacent villager member.
             </>) 
   }
+  else if (p=='🐛PS') {
+    return (<>The <b>Parasite (🐛PS)</b> lives within an adjacent villager.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
+            SoulConvert: If x exists, I soulconvert into x's character and x soulconverts into a Parasite (🐛PS).
+            </>) 
+  }
   else if (p=='🔔RC') {
     return (<>The <b>Recruiter (🔔RC)</b> creates a minion.<br/><br/>
             <b>Initial Phase:</b><br/>
             Convert: If possible, convert a random outcast neightbour into a minion.<br/>
+            Lie: Makes myself lie<br/>
+            Disguise: Performs general diguise.<br/>
             </>) 
   }
   else if (p=='🕹️SB') {
@@ -901,28 +969,50 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
-            Register: <b>When lying,</b> registers as my appearance.<br/><br/>
+            Register: <b>When lying, and is not jammed nor blurred,</b> registers as my appearance.<br/><br/>
             <b>When dead,</b> keeps my original appearance.<br/> 
             </>) 
   }
   else if (p=='🪓SK') {
     return (<>The <b>Serial Killer (🪓SK)</b> executes at halftime.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie<br/>
+            Disguise: Performs general diguise.<br/>
             <b>When alive at halftime,</b> <br/>
             Execute a random true non-minion member at halftime.
             </>) 
   }
-  /*
-  else if (p=='🐛PS') {
-    return (<>The <b>Parasite (🐛PS)</b> lives within an adjacent villager.<br/><br/>
+  else if (p=='🚬SM') {
+    return (<>The <b>Smoker (🚬SM)</b> hides all minions in its row and column.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Lie: Makes myself lie<br/>
-            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
-
-            <b>Execution:</b>
-            If I am alive, when I am executed, the execution target is transferred to another random good member.
-            If x exists and I am alive, when x is executed, the execution target is transferred to me, this cannot be affected by other execution transfers.
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
+            <b>When alive,</b> <br/>
+            When any other minions in my row or column dies, they keep their original appearance.<br/>
+            <b>When dead,</b> <br/>
+            Keep my original appearance.
             </>) 
-  }*/
+  }
+  else if (p=='🐍SN') {
+    return (<>The <b>Snake (🐍SN)</b> bites those who touch it.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
+
+            <b>When a member with member id x chose it in an ability,</b> if x is not corrupted and a non-minion, corrupt x.
+            </>) 
+  }
+  else if (p=='🌀TP') {
+    return (<>The <b>Teleporter (🌀TP)</b> teleports away before execution.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie.<br/>
+            Disguise: Performs general diguise.<br/><br/>
+
+            <b>Right before death,</b><br/>
+            If I am in a disguise, not soulconverted before and there is a disguising minion with member id x, 
+            I soul convert into x's character and x soul converts into a Teleporter (🌀TP).
+            </>) 
+  }
   else if (p=='🧛🏻‍♀️VP') {
     return (<>The <b>Vampire (🧛🏻‍♀️VP)</b> is only summoned by other players.<br/><br/>
             Note: The Vampire (🧛🏻‍♀️VP) is not in the initial deck, and can only be created by the Alchemist (🍷AC), the Moonchild (🌙MC), the Vampire Bat (🦇VB) and the Witch (🧹WI).
