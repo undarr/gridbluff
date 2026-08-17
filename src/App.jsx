@@ -17,7 +17,7 @@ const villagerPool =
 '🧙🏻WZ', '🎞️XR'];
 
 const outcastPool = 
-['🍷AC', '🤖AI', '🚨AL', '💣BM', '🤵🏻BT', //'💰BH', 
+['🍷AC', '🤖AI', '🚨AL', '💰BH', '💣BM', '🤵🏻BT', 
 '🐱CC', '🍺DK', '😔DP', '🔊EC', '🔌ET', 
 '🔗FG', '🤢FP', '🎲GB', '🎮GM', //'😣FR', 
 '🦴GR', '🤝GT', '⚡JM', '🤡JX', '💕LV',
@@ -27,11 +27,11 @@ const outcastPool =
 
 
 const minionPool = 
-['✨AP', '🧬CL', '🤬CR', '👹DE', '👥ET', 
+['👮🏻‍♂️BC', '🧬CL', '🤬CR', '👹DE', '👥ET', 
 '👗FD', '👻GH', '👽HK', '🔫HM', '🃏JK', 
 '🎃MB', '🎩MG', '🐺MU', '🧪PN', '🐛PS', 
 '🔔RC', '🕹️SB', '👤SD', '🪓SK', '🚬SM', '🐍SN',
-'🌀TP', '🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
+'🦊TK', '🌀TP', '🧛🏻‍♀️VP', '👾VR', '🧹WI', '🧟ZB']
 
 //Trickster?: Corrupt myself. If I am corrupted, I speak the truth, else I lie.
 
@@ -172,7 +172,8 @@ function details(p) {
   else if (p=="🛠️EG") {
     return (<>The <b>Engineer (🛠️EG)</b> fixs nearby jamming and blurness.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Jamblur removal: Removes jamming and blurness from all adjacent members.<br/>
+            JamRemove: Removes jamming all adjacent members.<br/>
+            BlurRemove: Removes jamming all adjacent members.<br/>
             <b>When lying or corrupted,</b> corrupts all adjacent non-minion members who has jamming and blurness removed by it.<br/><br/>
             <b>Ability:</b> When woken,<br/>
             Announce "🛠️n", where n is the number of members who had their jamming or blur or both, removed by it.<br/>
@@ -399,10 +400,10 @@ function details(p) {
             </>) 
   }
   else if (p=="🕊️PC") {
-    return (<>The <b>Pacifist (🕊️PC)</b> protects its neighbours.<br/><br/>
+    return (<>The <b>Pacifist (🕊️PC)</b> protects its truthful neighbours.<br/><br/>
             <b>Ability:</b> When any neighbour with member id x is killed for the first time,<br/>
             Member x keeps its original appearance. Announces "🕊️#x:p", where p is the source of x's death. Use up this ability.<br/>
-            <b>When neither lying nor corrupted,</b> and x is not corrupted, x does not die.<br/>
+            <b>When neither lying nor corrupted,</b> and x is not lying nor corrupted, x does not die.<br/>
             Note: A Pacifist's ability is activated even when not woken up.
             </>) 
   }
@@ -532,7 +533,7 @@ function details(p) {
             <b>When lying or corrupted,</b> announces a reasonable output different from that above.
             </>)
   }
-  //Outcast
+  //Outcasts
   else if (p=='🍷AC') {
     return (<>The <b>Alchemist (🍷AC)</b> drinks blood from 2 selected members.<br/><br/>
             <b>Initial Phase:</b><br/>
@@ -544,9 +545,10 @@ function details(p) {
   else if (p=='🤖AI') {
     return (<>The <b>Artifical Intelligence (🤖AI)</b> jams members<br/><br/>
             <b>Initial Phase:</b><br/>
+            Disguise: Disguise as a not-in-play villager member.<br/>
             Jam: <br/>
-            <b>When neither lying nor corrupted,</b> if possible, jam 2 villagers. <br/>
-            <b>When lying or corrupted,</b> if possible, jam 1 villager and 1 minion, preferably one disguising as a villager.
+            <b>When neither lying nor corrupted,</b> if possible, jam myself and 1 villager member. <br/>
+            <b>When lying or corrupted,</b> jam myself and 1 minion member.
             </>) 
   }
   else if (p=='🚨AL') {
@@ -555,6 +557,16 @@ function details(p) {
             Blur: <br/>
             <b>When neither lying nor corrupted,</b> if at least 1 of my neighbours is a minion, blur myself. <br/>
             <b>When lying or corrupted,</b> if none of my neighbours are minions, blur myself.
+            </>) 
+  }
+  else if (p=='💰BH') {
+    return (<>The <b>Bounty Hunter (💰BH)</b> puts a bounty on a getaway minion.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Convert: Convert a villager member with member id x into a minion.<br/><br/>
+
+            <b>Ability:</b> When woken,<br/>
+            <b>When neither lying nor corrupted,</b> choose a random non-minion member with member id y, announce "💰#x,y" if x{"<"}y, else announce "💰#y,x".<br/>
+            <b>When lying or corrupted,</b> choose 2 random non-minion members with member ids y and z, announce "💰#y,z" if y{"<"}z, else announce "💰#z,y".<br/>
             </>) 
   }
   else if (p=='💣BM') {
@@ -573,7 +585,7 @@ function details(p) {
             Corrupt: <br/>
             <b>When neither lying nor corrupted,</b>  corrupt x.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            Announce "🤵🏻#x,y" if x{"<"}y, else announce "🤵🏻#y,x".
+            Announce "🤵🏻#x/#y" if x{"<"}y, else announce "🤵🏻#y/#x".
             </>) 
   }
   else if (p=='🐱CC') {
@@ -592,6 +604,8 @@ function details(p) {
   }
   else if (p=='😔DP') {
     return (<>The <b>Depressed (😔DP)</b> count on his good friends.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as a not-in-play villager.<br/><br/>
             <b>Ability:</b> When a non-minion dies,<br/>
             <b>When neither lying nor corrupted,</b> execute myself.
             </>) 
@@ -682,6 +696,8 @@ function details(p) {
   }
   else if (p=='🤡JX') {
     return (<>The <b>Jinx (🤡JX)</b> corrupts the next woken member.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: Disguise as a not-in-play villager.<br/><br/>
             <b>Ability:</b> When woken,<br/>
             <b>When neither lying nor corrupted,</b> corrupt the next woken card. <br/>
             </>) 
@@ -810,9 +826,11 @@ function details(p) {
             JamRemove: Remove any jamming from myself.<br/>
             Blur: If someone blurs me, have that someone blur x as well, add 1 to n.<br/>
             BlurRemove: Remove any blurness from myself.<br/><br/>
+            Register: When not lying, if someone changes my register, have that someone register x as well, add 1 to n.<br/>
+            Register5: Register as my true character.<br/><br/>
             
             <b>Ability:</b> When woken,<br/>
-            Announce "🧸:n-{">"}#x,y" if x{"<"}y, else announce "🧸:n-{">"}#y,x".
+            Announce "🧸:n-{">"}#x/#y" if x{"<"}y, else announce "🧸:n-{">"}#y/#x".
             </>) 
   }
   else if (p=='👦🏻YS') {
@@ -820,7 +838,13 @@ function details(p) {
             <b>When dead, and neither lying nor corrupted,</b> deal 2 extra blood.<br/>
             </>)
   }
-  //Minion
+  //Minions
+  else if (p=='👮🏻‍♂️BC') {
+    return (<>The <b>Bap Cop (👮🏻‍♂️BC)</b> promotes evil.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Disguise: I disguise as another minion, a random non-minion disguises as a minion that is not me.<br/>
+            </>) 
+  }
   else if (p=='🧬CL') {
     return (<>The <b>Cloner (🧬CL)</b> clones a villager.<br/><br/>
             <b>Initial Phase:</b><br/>
@@ -983,12 +1007,12 @@ function details(p) {
             </>) 
   }
   else if (p=='🚬SM') {
-    return (<>The <b>Smoker (🚬SM)</b> hides all minions in its row and column.<br/><br/>
+    return (<>The <b>Smoker (🚬SM)</b> hides all neighbours.<br/><br/>
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/><br/>
             <b>When alive,</b> <br/>
-            When any other minions in my row or column dies, they keep their original appearance.<br/>
+            When any of my disguised neighbours die, they keep their original appearance.<br/>
             <b>When dead,</b> <br/>
             Keep my original appearance.
             </>) 
@@ -1000,6 +1024,13 @@ function details(p) {
             Disguise: Performs general diguise.<br/><br/>
 
             <b>When a member with member id x chose it in an ability,</b> if x is not corrupted and a non-minion, corrupt x.
+            </>) 
+  }
+  else if (p=='🦊TK') {
+    return (<>The <b>Trickster (🦊TK)</b> lies in a way others don't feel it.<br/><br/>
+            <b>Initial Phase:</b><br/>
+            Lie: Makes myself lie, but others register him as truthful.<br/>
+            Disguise: Performs general diguise.<br/><br/>
             </>) 
   }
   else if (p=='🌀TP') {
