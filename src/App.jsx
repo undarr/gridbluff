@@ -19,7 +19,7 @@ const villagerPool =
 const outcastPool = 
 ['🍷AC', '🤖AI', '🚨AL', '💰BH', '💣BM', '🤵🏻BT', 
 '🐱CC', '🍺DK', '😔DP', '🔊EC', '🔌ET', 
-'🔗FG', '🤢FP', '🎲GB', '🎮GM', //'😣FR', 
+'🔗FG', '🤢FP', '🎲GB', '🎮GM',
 '🦴GR', '🤝GT', '⚡JM', '🤡JX', '💕LV',
 '🌙MC', '🎵NM', '😝PD', '✝️PR', '🤪PV', 
 '🥼SC', '💉SG', '🍬SH', '🦑SQ', '❓SS', 
@@ -299,7 +299,7 @@ function details(p) {
     return (<>The <b>King (👑KI)</b> is always good.<br/><br/>
             <b>Initial Phase:</b><br/>
             Disguise: Minions cannot disguise as the King.<br/>
-            <b>When corrupted,</b> registers as a random in-play minion.
+            Register: <b>When corrupted,</b> registers as a random in-play minion.
             </>)
   }
   else if (p=="🗡️KN") {
@@ -848,7 +848,7 @@ function details(p) {
   else if (p=='🧬CL') {
     return (<>The <b>Cloner (🧬CL)</b> clones a villager.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Convert: If possible, convert a random villager member into an adjacent villager's character.<br/>
+            Convert: If possible, convert a neighbouring villager member and a different villager member into a not-in-play villager character.<br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
             </>) 
@@ -942,7 +942,6 @@ function details(p) {
   else if (p=='🐙MI') {
     return (<>The <b>Mimic (🐙MI)</b> mimics a minion on death.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/><br/>
             <b>Right before death,</b><br/>
             If I am in a disguise, I soulconvert into a random in-play minion.<br/>
@@ -969,6 +968,8 @@ function details(p) {
     return (<>The <b>Parasite (🐛PS)</b> lives within an adjacent villager.<br/><br/>
             <b>Initial Phase:</b><br/>
             Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
+
+            <b>Right before x or me dies:</b><br/>
             SoulConvert: If x exists, I soulconvert into x's character and x soulconverts into a Parasite (🐛PS).
             </>) 
   }
@@ -977,7 +978,7 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Convert: If possible, convert a random outcast neightbour into a minion.<br/>
             Lie: Makes myself lie<br/>
-            Disguise: Performs general diguise.<br/>
+            Disguise: Performs general disguise.<br/>
             </>) 
   }
   else if (p=='🕹️SB') {
@@ -993,8 +994,8 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
-            Register: <b>When lying, and is not jammed nor blurred,</b> registers as my appearance.<br/><br/>
-            <b>When dead,</b> keeps my original appearance.<br/> 
+            Register: <b>When announcing something,</b> registers as my appearance.<br/><br/>
+            <b>When dead,</b> keeps my original appearance.<br/>
             </>) 
   }
   else if (p=='🪓SK') {
@@ -1040,7 +1041,7 @@ function details(p) {
             Disguise: Performs general diguise.<br/><br/>
 
             <b>Right before death,</b><br/>
-            If I am in a disguise, not soulconverted before and there is a disguising minion with member id x, 
+            If I am in a disguise and there is a disguising minion with member id x, 
             I soul convert into x's character and x soul converts into a Teleporter (🌀TP).
             </>) 
   }
@@ -1089,6 +1090,7 @@ function App() {
   const [villagersus, setvillagersus] = useState(() => JSON.parse(localStorage.getItem('villagersus')) || '');
   const [outcastsus, setoutcastsus] = useState(() => JSON.parse(localStorage.getItem('outcastsus')) || '');
   const [minionsus, setminionsus] = useState(() => JSON.parse(localStorage.getItem('minionsus')) || '');
+  
 
   // --- Game State ---
   const [grid, setGrid] = useState([]);
@@ -1099,6 +1101,10 @@ function App() {
   const [hoveredIdx, setHoveredIdx] = useState(null);
   const [animatingIndices, setAnimatingIndices] = useState(new Set());
   const [animType, setAnimType] = useState('flip');
+  const [gridlength, setGridlength] = useState(() => JSON.parse(localStorage.getItem('gridlength')) || 4);
+  const [nextgridlength, setnextGridlength] = useState(() => JSON.parse(localStorage.getItem('gridlength')) || 4);
+  const [nwarp, setnwarp] = useState(() => JSON.parse(localStorage.getItem('nwarp')) || true);
+  const [nextnwarp, setnextnwarp] = useState(() => JSON.parse(localStorage.getItem('nwarp')) || true);
 
   // --- Modal State ---
   const [showSettings, setShowSettings] = useState(false);
@@ -1112,6 +1118,7 @@ function App() {
     localStorage.setItem('killConfirm', JSON.stringify(killConfirm));
     localStorage.setItem('suspectList', JSON.stringify(suspectList));
     localStorage.setItem('charStatus', JSON.stringify(charStatus));
+    localStorage.setItem('gridlength', JSON.stringify(gridlength));
     localStorage.setItem('grid', JSON.stringify(grid))
   }, [roleCounts, darkMode, killConfirm, charStatus, grid]);
 
@@ -1127,7 +1134,7 @@ function App() {
   };
 
   const createPlayer = (role, type, id) => ({
-    type, regtype: type, id, char: role, app: role, reg: role,
+    type, regtype: type, id, char: role, app: role, deathapp: role, reg: role,
     highlight: [], adjs: {},
     announce: "",
     revealed: 0, used: 0, killed: -1,
@@ -1149,526 +1156,164 @@ function App() {
 
   const initializeGrid = () => {
     setRoleCounts(nextroleCounts);
+    setGridlength(nextgridlength);
+    setnwarp(nextnwarp);
     localStorage.setItem('roleCounts',JSON.stringify(nextroleCounts));
+    localStorage.setItem('gridlength',JSON.stringify(nextgridlength));
+    localStorage.setItem('nwarp',JSON.stringify(nextnwarp));
     if (animatingIndices.size > 0) return;
 
     const pickRoles = (pool, targetCount) => {
       const forced = pool.filter(c => getStatus(c) === 1);
       const maybe = pool.filter(c => getStatus(c) === 0);
-      const combined = [...shuffle(forced), ...shuffle(maybe)].slice(0, targetCount);
+      const combined = [...shuffle(forced), ...shuffle(maybe)].filter(c => c!='🧛🏻‍♀️VP').slice(0, targetCount);
       return combined;
     };
 
-    const slV = suspectList ? pickRoles(villagerPool, nextroleCounts.v + nextroleCounts.sv).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : villagerPool;
-    const slO = suspectList ? pickRoles(outcastPool, nextroleCounts.o + nextroleCounts.so).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : outcastPool;
-    const slM = suspectList ? pickRoles(minionPool.filter(c => c !=='🧛🏻‍♀️VP' && c !=='🥛RM'), nextroleCounts.m + nextroleCounts.sm).sort((a, b) => a.slice(-2).localeCompare(b.slice(-2))) : minionPool.filter(c => c !=='🧛🏻‍♀️VP' && c !=='🥛RM');
+    let sV = pickRoles(villagerPool, nextroleCounts.v);
+    let sO = pickRoles(outcastPool, nextroleCounts.o);
+    let sM = pickRoles(minionPool, nextroleCounts.m);
 
-    setvillagersus(JSON.stringify(slV));
-    setoutcastsus(JSON.stringify(slO));
-    setminionsus(JSON.stringify(slM));
-
-    let sV = pickRoles(slV, nextroleCounts.v);
-    let sO = pickRoles(slO, nextroleCounts.o);
-    let sM = pickRoles(slM, nextroleCounts.m);
+    let nbv = villagerPool.filter(c => getStatus(c) != 2);
+    let nbo = outcastPool.filter(c => getStatus(c) != 2);
+    let nbm = minionPool.filter(c => getStatus(c) != 2);
 
     const pCount = sV.length + sO.length + sM.length;
     let p = shuffle([
       ...sV.map(v => ({ r: v, t: 'villager' })),
       ...sO.map(o => ({ r: o, t: 'outcast' })),
       ...sM.map(m => ({ r: m, t: 'minion' })),
-      ...Array(16 - pCount).fill({ t: 'empty', type: 'empty'})
+      ...Array(nextgridlength*nextgridlength - pCount).fill({ t: 'empty', type: 'empty'})
     ]);
 
     let curId = 1;
     const nextG = p.map(x => x.t !== 'empty' ? createPlayer(x.r, x.t, curId++) : x);
-    const finalGrid = nextG.map((cell, i) => {
+    let finalGrid = nextG.map((cell, i) => {
       if (cell.type === 'empty') return cell;
 
-      const row = Math.floor(i / 4), col = i % 4, adjs = { N: null, S: null, W: null, E: null };
-      for (let r = row - 1; r >= 0; r--) if (nextG[r * 4 + col].type !== 'empty') { adjs.N = nextG[r * 4 + col].id; break; }
-      for (let r = row + 1; r < 4; r++) if (nextG[r * 4 + col].type !== 'empty') { adjs.S = nextG[r * 4 + col].id; break; }
-      for (let c = col - 1; c >= 0; c--) if (nextG[row * 4 + c].type !== 'empty') { adjs.W = nextG[row * 4 + c].id; break; }
-      for (let c = col + 1; c < 4; c++) if (nextG[row * 4 + c].type !== 'empty') { adjs.E = nextG[row * 4 + c].id; break; }
+      const row = Math.floor(i / nextgridlength);
+      const col = i % nextgridlength;
+      const adjs = { N: null, S: null, W: null, E: null };
+
+      // Helper to find neighbor with optional warping
+      const getNeighbor = (rowDir, colDir) => {
+        // We check up to nextgridlength - 1 cells away
+        for (let step = 1; step < nextgridlength; step++) {
+          let r = row + (rowDir * step);
+          let c = col + (colDir * step);
+
+          if (nextnwarp) {
+            // Modulo wrapping: (index + length) % length handles negative numbers correctly
+            r = (r + nextgridlength) % nextgridlength;
+            c = (c + nextgridlength) % nextgridlength;
+          } else {
+            // Standard boundary check: stop if we hit the edge
+            if (r < 0 || r >= nextgridlength || c < 0 || c >= nextgridlength) break;
+          }
+
+          const target = nextG[r * nextgridlength + c];
+          if (target.type !== 'empty') {
+            return target.id;
+          }
+        }
+        return null;
+      };
+
+      adjs.N = getNeighbor(-1, 0);
+      adjs.S = getNeighbor(1, 0);
+      adjs.W = getNeighbor(0, -1);
+      adjs.E = getNeighbor(0, 1);
       return { ...cell, adjs };
     });
 
-    const getRand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    //helper functions
+    const typeMap = { "v": "villager", "o": "outcast", "m": "minion" };
 
-    function joker_ability(p, cV) {
-      const adjIds = Object.values(p.adjs).filter(id => id !== null);
-      const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id) && !cV.includes(c.id));
-      const target = adjVills[Math.floor(Math.random() * adjVills.length)];
-      const B = getRand(slO.filter(r => !sO.includes(r)));
-      if (target) {
-        cV.push(target.id);
-        target.type = "outcast";
-        target.char = B;
-        target.app = B;
-        target.reg = B;
-        target.convert = '🤡';
-        p.note = '🤡#'+target.id;
-        sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
-        sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
-      }
-      else {
-        p.note = '⚠️🤡';
-      }
-    }
+    const getAdjN = (grid, target_id, dir = "") => {
+      const player = grid.find((p) => p.id === target_id);
+      if (!player || !player.adjs) return [];
 
-    function clone_ability(p, cV) {
-      const adjIds = Object.values(p.adjs).filter(id => id !== null);
-      const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id) && !cV.includes(c.id));
-      const target = adjVills[Math.floor(Math.random() * adjVills.length)];
-      if (target) {
-        const ranVills = finalGrid.filter(c => c.type === 'villager' && !cV.includes(c.id) && target.id!==c.id);
-        const ran = ranVills[Math.floor(Math.random() * ranVills.length)];
-        if (ran) {
-          cV.push(target.id);
-          cV.push(ran.id);
-          ran.app = target.app;
-          ran.char = target.char;
-          ran.reg = target.reg;
-          ran.convert = '🧬';
-          p.note = '🧬#'+target.id+'->'+ran.id;
-          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
-        }
-        else {
-          p.note = '⚠️🧬';
-        }
-      }
-      else {
-        p.note = '⚠️🧬';
-      }
-    }
+      const directions = [];
+      if (dir.toLowerCase() === "ns") directions.push("N", "S");
+      else if (dir.toLowerCase() === "ew") directions.push("W", "E");
+      else directions.push("N", "S", "W", "E");
 
-    // 1. Setup initial sets and helpers
-    const order = ['🤡JK', "🧬CL"].sort(() => Math.random() - 0.5);
-    let cV = [];
-    order.forEach(x =>
-    // 2. Perform Transformations
-    finalGrid.forEach(p => {
-      if (x === '🤡JK' && p.char === '🤡JK') {
-        joker_ability(p, cV);
-      }
-      if (x === "🧬CL" && p.char === "🧬CL") {
-        clone_ability(p, cV);
-      }
-    }));
+      const neighborIds = directions
+        .map((d) => player.adjs[d])
+        .filter((id) => id !== null && id !== undefined);
 
-    finalGrid.forEach(p => {
-      if (p.char === '💰BH') {
-        const ranVills = finalGrid.filter(c => c.type === 'villager' && !cV.includes(c.id));
-        const ran = ranVills[Math.floor(Math.random() * ranVills.length)];
-        const B = getRand(slM.filter(r => !sM.includes(r)));
-        if (ran) {
-          cV.push(ran.id);
-          ran.type = "minion";
-          ran.char = B;
-          ran.app = B;
-          ran.reg = B;
-          ran.convert = '💰';
-          p.note = '💰#'+ran.id;
-          if (ran.char==='🤡JK') {
-            joker_ability(ran, cV);
-          }
-          if (ran.char==="🧬CL") {
-            clone_ability(ran, cV);
-          }
-          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
-          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
-          sM = [...new Set(finalGrid.filter(p => p.type === 'minion').map(p => p.char))];
-        }
-        else {
-          p.announce = '⚠️💰';
-          p.note = '⚠️💰';
-        }
-      }
+      // Return the actual player objects from the grid for those IDs
+      return grid.filter((p) => neighborIds.includes(p.id));
+    };
+
+    const getRands = (array, exclude = [], n = 1) => {
+      const pool = array.filter((item) => !exclude.includes(item));
+      if (pool.length === 0) return null;
       
-    });
+      const shuffled = shuffle(pool);
+      return shuffled.slice(0, Math.min(n, pool.length));
+    };
 
-    finalGrid.forEach(p => {
-      if (p.char === '🔔RC') {
-        const adjIds = Object.values(p.adjs).filter(id => id !== null);
-        const adjOut = finalGrid.filter(c => c.type === 'outcast' && adjIds.includes(c.id) && !cV.includes(c.id) && c.char!=='💰BH');
-        const target = adjOut[Math.floor(Math.random() * adjOut.length)];
-        const B = getRand(slM.filter(r => !sM.includes(r)));
-        if (target) {
-          cV.push(target.id);
-          target.type = "minion";
-          target.char = B;
-          target.app = B;
-          target.reg = B;
-          target.convert = '🔔';
-          p.note = '🔔#'+target.id;
-          if (target.char==='🤡JK') {
-            joker_ability(target, cV);
-          }
-          if (target.char==="🧬CL") {
-            clone_ability(target, cV);
-          }
-          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
-          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
-          sM = [...new Set(finalGrid.filter(p => p.type === 'minion').map(p => p.char))];
-        }
-        else {
-          p.note = '⚠️🔔';
-        }
-      }
-    });
+    const getRandN = (grid, target_id, dir = "") => {
+      const neighbors = getAdjN(grid, target_id, dir);
+      if (neighbors.length === 0) return null;
+      return neighbors[Math.floor(Math.random() * neighbors.length)];
+    };
 
-    finalGrid.forEach(p => {
-      if (p.char === '❓SS') {
-        const adjIds = Object.values(p.adjs).filter(id => id !== null);
-        const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id));
-        const target = adjVills[Math.floor(Math.random() * adjVills.length)];
-        if (target) {
-          cV.push(target.id);
-          p.type = 'villager';
-          p.char = target.char;
-          p.app = target.app;
-          p.reg = target.reg;
-          p.convert = '❓';
-          sV = [...new Set(finalGrid.filter(p => p.type === 'villager').map(p => p.char))];
-          sO = [...new Set(finalGrid.filter(p => p.type === 'outcast').map(p => p.char))];
-        }
-        else {
-          p.note = '⚠️❓';
-        }
-      }
-    });
+    const getInPlay = (grid, type = "", excludeid = [], excludechar = [], n = -1) => {
+      let players = grid.filter((p) => p.type !== "empty");
 
-    //disguises
-    const alldisguise = disguises.filter(r => slV.includes(r) || slO.includes(r));
-    let nipdisguise = alldisguise.filter(r => !sV.includes(r) && !sO.includes(r));
-    let ipdisguise = alldisguise.filter(r => sV.includes(r) || sO.includes(r));
-    let disguisingmin = disguiseMins.filter(r => sM.includes(r));
-    let dV = [];
+      if (type && typeMap[type]) {
+        players = players.filter((p) => p.type === typeMap[type]);
+      }
+      if (excludeid.length > 0) {
+        players = players.filter((p) => !excludeid.includes(p.id));
+      }
+      if (excludechar.length > 0) {
+        players = players.filter((p) => !excludechar.includes(p.char));
+      }
+      const shuffled = shuffle(players);
+      return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
+    };
 
-    finalGrid.forEach(p => {
-      if (p.char === "🙃ID") {
-        const target = getRand(nipdisguise.filter(r => slV.includes(r)));
-        if (target) {
-          p.app = target;
-          nipdisguise = nipdisguise.filter(r => r !== target);
-        }
-        else {
-          p.note="⚠️🙃"
-        }
-      }
-      if (p.char === "🐱CC") {
-        const target = getRand(finalGrid.filter(c => c.type === 'villager'));
-        if (target) {
-          p.app = target.app;
-          p.note = '🐱#'+target.id;
-        }
-        else {
-          p.note = '⚠️🐱';
-        }
-      }
-      if (p.char === "🤪PV") {
-        p.app = getRand(slM);
-        const target = getRand(finalGrid.filter(r => disguiseMins.includes(r.char)));
-        if (target) {
-          disguisingmin = disguisingmin.filter(r => r !== target.char);
-          p.note = '🤪#'+target.id;
-        }
-        else {
-          p.note = '⚠️🤪';
-        }
-      }
-    });
-    
-    const order2 = ['🤝GT', "👥ET"].sort(() => Math.random() - 0.5);
-    dV=[];
-    order2.forEach(x =>
-    finalGrid.forEach(p => {
-      if (x === '🤝GT' && p.char === '🤝GT') {
-        const target = getRand(finalGrid.filter(c => c.type === 'villager' && !dV.includes(c.id)));
-        if (target) {
-          target.app = "🤝GT";
-          dV.push(target.id);
-          p.note = '🤝#'+target.id;
-        }
-        else {
-          p.note = '⚠️🤝';
-        }
-      }
-      if (x === "👥ET" && p.char === "👥ET") {
-        const target = getRand(finalGrid.filter(c => c.type === 'villager' && !dV.includes(c.id)));
-        if (target) {
-          target.app = "👥ET";
-          dV.push(target.id);
-          p.note = '👥#'+target.id;
-        }
-        else {
-          p.note = '⚠️👥';
-        }
-      }
-    }));
+    const getNotInPlay = (grid, type = "", n = -1) => {
+      const charsInPlay = grid
+        .filter((p) => p.type !== "empty")
+        .map((p) => p.char);
 
-    let dlist = [...nipdisguise, ...ipdisguise].slice(0, disguisingmin.length);
-    const leftover = getRand(ipdisguise.filter(r => !dlist.includes(r)));
-    if (Math.random() < 0.5 && leftover) {
-      dlist[0] = leftover;
-    }
-    dlist = shuffle(dlist);
+      let pool = [];
+      if (type === "v") pool = villagerPool;
+      else if (type === "o") pool = outcastPool;
+      else if (type === "m") pool = minionPool;
+      else pool = [...villagerPool, ...outcastPool, ...minionPool];
 
-    finalGrid.forEach(p => {
-      if (disguisingmin.includes(p.char)) {
-        const D = dlist[0];
-        if (D) {
-          p.app = D;
-          dlist = dlist.slice(1);
-        }
-      }
-    });
+      const available = pool.filter((char) => !charsInPlay.includes(char));
+      const shuffled = shuffle(available);
 
-    //Liars & Betrayals
-    finalGrid.forEach((p) => {
-      if (disguiseMins.includes(p.char)) {
-        p.corrupt='🤥';
-      }
-      if (p.char==="🙃ID") {
-        p.corrupt='🙃';
-      }
-    });
+      return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
+    };
 
-    finalGrid.forEach((p) => {
-      if (p.char === "🐀RT") {
-        const adjIds = Object.values(p.adjs).filter(id => id !== null);
-        const adjLies = finalGrid.filter(c => c.corrupt !== '✅' && adjIds.includes(c.id));
-        if (adjLies.length > 0) {
-          const y = adjLies[Math.floor(Math.random() * adjLies.length)];
-          y.corrupt = '🐀';
-          p.note = "🐀#"+y.id;
-        }
-      }
-    });
-    //Registers
-    finalGrid.forEach((p) => {
-      if (p.app === "🔗FG") {
-        if (['✅','🐀'].includes(p.corrupt)) {
-          p.reg=getRand(slM);
-          p.regtype="minion";
-          p.announce="["+p.reg+"]";
-        }
-        else {
-          p.announce="["+p.char+"]";
-        }
-      }
-      if (p.char === "🔒CT") {
-        p.reg="🔗FG";
-        p.regtype="outcast";
-      }
-      if (p.char === "🧹WI") {
-        const adjIds = Object.values(p.adjs).filter(id => id !== null);
-        const adjVills = finalGrid.filter(c => c.type === 'villager' && adjIds.includes(c.id));
-        if (adjVills.length > 0) {
-          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
-          y.reg = getRand(slM.filter(r => !["🔒CT","👤SD"].includes(r)));
-          y.regtype = "minion";
-          p.note="🧹#"+y.id;
-        }
-        else {
-          p.note="⚠️🧹";
-        }
-      }
-      if (p.app === "🍺DK") {
-        if (['✅','🐀'].includes(p.corrupt)) {
-          p.reg=getRand(slO.filter(r => r!=="🍺DK"));
-          p.announce="["+p.reg+"]";
-        }
-        else {
-          p.announce="["+getRand(slO.filter(r => r!=="🍺DK"))+"]";
-        }
-      }
-      if (p.char === "👤SD") {
-        p.reg=getRand(slM.filter(r => !["🔒CT","👤SD"].includes(r)));
-      }
-    });
+    const convert = (grid, targetid, newchar, newtype, source) => {
+      return grid.map((cell) => {
+        if (cell.id !== targetid) return cell;
 
-    finalGrid.forEach((p) => {
-      if (p.app === "🥼SC") {
-        const nonvils = finalGrid.filter(c => c.regtype !== 'villager');
-        const target = getRand(nonvils);
-        if (target) {
-          p.announce = '#'+target.id;
-          p.highlight.push(target.id);
-          if (['✅','🐀'].includes(p.corrupt)) {
-            p.regtype=target.regtype;
-            p.reg=target.reg;
-          }
-          else {
-            if (target.regtype==='outcast') {
-              p.regtype='minion';
-              p.reg=getRand(slM.filter(r => r!=="👤SD"));
-            }
-            else {
-              p.regtype='outcast';
-              p.reg=getRand(slO.filter(r => r!=="🍺DK"));
-            }
-          }
-        }
-        else {
-          p.announce="⚠️🥼"
-        }
-      }
-    });
+        return {
+          ...cell,
+          type: newtype,
+          regtype: newtype,
+          char: newchar,
+          app: newchar,
+          deathapp: newchar,
+          reg: newchar,
+          convert: source, // e.g., "🧛🏻‍♀️"
+        };
+      });
+    };
 
-    //Corruptions
-    const order3 = ["🧪PN", "🐛PS"].sort(() => Math.random() - 0.5);
-    order3.forEach(xx =>
-    finalGrid.forEach((x) => {
-      if (xx==="🧪PN" && x.char === "🧪PN") {
-        const adjIds = Object.values(x.adjs).filter(id => id !== null);
-        const adjVills = finalGrid.filter(c => c.regtype === 'villager' && adjIds.includes(c.id) && c.corrupt=='✅');
-        if (adjVills.length > 0) {
-          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
-          y.corrupt = "🧪";
-          x.note = "🧪#"+y.id;
-        }
-        else {
-          x.note = "⚠️🧪";
-        }
-      }
-      if (xx==="🐛PS" && x.char === "🐛PS") {
-        const adjIds = Object.values(x.adjs).filter(id => id !== null);
-        const adjVills = finalGrid.filter(c => c.regtype === 'villager' && adjIds.includes(c.id) && c.corrupt=='✅');
-        if (adjVills.length > 0) {
-          const y = adjVills[Math.floor(Math.random() * adjVills.length)];
-          y.corrupt = "🐛";
-          x.note = "🐛#"+y.id;
-        }
-        else {
-          x.note = "⚠️🐛";
-        }
-      }
-    }));
 
-    finalGrid.forEach((p) => {
-      if (p.app === "🤵🏻BT") {
-        if (['✅','🐀'].includes(p.corrupt)) {
-          const vils = finalGrid.filter(c => c.regtype === 'villager' && c.corrupt=='✅');
-          const v = vils[Math.floor(Math.random() * vils.length)]
-          const others = finalGrid.filter(c => c.type !== 'empty' && c.id !== p.id && c.id !== v.id);
-          const o = others[Math.floor(Math.random() * others.length)];
-          const [a,b] = [v.id,o.id].sort((a, b) => a - b);
-          p.highlight.push(a);
-          p.highlight.push(b);
-          v.corrupt = "🤵🏻";
-          p.announce = `🤵🏻#${a},${b}`;
-        }
-        else {
-          const mini = finalGrid.filter(c => !['✅','🐀'].includes(c.corrupt) && c !== p);
-          const m = mini[Math.floor(Math.random() * mini.length)]
-          const others = finalGrid.filter(c => c.type !== 'empty' && c.id !== p.id && c.id !== m.id);
-          const o = others[Math.floor(Math.random() * others.length)];
-          const [a,b] = [m.id,o.id].sort((a, b) => a - b);
-          p.highlight.push(a);
-          p.highlight.push(b);
-          p.announce = `🤵🏻#${a},${b}`;
-        }
-      }
-    });
-
-    //jam
-    finalGrid.forEach((p) => {
-      if (p.app === "⚡JM") {
-        p.announce = Math.random()<0.5 ? '↔️' : '↕️';
-        let tars = [];
-        if (p.announce==='↔️') {
-          tars.push(p.adjs.E);
-          tars.push(p.adjs.W);
-        }
-        else {
-          tars.push(p.adjs.N);
-          tars.push(p.adjs.S);
-        }
-        tars.forEach((tid) => {
-          if (tid) {
-            const target = finalGrid.filter(r => r.id === tid)[0];
-            p.highlight.push(tid);
-            if (['✅','🐀'].includes(p.corrupt) && target.regtype!=="minion") {target.jammed = "⚡";}
-            if (!['✅','🐀'].includes(p.corrupt) && target.regtype=="minion") {target.jammed = "⚡";}
-          }
-        })
-      }
-    });
-
-    finalGrid.forEach((p) => {
-      if (p.app === "🤖RB") {
-        const vills = finalGrid.filter(r => r.regtype === 'villager' && r.jammed === '✅');
-        const minis = finalGrid.filter(r => r.regtype === 'minion' && r.jammed === '✅');
-        if (['✅','🐀'].includes(p.corrupt)) {
-          if (vills && minis) {
-            const jv = getRand(vills);
-            const jm = getRand(minis);
-            jv.jammed = '🤖';
-            jm.jammed = '🤖';
-            const [a,b] = [jv.id,jm.id].sort((a, b) => a - b);
-            p.note = '🤖#'+a+','+b;
-          }
-          else {
-            p.note = '⚠️🤖';
-          }
-        }
-        else {
-          if (vills.length>=2) {
-            const jvs = shuffle(vills);
-            jvs[0].jammed = '🤖';
-            jvs[1].jammed = '🤖';
-            const [a,b] = [jvs[0].id,jvs[1].id].sort((a, b) => a - b);
-            p.note = '🤖#'+a+','+b;
-          }
-          else {
-            p.note = '⚠️🤖';
-          }
-        }
-      }
-    });
-
-    finalGrid.forEach((p) => {
-      if (p.char === "👽HK") {
-        const jams = shuffle(finalGrid.filter(r => r.jammed === '✅' && r.regtype !== 'minion'));
-        if (jams.length>=2) {
-          jams[0].jammed = '👽';
-          jams[1].jammed = '👽';
-          const [a,b] = [jams[0].id,jams[1].id].sort((a, b) => a - b);
-          p.note = '👽#'+a+','+b;
-        }
-        else {
-          p.note = '⚠️👽';
-        }
-      }
-    });
-
-    //blur
-    finalGrid.forEach((p) => {
-      if (p.app === "🚨AL") {
-        const adjIds = Object.values(p.adjs).filter(id => id !== null);
-        const adjMins = finalGrid.filter(c => c.type === 'minion' && adjIds.includes(c.id));
-        if (['✅','🐀'].includes(p.corrupt) && adjMins.length>=1) {p.blurred="🚨";}
-        if (!['✅','🐀'].includes(p.corrupt) && adjMins.length<1) {p.blurred="🚨";}
-      }
-    });
-
-    finalGrid.forEach((p) => {
-      if (p.char === "👾VR") {
-        const blurs = shuffle(finalGrid.filter(r => r.blurred === '✅' && r.regtype !== 'outcast'));
-        if (blurs) {
-          blurs[0].blurred = '👾';
-          p.note = '👾#'+blurs[0].id;
-        }
-        else {
-          p.note = '⚠️👾';
-        }
-      }
-    });
+    //night phase
 
     //debuff swap
-
-
-
     console.log('newboard');
     console.log(sV, sO, sM);
     console.log(finalGrid);
@@ -1677,7 +1322,7 @@ function App() {
     setAbilityUserIdx(null); 
     setSelectedIndices([]);
     setShowSettings(false);
-    triggerAnimation([...Array(16).keys()], 'flip', finalGrid, -turns);
+    triggerAnimation([...Array(nextgridlength*nextgridlength).keys()], 'flip', finalGrid, -turns);
   };
 
   useEffect(() => { if(grid.length === 0) initializeGrid(); }, []);
@@ -1764,7 +1409,6 @@ function App() {
       ...JSON.parse(minionsus).filter(c => getStatus(c) <= 1).map(c => ({ name: c, role: 'm', isForced: getStatus(c) === 1 })),
     ];
 
-    // 2. Chunk into rows of 4
     const rows = [];
     for (let i = 0; i < allActive.length; i += 4) {
       rows.push(allActive.slice(i, i + 4));
@@ -1781,7 +1425,7 @@ function App() {
       if (newVal < 0) return prev;
       if (type === 'sv' && newVal < prev.m) return prev;
       const otherRolesSum = (type === 'v' ? 0 : prev.v) + (type === 'o' ? 0 : prev.o) + (type === 'm' ? 0 : prev.m);
-      if (type[0]!=='s' && otherRolesSum + newVal > 16) return prev;
+      if (type[0]!=='s' && otherRolesSum + newVal > nextgridlength**2) return prev;
       const newrole = { ...prev, [type]: newVal };
       localStorage.setItem('nextroleCounts', JSON.stringify(newrole));
       return newrole;
@@ -1790,7 +1434,7 @@ function App() {
 
   return (
     <div className={`main-viewport ${darkMode ? 'dark-mode' : ''} ${gameMode === 'Kill' ? (darkMode ? 'dark-kill-mode' : 'kill-mode') : ''} ${animatingIndices.size > 0 ? 'input-locked' : ''}`}>
-      <div className="game-container">
+      <div className="game-container" style={{ '--gridlength': gridlength }}>
         <header className="branding">
           <h1 className="title">GridBluff</h1>
           <p className="subtitle">minimal solo social deduction game inspired by Demon Bluff & Dupery</p>
@@ -1799,7 +1443,7 @@ function App() {
         <div className="control-bar">
           <div className="control-left">
             <button className="square-btn" onClick={() => setShowSettings(true)}>☆</button>
-            <span className="turns">🕒{turns}</span>
+            <span className="turns">🕒{turns}, {gridlength}x{gridlength} {nwarp ? 'NWarp' : ''}</span>
           </div>
           <div className="control-right">
             <span className="stats-text">{roleCounts.v}/{roleCounts.o}/{roleCounts.m}={roleCounts.v+roleCounts.o+roleCounts.m}</span>
@@ -1819,13 +1463,13 @@ function App() {
                  <div className="cell-inner">
                    {cell.type !== 'empty' && <div className={`id-triangle ${cell.killed !== -1 ? 'id-triangle-dead' : ''}`}><span className={abilityUserIdx === index ? 'id-number-y-txt' : 'id-number'}>{cell.id}</span></div>}
                    {cell.type === 'empty' ? <span className="text-xl"></span> : (cell.revealed === -1 && cell.killed === -1 && gameMode!=="Ended") ? <span className="text-xl">?</span> : (
-                     <><span className="text-xs-cellstat">{cell.convert}{cell.corrupt}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}{cell.jammed}{cell.blurred}</span>
+                     <><span className="text-xs-cellstat" style={{"font-size": (gridlength == 6 ? "0.45" : "0.55")+"rem"}}>{cell.convert}{cell.corrupt}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}{cell.jammed}{cell.blurred}</span>
                      <div className="c-info">
-                      <span className="text-xs"></span>
-                      <span className="text-xs">{cell.char!==cell.app ? cell.char+" ("+cell.app+")" : cell.char}</span>
-                      <span className="text-xs">{cell.announce}</span>
-                      <span className="text-xs">{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
-                      <span className="text-xs">{cell.note}</span>
+                      <span className="text-xs" style={{"font-size": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}></span>
+                      <span className="text-xs" style={{"font-size": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.char!==cell.app ? cell.char+" ("+cell.app+")" : cell.char}</span>
+                      <span className="text-xs" style={{"font-size": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.announce}</span>
+                      <span className="text-xs" style={{"font-size": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
+                      <span className="text-xs" style={{"font-size": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.note}</span>
                      </div>
                      </>
                    )}
@@ -1868,7 +1512,7 @@ function App() {
                       <h2>Current Village</h2>
                       <div className="stats-summary">
                         <div className="control-left">
-                        <span className="turns">🕒{turns}</span>
+                        <span className="turns">🕒{turns}, {gridlength}x{gridlength} {nwarp ? 'NWarp' : ''}</span>
                         </div>
                         <div className="control-right">
                         <span className="stats-text">{roleCounts.v}/{roleCounts.o}/{roleCounts.m}={roleCounts.v+roleCounts.o+roleCounts.m}</span>
@@ -1882,14 +1526,13 @@ function App() {
                               {row.map((c, ci) => {
                                 const roleClass = c.role === 'v' ? 'c-state-alive-v' : c.role === 'o' ? 'c-state-alive-o' : 'c-state-alive-m';
                                 const borderClass = c.isForced ? 'b-lime-mod' : '';
-                                
                                 return (
                                   <td key={ci} className={`${roleClass} ${borderClass}`}>
                                     {c.name}
                                   </td>
                                 );
                               })}
-                              {row.length < 4 && Array(4 - row.length).fill(0).map((_, i) => (
+                              {row.length < gridlength && Array(gridlength - row.length).fill(0).map((_, i) => (
                                 <td key={`empty-${i}`} className="td-empty" />
                               ))}
                             </tr>
@@ -1906,6 +1549,8 @@ function App() {
                         <div className="toggle-row"><span>Suspect List</span><button className={`toggle-btn ${suspectList ? 'on' : ''}`} onClick={() => setSuspectList(!suspectList)}>{suspectList ? 'ON' : 'OFF'}</button></div>
                         <div className="divider" />
                         <h2>Village Settings</h2>
+                        <div className="counter-row"><span>Grid Length</span><div className="controls"><button onClick={() => setnextGridlength(prev => Math.max(4, prev - 1))}>-</button><span>{nextgridlength}</span><button onClick={() => setnextGridlength(prev => Math.min(6, prev + 1))}>+</button></div></div>
+                        <div className="counter-row"><span>Neighbour Warpping</span><div className="controls"><button onClick={() => setnextnwarp(prev => !prev)}>-</button><span>{nextnwarp ? "T" : "F"}</span><button onClick={() => setnextnwarp(prev => !prev)}>+</button></div></div>
                         <div className="counter-row"><span>Villagers</span><div className="controls"><button onClick={() => updateRoleCount('v', -1)}>-</button><span>{nextroleCounts.v}</span><button onClick={() => updateRoleCount('v', 1)}>+</button></div></div>
                         <div className="counter-row"><span>Outcasts</span><div className="controls"><button onClick={() => updateRoleCount('o', -1)}>-</button><span>{nextroleCounts.o}</span><button onClick={() => updateRoleCount('o', 1)}>+</button></div></div>
                         <div className="counter-row"><span>Minions</span><div className="controls"><button onClick={() => updateRoleCount('m', -1)}>-</button><span>{nextroleCounts.m}</span><button onClick={() => updateRoleCount('m', 1)}>+</button></div></div>
@@ -1959,7 +1604,7 @@ function App() {
                             <div key={v} className={`char-row ${statusClasses[status]}`}>
                               <span className="char-name">{v}</span>
                               <div className="row-btns">
-                                {(v !=='🧛🏻‍♀️VP' && v !=='🥛RM') ?  <button 
+                                {(v !=='🧛🏻‍♀️VP') ?  <button 
                                   className={`toggle-btn-ternary status-btn-${status}`}
                                   onClick={() => {
                                     setCharStatus(prev => ({
