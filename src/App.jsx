@@ -5,11 +5,11 @@ const villagerPool =
 ['👁️AB', '😇AG', '📏AR', '🪕BA', '⚜️BI',
 '🍞BK', '🍖CB', '🙏CF', '🗺️CG', '📸CM',
 '🎭CP', '🎀CU', '💭DM', '📝DT', '🩺DR',
-'🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC',
-'⚰️GK', '🐐GO', '🛡️GU', '💔HB', '💖HL',
-'🔍IN', '🤐IV', '🤹JE', '⚖️JG', '💍JS',
-'👑KI', '🗡️KN', '🧵KT', '🐑LB', '🧭LC',
-'📚LI', '💼LW', '🖌️MA', '📬MM',
+'🛠️EG', '🧠EL', '😎EV', '🔮FT', '🔨FX',
+'💎GC', '⚰️GK', '🐐GO', '🛡️GU', '💔HB', 
+'💖HL', '🔍IN', '🤐IV', '🤹JE', '⚖️JG', 
+'💍JS', '👑KI', '🗡️KN', '🧵KT', '🐑LB', 
+'🧭LC', '📚LI', '💼LW', '🖌️MA', '📬MM',
 '🧮MT', '🏛️MY', '☯️NJ', '💊NR', '📣PA',
 '🕊️PC', '🎤PF', '📡RD', '🕯️RI', '🔭RG',
 '🐦RK', '🗿SE', '🎖️SH', '🏹SL', '📊ST',
@@ -37,7 +37,7 @@ const disguises =
 ['👁️AB', '😇AG', '📏AR', '🪕BA', '⚜️BI',
 '🍞BK', '🍖CB', '🙏CF', '🗺️CG', '📸CM',
 '🎭CP', '🎀CU', '💭DM', '📝DT', '🩺DR',
-'🛠️EG', '🧠EL', '🔮FT', '🔨FX', '💎GC',
+'🛠️EG', '🧠EL', '😎EV', '🔮FT', '🔨FX', '💎GC',
 '⚰️GK', '🐐GO', '🛡️GU', '💔HB', '💖HL',
 '🔍IN', '🤐IV', '🤹JE', '⚖️JG', '💍JS',
 '👑KI', '🗡️KN', '🧵KT', '🐑LB', '🧭LC',
@@ -56,7 +56,24 @@ const disguises =
 '🧸VD', '👦🏻YS'];
 
 
-const selectcount = {"🙏CF":0,"🏹SL":1,"🎀CP":2,"🐐GT":0,"💖HL":0,"🔮FT":0,"🩺DC":0,"🧙🏻WZ":3,"⚖️JG":1,"🧵KT":0,"☯️NJ":0,"🕵UC":0,"🔍IN":2,"📡RD":0,"📌LC":0,"📬MM":0,"☂️WM":0,"🧮MT":0,"⚜️BI":0,"👁️XR":1,"📚LI":3,"🎭MA":0,"✏️PT":0};
+const selectcount = {
+  '👁️AB': -1, '😇AG': -1, '📏AR': -1, '🪕BA': -1, '⚜️BI': -1, 
+  '🍞BK': -1, '🍖CB': -1, '🙏CF': -1, '🗺️CG': -1, '📸CM': 0, 
+  '🎭CP': -1, '🎀CU': 2, '💭DM': 1, '📝DT': -1, '🩺DR': -1, 
+  '🛠️EG': -1, '🧠EL': -1, '😎EV': -1, '🔮FT': 1, '🔨FX': 1, 
+  '💎GC': -1, '⚰️GK': -1, '🐐GO': -1, '🛡️GU': -1, '💔HB': -1, 
+  '💖HL': -1, '🔍IN': -1, '🤐IV': -1, '🤹JE': -1, '⚖️JG': -1, 
+  '💍JS': -1, '👑KI': -1, '🗡️KN': -1, '🧵KT': -1, '🐑LB': -1, 
+  '🧭LC': -1, '📚LI': -1, '💼LW': -1, '🖌️MA': -1, '📬MM': -1, 
+  '🧮MT': -1, '🏛️MY': -1, '☯️NJ': -1, '💊NR': -1, '📣PA': -1, 
+  '🕊️PC': -1, '🎤PF': -1, '📡RD': -1, '🕯️RI': -1, '🔭RG': -1, 
+  '🐦RK': -1, '🗿SE': -1, '🎖️SH': -1, '🏹SL': -1, '📊ST': -1, 
+  '📐SV': -1, '🎓TE': -1, '☕TL': -1, '☂️WM': -1, '✏️WR': -1, 
+  '🧙🏻WZ': -1, '🎞️XR': -1, '🍷AC': -1, '🚨AL': -1, '💰BH': -1, 
+  '💣BM': -1, '🤵🏻BT': -1, '🔊EC': -1, '🔌ET': -1, '🔗FG': -1, 
+  '🎲GB': -1, '🎮GM': -1, '🤝GT': -1, '⚡JM': -1, '🤡JX': -1, 
+  '💕LV': -1, '🌙MC': -1, '🎵NM': -1, '✝️PR': -1, '🥼SC': -1, 
+  '💉SG': -1, '🦑SQ': -1, '🧸VD': -1, '👦🏻YS': -1};
 
 function details(p) {
   if (p=="👁️AB") {
@@ -81,17 +98,17 @@ function details(p) {
   else if (p=="📏AR") {
     return (<>The <b>Architect (📏AR)</b> checks if there are more or less minions in its row or column.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> if there are more minions in its row than its column, announce "↔️{'>'}↕️", 
-            if there are more minions in its column than its row, announce "↔️{'<'}↕️", 
-            if there are equal amount of minions in its row and its column, announce "↔️=↕️".<br/>
+            <b>When neither lying nor corrupted,</b> if there are more minions in its row than its column, announce "📏:↔️{'>'}↕️", 
+            if there are more minions in its column than its row, announce "📏:↔️{'<'}↕️", 
+            if there are equal amount of minions in its row and its column, announce "📏:↔️=↕️".<br/>
             <b>When lying or corrupted,</b> announce one of the options different from that above.
             </>)
   }
   else if (p=="🪕BA") {
     return (<>The <b>Bard (🪕BA)</b> counts the number of corrupted members.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🪕😵n", where n is the total number of corrupted members.<br/>
-            <b>When lying or corrupted,</b> announce "🪕😵n", where n is 1 off the total number of corrupted members.
+            <b>When neither lying nor corrupted,</b> announces "🪕:😵n", where n is the total number of corrupted members.<br/>
+            <b>When lying or corrupted,</b> announce "🪕:😵n", where n is 1 off the total number of corrupted members.
             </>)
   }
   else if (p=="⚜️BI") {
@@ -107,9 +124,9 @@ function details(p) {
     return (<>The <b>Baker (🍞BK)</b> keep baking unrevealed villagers into itself.<br/><br/>
             A member who was not baked by any baker is defined as an original baker. Let the baker count of an original baker be 1, and the baker count of a non-original baker be 1 more than the baker count of the baker that baked it.<br/>
             <b>Ability:</b> When woken,<br/>
-            Announces "🍞n,p", where p is my original appearance and n is the baker count of the baker.<br/>
-            <b>When neither lying nor corrupted,</b> if possible, a random unrevealed villager, will be baked and now disguise as a baker.<br/>
-            <b>When lying or corrupted,</b> if possible, a random unrevealed non-villager who was disguising as a villager, will be baked and now disguise as a baker.<br/><br/>
+            Announces "🍞n:p", where p is my original appearance and n is the baker count of the baker.<br/>
+            <b>When neither lying nor corrupted,</b> if possible, a random unwoken villager that is not in a disguise, will be baked and now disguise as a baker.<br/>
+            <b>When lying or corrupted,</b> if possible, a random unwoken non-villager who was disguising as a villager, will be baked and now disguise as a baker.<br/><br/>
             Note: An original baker can be baked by another baker.
             </>)
   }
@@ -132,22 +149,22 @@ function details(p) {
   else if (p=="🗺️CG") {
     return (<>The <b>Cartography (🗺️CG)</b> locates a nearby Outcast and Minion.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> if possible, announces "🗺️:pq", where p is the character of the nearest non-self Outcast and q is the character of the nearest non-self Minion.<br/>
-            <b>When lying or corrupted,</b> announces "🗺️:pq", where p is an Outcast different from that above and q is a Minion different from that above. Note that p and q can both independently be either in play or not in-play.
+            <b>When neither lying nor corrupted,</b> if possible, announces "🗺️:pq", where p is one of the characters of the nearest non-self Outcast and q is one of the characters of the nearest non-self Minion.<br/>
+            <b>When lying or corrupted,</b> announces "🗺️:pq", where p is an Outcast that isn't one of the characters of the nearest non-self Outcast and q is a Minion that isn't one of the characters of the nearest non-self Minion. Note that p and q can both independently be either in play or not in-play.
             </>)
   }
   else if (p=="📸CM") {
     return (<>The <b>Cameraman (📸CM)</b> counts the number of revealed minions.<br/><br/>
             <b>Ability:</b> When activated,<br/>
             <b>When neither lying nor corrupted,</b> announces "📸n", where n is the total number of revealed minions.<br/>
-            <b>When lying or corrupted,</b> announces "📸n", where n is a reasonable random number different from above.
+            <b>When lying or corrupted,</b> announces "📸n", where n is reasonably 1 off from that above.
             </>)
   }
   else if (p=="🎭CP") {
     return (<>The <b>Cosplayer (🎭CP)</b> counts the number of disguised members.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🎭n", where n is the total number of disguised members.<br/>
-            <b>When lying or corrupted,</b> announces "🎭n", where n is 1 off the total number of disguised members.
+            <b>When neither lying nor corrupted,</b> announces "🎭:🤓n", where n is the total number of disguised members.<br/>
+            <b>When lying or corrupted,</b> announces "🎭:🤓n", where n is 1 off the total number of disguised members.
             </>)
   }
   else if (p=="🎀CU") {
@@ -242,8 +259,8 @@ function details(p) {
   else if (p=='🐐GO') {
     return (<>The <b>Goat (🐐GO)</b> locates a minion.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🐐n", where n is the tile-distance between it and the nearest minion.<br/>
-            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            <b>When neither lying nor corrupted,</b> announces "🐐:n", where n is the tile-distance between it and the nearest minion.<br/>
+            <b>When lying or corrupted,</b> announce "🐐:m"  where m is reasonably 1 off n if possible.
             </>)
   }
   else if (p=='🛡️GU') {
@@ -275,8 +292,8 @@ function details(p) {
   else if (p=="🔍IN") {
     return (<>The <b>Investigator (🔍IN)</b> finds a minion.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🔍p#x,y", where x and y are the ids of a minion and a non-minion in random order and p is the character of the minion.<br/>
-            <b>When lying or corrupted,</b> announces "🔍p#x,y", where x and y are the ids of 2 non-minions in random order and p is a in-play minion character.
+            <b>When neither lying nor corrupted,</b> announces "🔍p#x,y", where x and y are the ids of a non-self minion and a non-self non-minion in random order and p is the character of the minion.<br/>
+            <b>When lying or corrupted,</b> announces "🔍p#x,y", where x and y are the ids of 2 non-self non-minions in random order and p is a in-play minion character.
             </>)
   }
   else if (p=="🤐IV") {
@@ -328,8 +345,8 @@ function details(p) {
             Let n be the number of pairs of minion. A pair of minion consists of 2 adjacent members in which both are minions. 
             Note that a minion can be in up to 4 pairs. <br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🧵n".<br/>
-            <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+            <b>When neither lying nor corrupted,</b> announces "🧵:n".<br/>
+            <b>When lying or corrupted,</b> announce a reasonable output 1 off from that above.
             </>)
   }
   else if (p=="🐑LB") {
@@ -407,6 +424,7 @@ function details(p) {
   else if (p=="📣PA") {
     return (<>The <b>Patrol (📣PA)</b> wakes up a truthful member.<br/><br/>
             <b>Ability:</b> In the beginning,<br/>
+            Choose d as "↕️" or "↔️" randomly,<br/>
             <b>When neither lying nor corrupted,</b> if possible, wake up an adjacent villager or outcast member with id x and announce "📣#x"<br/>
             <b>When lying or corrupted,</b>  if possible, wake up an adjacent outcast or minion member with id x and announce "📣#x"<br/>
             Else, announce "📣⚠️".
@@ -594,12 +612,12 @@ function details(p) {
   else if (p=='🤵🏻BT') {
     return (<>The <b>Bartender (🤵🏻BT)</b> makes a villager drunk.<br/><br/>
             <b>Initial Phase:</b><br/>
-            <b>When neither lying nor corrupted,</b> Choose a villager member and a different random member with member ids x and y respectively.<br/>
-            <b>When lying nor corrupted,</b> Choose 2 random members with member ids x and y.<br/>
             Corrupt: <br/>
-            <b>When neither lying nor corrupted,</b>  corrupt x.<br/><br/>
+            <b>When neither lying nor corrupted,</b> Choose a villager member and a different random member with member ids x and y respectively. Corrupt x.<br/><br/>
+            
             <b>Ability:</b> When woken,<br/>
-            Announce "🤵🏻#x/#y" if x{"<"}y, else announce "🤵🏻#y/#x".
+            <b>When neither lying nor corrupted,</b> If I corrupted someone, announce "🤵🏻#x/#y" if x{"<"}y, else announce "🤵🏻#y/#x". If I didn't corrupt anyone, announce "🤵🏻⚠️".<br/>
+            <b>When lying nor corrupted,</b> Choose 2 random members with member ids a and b. Announce "🤵🏻#a/#b" if a{"<"}b, else announce "🤵🏻#b/#a".<br/>
             </>) 
   }
   else if (p=='🐱CC') {
@@ -644,8 +662,8 @@ function details(p) {
     return (<>The <b>Fallguy (🔗FG)</b> is seen as evil.<br/><br/>
             <b>Initial Phase:</b><br/>
             Register: <br/>
-            <b>When not corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
-            <b>When corrupted,</b> register as a Fallguy (🔗FG).
+            <b>When not lying nor corrupted,</b> register as a random minion, not-necessarily in-play. <br/>
+            <b>When lying or corrupted,</b> register as a Fallguy (🔗FG).
             </>) 
   }
   /*
@@ -676,7 +694,7 @@ function details(p) {
     return (<>The <b>Gamemaster (🎮GM)</b> makes villagers register as itself.<br/><br/>
             <b>Initial Phase:</b><br/>
             Register: <br/>
-            <b>When neither lying nor corrupted,</b> all truthful villagers who register as themselves now registers as a Gamemaster (🎮GM). <br/>
+            <b>When neither lying nor corrupted,</b> all non-corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). <br/>
             <b>When lying or corrupted,</b> all corrupted villagers who register as themselves now registers as a Gamemaster (🎮GM). 
             </>) 
   }
@@ -694,7 +712,7 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Disguise3: Have a villager originally disguising as itself disguise as a Good Twin (🤝GT)<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            If possible, announce "🤝#x", where x is the member id of a member who is not me, and disguising as a Good Twin (🤝GT).
+            Announce "🤝#x", where x is the member id of a member who is preferrably not me, and disguising as a Good Twin (🤝GT).
             </>)
   }
   else if (p=='⚡JM') {
@@ -720,12 +738,14 @@ function details(p) {
     return (<>The <b>Lover (💕LV)</b> falls in love with a good soulmate.<br/><br/>
             <b>Initial Phase:</b><br/>
             Choose a non-minion member with member id x randomly,<br/>
-            Corrupt: When not lying, if I am corrupted, I corrupt x, if x is corrupted, x corrupts me.<br/>
-            Jam: When not lying, if I am jammed, I jam x, if x is jammed, x jams me.<br/>
-            Blur: When not lying, if I am blurred, I blur x, if x is blurred, x blurs me.<br/><br/>
+            <b>When not lying,</b> whenever I am corrupted, have corrupted removed, am jammed, have jammed removed, am blurred, 
+            have blurness removed, or am misregistered, I corrupt, remove corruptness from, jam, remove jam from, blur, remove blur from,
+            and misregister #x with the same source as well.<br/>
+            <b>When not lying nor corrupted,</b><br/>
+            Register1: Register as x's character.<br/>
 
-            <b>When I am dead:</b> <br/> When not lying, I execute x.<br/>
-            <b>When x is dead:</b> <br/> When not lying, x executes me.<br/><br/>
+            <b>When I am dead:</b> When not lying, x dies with the same source as me.<br/>
+            <b>When x is dead:</b> When not lying, I die with the same source as me.<br/><br/>
 
             <b>Ability:</b> When woken,<br/>
             <b>When not lying,</b> announce "💕#x"<br/>
@@ -748,12 +768,13 @@ function details(p) {
             </>) 
   }
   else if (p=='🎵NM') {
-    return (<>The <b>Noisemaker (🎵NM)</b> annoys its neighbours with noise.<br/><br/>
+    return (<>The <b>Noisemaker (🎵NM)</b> annoys a member with noise.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Choose n as 2 or 3 randomly.<br/><br/>
+            Choose a random unwaken member with member id x whose appearance is not a Noisemaker (🎵NM).<br/><br/>
             <b>Ability:</b> In the beginning,<br/>
             Wake myself,<br/>
-            <b>When neither lying nor corrupted,</b> n of my neighbours take 1 more round to wake up. <br/>
+            <b>When neither lying, corrupted nor blurred,</b> if x is woken, deal 1 blood.<br/>
+            Announce "🎵#x"
             </>) 
   }
   else if (p=='😝PD') {
@@ -797,7 +818,10 @@ function details(p) {
     return (<>The <b>Scientist (🥼SC)</b> makes its neightbours misregister.<br/><br/>
             <b>Initial Phase:</b><br/>
             Register:<br/>
-            <b>When neither lying nor corrupted,</b> if possible, 2 non-minion neighbours register as a Scientist (🥼SC).<br/>
+            When neither lying nor corrupted and if there is less than 2 non-minion neighbours, choose n as 1, else choose n between 1 and 2.<br/>
+            <b>When neither lying nor corrupted and there is at least 1 non-minion neighbour,</b> n non-minion neighbours register as a Scientist (🥼SC).<br/><br/>
+            <b>Ability:</b> When woken,<br/>
+            Announce "🥼n".
             </>)
   }
   else if (p=='💉SG') {
@@ -842,14 +866,8 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             <b>When not lying,</b> Choose a villager member and a different random member with member ids x and y respectively.<br/>
             <b>When lying,</b> Choose 2 random member with member ids x and y respectively.<br/>
-            Corrupt: Add 1 to n. When not lying, if someone corrupts me, have that someone corrupt member x as well.<br/>
-            CorruptRemove1: Remove any corruption on me.<br/>
-            Jam: Add 1 to n. When not lying, if someone jams me, have that someone jam x as well.<br/>
-            JamRemove: Remove any jamming from myself.<br/>
-            Blur: Add 1 to n. When not lying, if someone blurs me, have that someone blur x as well.<br/>
-            BlurRemove: Remove any blurness from myself.<br/><br/>
-            Register: Add 1 to n. When not lying, if someone changes my register, have that someone register x as well.<br/>
-            Register5: Register as my true character.<br/><br/>
+            Whenever I am corrupted, jammed, blurred or misregistered, add 1 to n. Immediately remove
+            the debuff and when not lying, have member x receive the debuff from the same source instead of me.<br/><br/>
             
             <b>Ability:</b> When woken,<br/>
             Announce "🧸:n-{">"}#x/#y" if x{"<"}y, else announce "🧸:n-{">"}#y/#x".
@@ -900,7 +918,7 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Disguise3: Have a villager originally disguising as itself disguise as an Evil Twin (👥ET)<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            If possible, announce "👥#x", where x is the member id of a member who is not me, and disguising as an Evil Twin (👥ET).<br/>
+            Announce "👥#x", where x is the member id of a member who is preferrably not me, and disguising as an Evil Twin (👥ET).<br/>
             </>) 
   }
   else if (p=='👗FD') {
@@ -917,8 +935,6 @@ function details(p) {
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
             Register: If possible, a villager neighbour registers as a Ghost (👻GH)<br/><br/>
-            <b>Ability:</b> When woken,<br/>
-            If possible, announce "👥#x", where x is the member id of a member who is not me, and disguising as an Evil Twin (👥ET).<br/>
             </>) 
   }
   else if (p=='👽HK') {
@@ -983,10 +999,17 @@ function details(p) {
   else if (p=='🐛PS') {
     return (<>The <b>Parasite (🐛PS)</b> lives within an adjacent villager.<br/><br/>
             <b>Initial Phase:</b><br/>
-            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.
+            Corrupt: If possible, choose an adjacent villager will member id x, x gets corrupted.<br/><br/>
 
-            <b>Right before x or me dies:</b><br/>
-            SoulConvert: If x exists, I soulconvert into x's character and x soulconverts into a Parasite (🐛PS).
+            <b>Right before I dies:</b><br/>
+            SoulConvert: If I have any corrupted neighbours, choose one of them with member id y randomly. 
+            I soulconvert into y's character and y soulconverts into a Parasite (🐛PS).<br/><br/>
+
+            <b>Right before any corrupted neightbours y dies:</b><br/>
+            SoulConvert: I soulconvert into y's character and y soulconverts into a Parasite (🐛PS).<br/><br/>
+
+            Note: Therefore, to kill a Parasite (🐛PS), you should execute any of its corrupted neighbours if any. 
+            If the Parasite (🐛PS) has no corrupted neighbours, execute the Parasite (🐛PS) directly.
             </>) 
   }
   else if (p=='🔔RC') {
@@ -1010,7 +1033,8 @@ function details(p) {
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/>
-            Register: <b>When announcing something,</b> registers as my appearance.<br/><br/>
+            Register: If my appearance is neither an Echo (🔊EC) nor a Fallguy (🔗FG), register as a not in-play Outcast character that 
+            does not disguise by itself and is not my appearance, if possible.<br/><br/>
             <b>When dead,</b> keeps my original appearance.<br/>
             </>) 
   }
@@ -1024,7 +1048,7 @@ function details(p) {
             </>) 
   }
   else if (p=='🚬SM') {
-    return (<>The <b>Smoker (🚬SM)</b> hides all neighbours.<br/><br/>
+    return (<>The <b>Smoker (🚬SM)</b> hides the true identity of all dead neighbours.<br/><br/>
             <b>Initial Phase:</b><br/>
             Lie: Makes myself lie.<br/>
             Disguise: Performs general diguise.<br/><br/>
@@ -1170,6 +1194,312 @@ function App() {
     }
   };
 
+  //helper functions
+  const typeMap = { "v": "villager", "o": "outcast", "m": "minion" };
+
+  const getAdjNeighbors = (grid, target_id, dir = "", includetypes = []) => {
+    const player = grid.find((p) => p.id === target_id);
+    if (!player || !player.adjs) return [];
+
+    const directions = [];
+    const d = dir.toLowerCase();
+    if (d === "ns") directions.push("N", "S");
+    else if (d === "ew") directions.push("W", "E");
+    else directions.push("N", "S", "W", "E");
+
+    const neighborIds = directions
+      .map((dirKey) => player.adjs[dirKey])
+      .filter((id) => id !== null && id !== undefined);
+
+    let neighbors = grid.filter((p) => neighborIds.includes(p.id));
+
+    // Filter by types if provided
+    if (includetypes.length > 0) {
+      const mappedTypes = includetypes.map((t) => typeMap[t]);
+      neighbors = neighbors.filter((n) => mappedTypes.includes(n.regtype));
+    }
+
+    const shuffled = shuffle(neighbors);
+    return shuffled;
+  };
+
+  const getRands = (array, exclude = [], n = 1) => {
+    const pool = array.filter((item) => !exclude.includes(item));
+    if (pool.length === 0) return null;
+    
+    const shuffled = shuffle(pool);
+    if (n==1) {return shuffled[0];}
+    return shuffled.slice(0, Math.min(n, pool.length));
+  };
+
+  const getRandNeighbor = (grid, target_id, dir = "", includetypes = []) => {
+    return getAdjNeighbors(grid, target_id, dir, includetypes)[0];
+  };
+
+  const getInPlay = (grid, includetypes = [], excludeid = [], excludechar = [], n = -1) => {
+    let players = grid.filter((p) => p.type !== "empty");
+
+    // Filter by allowed types
+    if (includetypes.length > 0) {
+      const mappedTypes = includetypes.map((t) => typeMap[t]);
+      players = players.filter((p) => mappedTypes.includes(p.regtype));
+    }
+
+    // Filter exclusions
+    if (excludeid.length > 0) {
+      players = players.filter((p) => !excludeid.includes(p.id));
+    }
+    if (excludechar.length > 0) {
+      players = players.filter((p) => !excludechar.includes(p.char));
+    }
+
+    const shuffled = shuffle(players);
+    if (n == 1) return shuffled[0];
+    return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
+  };
+
+  const getNotInPlay = (grid, includetypes = [], excludechar = [], n = -1) => {
+    const charsInPlay = grid
+      .filter((p) => p.type !== "empty")
+      .map((p) => p.char);
+    let pool = [];
+    
+    // If no types specified, check all pools. Otherwise, merge specified pools.
+    if (includetypes.length === 0) {
+      pool = [...nbV, ...nbO, ...nbM];
+    } else {
+      if (includetypes.includes("v")) pool = [...pool, ...nbV];
+      if (includetypes.includes("o")) pool = [...pool, ...nbO];
+      if (includetypes.includes("m")) pool = [...pool, ...nbM];
+    }
+
+    if (excludechar.length > 0) {
+      pool = pool.filter((p) => !excludechar.includes(p));
+    }
+
+    const available = pool.filter((char) => !charsInPlay.includes(char));
+    const shuffled = shuffle(available);
+
+    if (n == 1) return shuffled[0];
+    return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
+  };
+
+  const convert = (gridArray, targetid, newchar, newtype, source) => {
+    //console.log(targetid, newchar, newtype, source);
+    const target = gridArray.find(p => p.id === targetid);
+    if (!target) return;
+    target.type = newtype;
+    target.regtype = newtype;
+    target.char = newchar;
+    target.app = newchar;
+    target.deathapp = newchar;
+    target.reg = newchar;
+    target.convert = source;
+  };
+
+  function tiledist(grid, id, targetid) {
+    const gridLength = Math.round(Math.sqrt(grid.length))
+    if (id === targetid) return 0;
+    const idx1 = grid.findIndex(c => c.id === id);
+    const idx2 = grid.findIndex(c => c.id === targetid);
+    if (idx1 === -1 || idx2 === -1) return Infinity;
+
+    const r1 = Math.floor(idx1 / gridLength), c1 = idx1 % gridLength;
+    const r2 = Math.floor(idx2 / gridLength), c2 = idx2 % gridLength;
+
+    let dr = Math.abs(r1 - r2);
+    let dc = Math.abs(c1 - c2);
+
+    return dr + dc;
+  }
+
+  function nearest(grid, id, includetypes = []) {
+    const rawTypes = Array.isArray(includetypes) ? includetypes : [includetypes];
+    const mappedTypes = rawTypes.map((t) => typeMap[t] ?? t);
+
+    // Filter for matching non-self cells
+    const candidates = grid.filter(cell => cell.id !== id && mappedTypes.includes(cell.regtype));
+    if (candidates.length === 0) return [];
+
+    // Calculate distances
+    const withDist = candidates.map(cell => ({
+      cell,
+      dist: tiledist(grid, id, cell.id)
+    }));
+
+    // Find minimum distance and collect ties
+    const minDist = Math.min(...withDist.map(item => item.dist));
+    const tiedNearest = withDist.filter(item => item.dist === minDist).map(item => item.cell);
+
+    return shuffle(tiedNearest);
+  }
+
+  /**
+   * Returns a scrambled list of cells that share the maximum tile distance to `id`.
+   */
+  function furthest(grid, id, includetypes = []) {
+    const rawTypes = Array.isArray(includetypes) ? includetypes : [includetypes];
+    const mappedTypes = rawTypes.map((t) => typeMap[t] ?? t);
+
+    // Filter for matching non-self cells
+    const candidates = grid.filter(cell => cell.id !== id && mappedTypes.includes(cell.regtype));
+    if (candidates.length === 0) return [];
+
+    // Calculate distances
+    const withDist = candidates.map(cell => ({
+      cell,
+      dist: tiledist(grid, id, cell.id)
+    }));
+
+    // Find maximum distance and collect ties
+    const maxDist = Math.max(...withDist.map(item => item.dist));
+    const tiedFurthest = withDist.filter(item => item.dist === maxDist).map(item => item.cell);
+
+    return shuffle(tiedFurthest);
+  }
+
+  const getRC = (grid, memberid, sides = "nsew", includetypes = []) => {
+    const n = nextgridlength;
+    const targetIndex = grid.findIndex((cell) => cell.id === memberid);
+    if (targetIndex === -1) return [];
+    const targetRow = Math.floor(targetIndex / n);
+    const targetCol = targetIndex % n;
+
+    const s = sides.toLowerCase();
+    let results = [];
+
+    // Helper to add player if not an empty tile
+    const addIfMember = (r, c) => {
+      const cell = grid[r * n + c];
+      if (cell && cell.type !== "empty") {
+        results.push(cell);
+      }
+    };
+
+    // North: same column, rows above (from targetRow - 1 down to 0)
+    if (s.includes("n")) {
+      for (let r = targetRow - 1; r >= 0; r--) {
+        addIfMember(r, targetCol);
+      }
+    }
+
+    // South: same column, rows below (from targetRow + 1 up to n - 1)
+    if (s.includes("s")) {
+      for (let r = targetRow + 1; r < n; r++) {
+        addIfMember(r, targetCol);
+      }
+    }
+
+    // West: same row, columns to the left (from targetCol - 1 down to 0)
+    if (s.includes("w")) {
+      for (let c = targetCol - 1; c >= 0; c--) {
+        addIfMember(targetRow, c);
+      }
+    }
+
+    // East: same row, columns to the right (from targetCol + 1 up to n - 1)
+    if (s.includes("e")) {
+      for (let c = targetCol + 1; c < n; c++) {
+        addIfMember(targetRow, c);
+      }
+    }
+
+    // Filter by includetypes if specified
+    if (includetypes.length > 0) {
+      const mappedTypes = includetypes.map((t) => typeMap[t] || t);
+      results = results.filter((m) => mappedTypes.includes(m.regtype));
+    }
+
+    return results;
+  };
+
+  const runphase = (grid, chars, memfunct) => {
+    const targetChars = Array.isArray(chars) ? chars : [chars];
+    const members = grid.filter((player) => 
+      player.type !== "empty" && (targetChars.includes(player.app) || targetChars.includes(player.char))
+    );
+    const shuffledMembers = [...members].sort(() => Math.random() - 0.5);
+    shuffledMembers.forEach((member) => {
+      memfunct(member);
+    });
+  };
+
+  function effone(effect, grid, target_id, source) {
+    if (effect == "c") {grid.filter(c => c.id == target_id)[0].corrupt = source;}
+    if (effect == "j") {grid.filter(c => c.id == target_id)[0].jammed = source;}
+    if (effect == "b") {grid.filter(c => c.id == target_id)[0].blurred = source;}
+    if (effect == "r") {
+      grid.filter(c => c.id == target_id)[0].reg = source;
+      if (villagerPool.includes(source)) {grid.filter(c => c.id == target_id)[0].regtype = "villager";}
+      else if (outcastPool.includes(source)) {grid.filter(c => c.id == target_id)[0].regtype = "outcast";}
+      else if (minionPool.includes(source)) {grid.filter(c => c.id == target_id)[0].regtype = "minion";}
+    }
+  }
+
+  function eff(effect, grid, target_id, source, loverredirects) {
+    console.log(source,effect,target_id);
+    let effected_id = [];
+    let executing_id = [];
+    let next_id = [];
+    function vdcheck(g, t) {
+      if (g.filter(c => c.id == t)[0].app == "🧸VD" && !debuffStat(g.filter(c => c.id == t)[0].corrupt,'lf')) {return "vdn";}
+      else if (g.filter(c => c.id == t)[0].app == "🧸VD" && debuffStat(g.filter(c => c.id == t)[0].corrupt,'lf')) {return "vdl";}
+      else {return "n"}
+    }
+    if (vdcheck(grid, target_id)=="vdn") {
+      next_id.push(grid.filter(c => c.id == target_id)[0].ramnote[0]);
+      effone(effect, grid, target_id, '🧸');
+      effone(effect, grid, grid.filter(c => c.id == target_id)[0].ramnote[0], source);
+    }
+    else if (vdcheck(grid, target_id)=="vdl") {
+      effone(effect, grid, target_id, '🧸');
+    }
+    else {
+      next_id.push(target_id);
+      effone(effect, grid, target_id, source);
+    }
+    while (next_id.length!==0) {
+      effected_id = [...effected_id, ...next_id];
+      executing_id = next_id;
+      next_id = [];
+      executing_id.forEach((e_id) => {
+        loverredirects.forEach((redir) => {
+          if (e_id == redir[0]) {
+            if (vdcheck(grid, redir[1])=="vdn") {
+              if (!effected_id.includes(grid.filter(c => c.id == redir[1])[0].ramnote[0])) {
+                next_id.push(grid.filter(c => c.id == redir[1])[0].ramnote[0]);
+                effone(effect, grid, redir[1], '🧸');
+                effone(effect, grid, grid.filter(c => c.id == redir[1])[0].ramnote[0], source);
+              }
+            }
+            else if (vdcheck(grid, redir[1])=="vdl") {
+              effone(effect, grid, redir[1], '🧸');
+            }
+            else {
+              if (!effected_id.includes(redir[1])) {
+                next_id.push(redir[1]);
+                effone(effect, grid, redir[1], source);
+              }
+            }
+          }
+        })
+      })
+    }
+  }
+
+  const debuffStat = (emoji, stat="lc") => {
+    let qual = []
+    if (stat=="lf") {qual = ["🤥", "🦊"];}
+    if (stat=="l") {qual = ["🤥"];}
+    if (stat=="c") {qual = ["🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "🛠️"];} 
+    if (stat=="lcf") {qual = ["🤥", "🦊", "🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "🛠️"];}
+    if (stat=="lc") {qual = ["🤥", "🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "🛠️"];}
+    if (stat=="j") {qual = ["⚡","🤖","👽","✝️"];}
+    if (stat=="b") {qual = ['🚨','🔌','🦑','👾']}
+    return(qual.includes(emoji));
+  }
+
+
   const initializeGrid = () => {
     setRoleCounts(nextroleCounts);
     setGridlength(nextgridlength);
@@ -1218,7 +1548,6 @@ function App() {
           let r = row + (rowDir * step);
           let c = col + (colDir * step);
 
-          /*
           if (nextnwarp) {
             // Modulo wrapping: (index + length) % length handles negative numbers correctly
             r = (r + nextgridlength) % nextgridlength;
@@ -1227,8 +1556,8 @@ function App() {
             // Standard boundary check: stop if we hit the edge
             if (r < 0 || r >= nextgridlength || c < 0 || c >= nextgridlength) break;
           }
-            */
-          if (r < 0 || r >= nextgridlength || c < 0 || c >= nextgridlength) break;
+
+          //if (r < 0 || r >= nextgridlength || c < 0 || c >= nextgridlength) break;
 
           const target = nextG[r * nextgridlength + c];
           if (target.type !== 'empty') {
@@ -1246,251 +1575,7 @@ function App() {
     });
 
     //helper functions
-    const typeMap = { "v": "villager", "o": "outcast", "m": "minion" };
-
-    const getAdjNeighbors = (grid, target_id, dir = "", includetypes = []) => {
-      const player = grid.find((p) => p.id === target_id);
-      if (!player || !player.adjs) return [];
-
-      const directions = [];
-      const d = dir.toLowerCase();
-      if (d === "ns") directions.push("N", "S");
-      else if (d === "ew") directions.push("W", "E");
-      else directions.push("N", "S", "W", "E");
-
-      const neighborIds = directions
-        .map((dirKey) => player.adjs[dirKey])
-        .filter((id) => id !== null && id !== undefined);
-
-      let neighbors = grid.filter((p) => neighborIds.includes(p.id));
-
-      // Filter by types if provided
-      if (includetypes.length > 0) {
-        const mappedTypes = includetypes.map((t) => typeMap[t]);
-        neighbors = neighbors.filter((n) => mappedTypes.includes(n.type));
-      }
-
-      const shuffled = shuffle(neighbors);
-      return shuffled;
-    };
-
-    const getRands = (array, exclude = [], n = 1) => {
-      const pool = array.filter((item) => !exclude.includes(item));
-      if (pool.length === 0) return null;
-      
-      const shuffled = shuffle(pool);
-      if (n==1) {return shuffled[0];}
-      return shuffled.slice(0, Math.min(n, pool.length));
-    };
-
-    const getRandNeighbor = (grid, target_id, dir = "", includetypes = []) => {
-      return getAdjNeighbors(grid, target_id, dir, includetypes)[0];
-    };
-
-    const getInPlay = (grid, includetypes = [], excludeid = [], excludechar = [], n = -1) => {
-      let players = grid.filter((p) => p.type !== "empty");
-
-      // Filter by allowed types
-      if (includetypes.length > 0) {
-        const mappedTypes = includetypes.map((t) => typeMap[t]);
-        players = players.filter((p) => mappedTypes.includes(p.type));
-      }
-
-      // Filter exclusions
-      if (excludeid.length > 0) {
-        players = players.filter((p) => !excludeid.includes(p.id));
-      }
-      if (excludechar.length > 0) {
-        players = players.filter((p) => !excludechar.includes(p.char));
-      }
-
-      const shuffled = shuffle(players);
-      if (n == 1) return shuffled[0];
-      return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
-    };
-
-    const getNotInPlay = (grid, includetypes = [], excludechar = [], n = -1) => {
-      const charsInPlay = grid
-        .filter((p) => p.type !== "empty")
-        .map((p) => p.char);
-      let pool = [];
-      
-      // If no types specified, check all pools. Otherwise, merge specified pools.
-      if (includetypes.length === 0) {
-        pool = [...nbV, ...nbO, ...nbM];
-      } else {
-        if (includetypes.includes("v")) pool = [...pool, ...nbV];
-        if (includetypes.includes("o")) pool = [...pool, ...nbO];
-        if (includetypes.includes("m")) pool = [...pool, ...nbM];
-      }
-
-      if (excludechar.length > 0) {
-        pool = pool.filter((p) => !excludechar.includes(p));
-      }
-
-      const available = pool.filter((char) => !charsInPlay.includes(char));
-      const shuffled = shuffle(available);
-
-      if (n == 1) return shuffled[0];
-      return n > 0 && n < shuffled.length ? shuffled.slice(0, n) : shuffled;
-    };
-
-    const convert = (gridArray, targetid, newchar, newtype, source) => {
-      //console.log(targetid, newchar, newtype, source);
-      const target = gridArray.find(p => p.id === targetid);
-      if (!target) return;
-      target.type = newtype;
-      target.regtype = newtype;
-      target.char = newchar;
-      target.app = newchar;
-      target.deathapp = newchar;
-      target.reg = newchar;
-      target.convert = source;
-    };
-
-    function tiledist(grid, id, targetid) {
-      const gridLength = Math.round(Math.sqrt(grid.length))
-      if (id === targetid) return 0;
-      const idx1 = grid.findIndex(c => c.id === id);
-      const idx2 = grid.findIndex(c => c.id === targetid);
-      if (idx1 === -1 || idx2 === -1) return Infinity;
-
-      const r1 = Math.floor(idx1 / gridLength), c1 = idx1 % gridLength;
-      const r2 = Math.floor(idx2 / gridLength), c2 = idx2 % gridLength;
-
-      let dr = Math.abs(r1 - r2);
-      let dc = Math.abs(c1 - c2);
-
-      return dr + dc;
-    }
-
-    function nearest(grid, id, includetypes = []) {
-      const rawTypes = Array.isArray(includetypes) ? includetypes : [includetypes];
-      const mappedTypes = rawTypes.map((t) => typeMap[t] ?? t);
-
-      // Filter for matching non-self cells
-      const candidates = grid.filter(cell => cell.id !== id && mappedTypes.includes(cell.type));
-      if (candidates.length === 0) return [];
-
-      // Calculate distances
-      const withDist = candidates.map(cell => ({
-        cell,
-        dist: tiledist(grid, id, cell.id)
-      }));
-
-      // Find minimum distance and collect ties
-      const minDist = Math.min(...withDist.map(item => item.dist));
-      const tiedNearest = withDist.filter(item => item.dist === minDist).map(item => item.cell);
-
-      return shuffle(tiedNearest);
-    }
-
-    /**
-     * Returns a scrambled list of cells that share the maximum tile distance to `id`.
-     */
-    function furthest(grid, id, includetypes = []) {
-      const rawTypes = Array.isArray(includetypes) ? includetypes : [includetypes];
-      const mappedTypes = rawTypes.map((t) => typeMap[t] ?? t);
-
-      // Filter for matching non-self cells
-      const candidates = grid.filter(cell => cell.id !== id && mappedTypes.includes(cell.type));
-      if (candidates.length === 0) return [];
-
-      // Calculate distances
-      const withDist = candidates.map(cell => ({
-        cell,
-        dist: tiledist(grid, id, cell.id)
-      }));
-
-      // Find maximum distance and collect ties
-      const maxDist = Math.max(...withDist.map(item => item.dist));
-      const tiedFurthest = withDist.filter(item => item.dist === maxDist).map(item => item.cell);
-
-      return shuffle(tiedFurthest);
-    }
-
-    const getRC = (grid, memberid, sides = "nsew", includetypes = []) => {
-      const n = nextgridlength;
-      const targetIndex = grid.findIndex((cell) => cell.id === memberid);
-      if (targetIndex === -1) return [];
-      const targetRow = Math.floor(targetIndex / n);
-      const targetCol = targetIndex % n;
-
-      const s = sides.toLowerCase();
-      let results = [];
-
-      // Helper to add player if not an empty tile
-      const addIfMember = (r, c) => {
-        const cell = grid[r * n + c];
-        if (cell && cell.type !== "empty") {
-          results.push(cell);
-        }
-      };
-
-      // North: same column, rows above (from targetRow - 1 down to 0)
-      if (s.includes("n")) {
-        for (let r = targetRow - 1; r >= 0; r--) {
-          addIfMember(r, targetCol);
-        }
-      }
-
-      // South: same column, rows below (from targetRow + 1 up to n - 1)
-      if (s.includes("s")) {
-        for (let r = targetRow + 1; r < n; r++) {
-          addIfMember(r, targetCol);
-        }
-      }
-
-      // West: same row, columns to the left (from targetCol - 1 down to 0)
-      if (s.includes("w")) {
-        for (let c = targetCol - 1; c >= 0; c--) {
-          addIfMember(targetRow, c);
-        }
-      }
-
-      // East: same row, columns to the right (from targetCol + 1 up to n - 1)
-      if (s.includes("e")) {
-        for (let c = targetCol + 1; c < n; c++) {
-          addIfMember(targetRow, c);
-        }
-      }
-
-      // Filter by includetypes if specified
-      if (includetypes.length > 0) {
-        const mappedTypes = includetypes.map((t) => typeMap[t] || t);
-        results = results.filter((m) => mappedTypes.includes(m.type));
-      }
-
-      return results;
-    };
-
-    const runphase = (grid, chars, memfunct) => {
-      const targetChars = Array.isArray(chars) ? chars : [chars];
-      const members = grid.filter((player) => 
-        player.type !== "empty" && (targetChars.includes(player.app) || targetChars.includes(player.char))
-      );
-      const shuffledMembers = [...members].sort(() => Math.random() - 0.5);
-      shuffledMembers.forEach((member) => {
-        memfunct(member);
-      });
-    };
-
-    function corrupt(grid, target, source) {
-      getInPlay(grid).filter(c => c.app=="💕LV");
-    }
-
-    const debuffStat = (emoji, stat="lc") => {
-      let qual = []
-      if (stat=="lf") {qual = ["🤥", "🦊"];}
-      if (stat=="l") {qual = ["🤥"];}
-      if (stat=="c") {qual = ["🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "💕", "🛠️"];} 
-      if (stat=="lcf") {qual = ["🤥", "🦊", "🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "💕", "🛠️"];}
-      if (stat=="lc") {qual = ["🤥", "🤵🏻", "🍺", "🧪", "🐛", "🕹️", "🧟", "💕", "🛠️"];}
-      if (stat=="j") {qual = ["⚡","🤖","👽","✝️","💕"];}
-      if (stat=="b") {qual = ['🚨','🔌','🦑','👾',"💕"]}
-      return(qual.includes(emoji));
-    }
-
+    
     //night phase
     const converts = [];
     
@@ -1700,10 +1785,17 @@ function App() {
       }
     })
 
+    let loverredirects = [];
+
     runphase(grid, ['💕LV', '🧸VD'], (member) => {
       if (member.app == "💕LV") {
         if (!debuffStat(member.corrupt, "lf")) {
-          member.ramnote = getInPlay(grid, ["v"], [member.id], [], 1);
+          const lover = getInPlay(grid, ["v"], [member.id], [], 1);
+          if (lover) {
+            member.ramnote = getInPlay(grid, ["v"], [member.id], [], 1);
+            loverredirects.push([member.ramnote.id,member.id]);
+            loverredirects.push([member.id,member.ramnote.id]);
+          }
         } else {
           member.ramnote = getInPlay(grid, [], [member.id], [], 1);
         }
@@ -1723,9 +1815,9 @@ function App() {
     //corrupt1
     runphase(grid, ['🧪PN',  '🐛PS', '🕹️SB', '🧟ZB'], (member) => {
       if (member.char=='🧪PN') {
-        const target = getAdjNeighbors(grid,member.id,"",["v"]).filter(c => c.corrupt=="✅")[0];
+        const target = getRandNeighbor(grid,member.id,"",["v"]);
         if (target) {
-          target.corrupt="🧪";
+          eff("c", grid, target.id, "🧪", loverredirects);
           member.note = "🧪#"+target.id;
         }
         else {
@@ -1733,23 +1825,20 @@ function App() {
         }
       }
       else if (member.char=='🐛PS') {
-        const target = getAdjNeighbors(grid,member.id,"",["v"]).filter(c => c.corrupt=="✅")[0];
+        const target = getRandNeighbor(grid,member.id,"",["v"]);
         if (target) {
-          target.corrupt="🐛";
+          eff("c", grid, target.id, "🐛", loverredirects);
           member.note = "🐛#"+target.id;
           member.ramnote = target.id;
         }
         else {
           member.note = "🐛⚠️";
-          if (member.app == "🐛PS") {
-            member.announce = "🐛⚠️";
-          }
         }
       }
       else if (member.char=='🕹️SB') {
-        const target = furthest(grid, member.id, ["v"], true).filter(c => c.corrupt=="✅")[0];
+        const target = furthest(grid, member.id, ["v"], true)[0];
         if (target) {
-          target.corrupt="🕹️";
+          eff("c", grid, target.id, "🕹️", loverredirects);
           member.note = "🕹️#"+target.id;
         }
         else {
@@ -1758,9 +1847,9 @@ function App() {
 
       }
       else if (member.char=='🧟ZB') {
-        const target = getAdjNeighbors(grid,member.id,"",["o"]).filter(c => c.corrupt=="✅")[0];
+        const target = getRandNeighbor(grid,member.id,"",["o"]);
         if (target) {
-          target.corrupt="🧟";
+          eff("c", grid, target.id, "🧟", loverredirects);
           member.note = "🧟#"+target.id;
         }
         else {
@@ -1773,10 +1862,10 @@ function App() {
     runphase(grid, ['🤵🏻BT', '🍺DK'], (member) => {
       if (member.app=='🤵🏻BT') {
         let x;
-        if (member.corrupt=="✅") {
-          x = getInPlay(grid,["v"],[member.id],[]).filter(c => c.corrupt=="✅")[0];
+        if (!debuffStat(member.corrupt,"lcf")) {
+          x = getInPlay(grid,["v"],[member.id],[])[0];
           if (x) {
-            x.corrupt = '🤵🏻';
+            eff("c", grid, x.id, "🤵🏻", loverredirects);
             member.note="🤵🏻#"+x.id;
             const ids = [x, getInPlay(grid,[],[member.id, x.id],[],1)].sort((a, b) => a.id - b.id);
             member.announce="🤵🏻#"+ids[0].id+"/#"+ids[1].id;
@@ -1793,7 +1882,7 @@ function App() {
         }
       }
       else if (member.char=='🍺DK') {
-        member.corrupt = "🍺";
+        eff("c", grid, member.id, "🍺", loverredirects);
       }
     })
 
@@ -1813,13 +1902,13 @@ function App() {
           }
           if (ns.length > ew.length) {
             ns.forEach(member2 => {
-              if (member2.id != member.id) {member2.corrupt="😇";}
+              if (member2.id != member.id) {eff("c", grid, member2.id, "😇", loverredirects);}
             });
             member.announce="😇↕️";
           }
           else {
             ew.forEach(member2 => {
-              if (member2.id != member.id) {member2.corrupt="😇";}
+              if (member2.id != member.id) {eff("c", grid, member2.id, "😇", loverredirects);}
             });
             member.announce="😇↔️";
           }
@@ -1832,7 +1921,7 @@ function App() {
           if (member2.id != member.id) {
             n+=1
             if (!debuffStat(member.corrupt,"lcf")) {
-              member2.corrupt="💖";
+              eff("c", grid, member2.id, "💖", loverredirects);
             }
           }
         });
@@ -1853,19 +1942,19 @@ function App() {
         getAdjNeighbors(grid,member.id,dir).forEach((neigh) => {
             if (debuffStat(member.corrupt,"lcf")) {
               if (debuffStat(neigh.corrupt,"lc")) {
-                neigh.jammed = '⚡';
+                eff("j", grid, neigh.id, "⚡", loverredirects);
               }
             }
             else {
               if (!debuffStat(neigh.corrupt,"lc")) {
-                neigh.jammed = '⚡';
+                eff("j", grid, neigh.id, "⚡", loverredirects);
               }
             }
         })
         member.note = dir=="ns" ? "⚡↕️" : "⚡↔️";
       }
       else if (member.char == "🤖AI") {
-        member.jammed = "🤖";
+        eff("j", grid, member.id, "🤖", loverredirects);
         let x;
         if (!debuffStat(member.corrupt,"lcf")) {
           x=getInPlay(grid,["v"],[member.id],[],1);
@@ -1873,7 +1962,7 @@ function App() {
         else {
           x=getInPlay(grid,["m"],[member.id],[],1);
         }
-        x.jammed = "🤖";
+        eff("j", grid, x.id, "🤖", loverredirects);
         member.note = "🤖#"+x.id;
       }
       else if (member.app == "✝️PR") {
@@ -1893,53 +1982,15 @@ function App() {
           }
         }
         cors.forEach((neigh) => {
-            neigh.jammed="✝️";
+            eff("j", grid, neigh.id, "✝️", loverredirects);
         })
         member.note = "✝️"+cors.length;
       }
       else if (member.char == "👽HK") {
         const [x,y] = getInPlay(grid,[],[],[],2).sort((a, b) => a.id - b.id);
-        x.jammed='👽';
-        y.jammed='👽';
+        eff("j", grid, x.id, "👽", loverredirects);
+        eff("j", grid, y.id, "👽", loverredirects);
         member.note='👽#'+x.id+","+y.id;
-      }
-    })
-
-    //jammed 2
-    runphase(grid, ['🧸VD'], (member) => {
-      if (member.app == "🧸VD") {
-        if (!debuffStat(member.corrupt,"lf")) {
-          if (debuffStat(member.jammed,"j")) {
-            grid.filter(c => c.id == member.ramnote[0])[0].jammed = member.jammed;
-            member.ramnote[1]+=1;
-          }
-        }
-        else {
-          if (debuffStat(member.jammed,"j")) {
-            member.ramnote[1]+=1;
-          }
-        }
-      }
-    })
-
-    //jammed 3
-    runphase(grid, ['💕LV'], (member) => {
-      if (member.app == "💕LV") {
-        if (!debuffStat(member.corrupt, "lf")) {
-          if (debuffStat(member.jammed,"j") && !debuffStat(member.ramnote.jammed,"j")) {
-            member.ramnote.jammed = "💕";
-          }
-          else if (!debuffStat(member.jammed,"j") && debuffStat(member.ramnote.jammed,"j")) {
-            member.jammed = "💕";
-          }
-        }
-      }
-    })
-
-    //jammed remove1
-    runphase(grid, ['🧸VD'], (member)=> {
-      if (member.app == "🧸VD" && debuffStat(member.jammed,"j")) {
-        member.jammed = '🧸';
       }
     })
 
@@ -1953,9 +2004,9 @@ function App() {
           if (!member.ramnote.includes(neigh.id)) {
             member.ramnote.push(neigh.id);
           }
-          neigh.jammed = '🛠️';
-          if (debuffStat(member.corrupt,"lcf")) {
-            neigh.corrupt='🛠️';
+          eff("j", grid, neigh.id, "🛠️", loverredirects);
+          if (debuffStat(member.corrupt,"lcf") && neigh.type!=="minion") {
+            eff("c", grid, neigh.id, "🛠️", loverredirects);
           }
         })
       }
@@ -1967,7 +2018,7 @@ function App() {
         const b0=!debuffStat(member.corrupt,"lcf"); // not lying nor corrupted
         const b1=getAdjNeighbors(grid,member.id).filter(c => c.type=="minion").length > 0; //at least 1 minion
         if (b0 == b1) {
-          member.blurred = "🚨";
+          eff("b", grid, member.id, "🚨", loverredirects);
         }
       }
       else if (member.app == "🔌ET") {
@@ -1980,7 +2031,7 @@ function App() {
         }
         if (g.length==0) {member.announce = "🔌⚠️"}
         else {
-          g[0].blurred = "🔌";
+          eff("b", grid, g[0].id, "🔌", loverredirects);
           member.announce="🔌#"+g[0].id;
         }
       }
@@ -1994,52 +2045,14 @@ function App() {
         }
         if (g.length==0) {member.announce = "🦑⚠️";}
         else {
-          g[0].blurred = "🦑";
+          eff("b", grid, g[0].id, "🦑", loverredirects);
           member.announce="🦑#"+g[0].id;
         }
       }
       else if (member.char == "👾VR") {
-        const x = getInPlay(grid,["v"])[0]
-        x.blurred = "👾";
+        const x = getInPlay(grid,["v"])[0];
+        eff("b", grid, x.id, "👾", loverredirects);
         member.note = "👾#"+x.id;
-      }
-    })
-
-    //blur 2
-    runphase(grid, ['🧸VD'], (member) => {
-      if (member.app == "🧸VD") {
-        if (!debuffStat(member.corrupt,"lf")) {
-          if (debuffStat(member.blurred,"b")) {
-            grid.filter(c => c.id == member.ramnote[0])[0].blurred = member.blurred;
-            member.ramnote[1]+=1;
-          }
-        }
-        else {
-          if (debuffStat(member.blurred,"b")) {
-            member.ramnote[1]+=1;
-          }
-        }
-      }
-    })
-
-    //blur 3
-    runphase(grid, ['💕LV'], (member) => {
-      if (member.app == "💕LV") {
-        if (!debuffStat(member.corrupt, "lf")) {
-          if (debuffStat(member.blurred,"b") && !debuffStat(member.ramnote.blurred,"b")) {
-            member.ramnote.blurred = "💕";
-          }
-          else if (!debuffStat(member.blurred,"b") && debuffStat(member.ramnote.blurred,"b")) {
-            member.blurred = "💕";
-          }
-        }
-      }
-    })
-
-    //blur remove1
-    runphase(grid, ['🧸VD'], (member)=> {
-      if (member.app == "🧸VD" && debuffStat(member.blurred,"b")) {
-        member.blurred = '🧸';
       }
     })
 
@@ -2052,9 +2065,9 @@ function App() {
           if (!member.ramnote.includes(neigh.id)) {
             member.ramnote.push(neigh.id);
           }
-          neigh.blurred = '🛠️';
-          if (debuffStat(member.corrupt,"lcf")) {
-            neigh.corrupt='🛠️';
+          eff("b", grid, neigh.id, "🛠️", loverredirects);
+          if (debuffStat(member.corrupt,"lcf") && neigh.type!=="minion") {
+            eff("c", grid, neigh.id, "🛠️", loverredirects);
           }
         })
         member.announce = "🛠️"+member.ramnote.length;
@@ -2062,9 +2075,100 @@ function App() {
     })
 
     //register
-    runphase(grid, ['🧸VD'], (member)=> {
-      if (member.app == "🧸VD" && debuffStat(member.blurred,"b")) {
-        member.blurred = '🧸';
+    runphase(grid, ['🔊EC', '🔗FG', '👻GH', '👑KI', '💕LV', '🥼SC', '👤SD'], (member)=> {
+      if (member.app == "🔊EC" && !debuffStat(member.corrupted,"lcf")) {
+        const chars = [...nbV, ...nbO].filter(c => c!=='🔊EC');
+        eff('r', grid, member.id, shuffle(chars)[0], loverredirects);
+      }
+      if (member.app == "🔗FG" && !debuffStat(member.corrupted,"lcf")) {
+        eff('r', grid, member.id, shuffle(nbM)[0], loverredirects);
+      }
+      if (member.app == "👑KI" && debuffStat(member.corrupted,"lcf")) {
+        eff('r', grid, member.id, getInPlay(grid, ["m"])[0].char, loverredirects);
+      }
+      if (member.app == '💕LV' && !debuffStat(member.corrupted,"lcf")) {
+        eff('r', grid, member.id, member.ramnote.char, loverredirects);
+      }
+      if (member.char == "👤SD" && !['🔊EC', '🔗FG'].includes(member.app)) {
+        const char = shuffle(disguises.filter(c => (getNotInPlay(grid, ["o"]).includes(c) && c!==member.app)))[0];
+        if (char) {
+          eff('r', grid, member.id, char, loverredirects);
+        }
+      }
+      if (member.app == "🥼SC") {
+        let n = Math.random() < 0.5 ? 1 : 2;
+        const neighs = getAdjNeighbors(grid, member.id, "", ["v"]);
+        if (neighs.length <= 1 && !debuffStat(member.corrupt, "lcf")) {
+          n = 1;
+        }
+        if (!debuffStat(member.corrupt, "lcf")) {
+          if (neighs.length >= 1) {
+            eff('r', grid, neighs[0].id, "🥼SC", loverredirects);
+            member.note = "🥼#"+neighs[0].id;
+          }
+          if (neighs.length >= 2 && n==2) {
+            eff('r', grid, neighs[1].id, "🥼SC", loverredirects);
+            const ids = [neighs[0].id, neighs[1].id].sort((a, b) => a - b);
+            member.note = "🥼#"+ids[0]+","+ids[1];
+          }
+          if (neighs.length < 1) {
+            member.note = "🥼⚠️";
+          }
+        }
+        member.announce = "🥼"+n;
+      }
+      if (member.char == "👻GH") {
+        const neighs = getAdjNeighbors(grid, member.id, "", ["v"]);
+        if (neighs.length > 0) {
+          eff('r', grid, neighs[0].id, "👻GH", loverredirects);
+          member.note = "👻#"+neighs[0].id;
+        }
+        else {
+          member.note = "👻⚠️";
+        }
+      }
+    })
+
+    runphase(grid, ['👹DE', '🎮GM'], (member)=> {
+      if (member.char == '👹DE') {
+        grid.forEach((c) => {
+          if (c.char == c.reg && c.type == "minion") {
+            eff("r", grid, c.id, '👹DE', loverredirects);
+          }
+        }) 
+      }
+      if (member.char == '🎮GM') {
+        grid.forEach((c) => {
+          if (c.char == c.reg && c.type == "villager" && debuffStat(member.corrupt,"lcf")==debuffStat(c.corrupt,"c")) {
+            eff("r", grid, c.id, '🎮GM', loverredirects);
+          }
+        }) 
+      }
+    })
+
+    //wake
+    runphase(grid, ['📣PA'], (member)=> {
+      if (member.app == '📣PA') {
+        const dir = Math.random()>0.5 ? "ns" : "ew";
+        let x;
+        if (!debuffStat(member.emoji, "lcf")) {
+          x = getAdjNeighbors(grid, member.id, dir, ["v"]);
+        }
+        else {
+          x = getAdjNeighbors(grid, member.id, dir, ["m"]);
+        }
+        const y = getAdjNeighbors(grid, member.id, dir, ["o"]);
+        if (x.length > 0) {
+          x[0].revealed = -1;
+          member.announce = (dir=="ns" ? "📣↕️" : "📣↔️");
+        }
+        else if (y.length > 0) {
+          y[0].revealed = -1;
+          member.announce = (dir=="ns" ? "📣↕️" : "📣↔️");
+        }
+        else {
+          member.announce = '📣⚠️';
+        }
       }
     })
 
@@ -2082,10 +2186,462 @@ function App() {
 
   useEffect(() => { if(grid.length === 0) initializeGrid(); }, []);
 
+  function wake(grid, grididx, newapp = null, newl = null) {
+    const target = grid[grididx];
+    const app = newapp ? newapp : target.app;
+    const lc = newl==null ? debuffStat(target.corrupt,"lcf") : newl;
+    const l = newl==null ? debuffStat(target.corrupt,"lf") : newl;
+    function abilityannounce(app) {
+      return (app.slice(0,-2)+"➤");
+    }
+    if (app=="👁️AB") {
+      return abilityannounce(app);
+    }
+    else if (app=="😇AG") {
+      if (lc) {
+        if (target.announce == "") {
+          return(Math.random()<0.5 ? "😇↕️" : "😇↔️")
+        }
+        else {
+          return(target.announce=="😇↔️" ? "😇↕️" : "😇↔️")
+        }
+      }
+    }
+    else if (app=="📏AR") {
+      const ns = getRC(grid, target.id, "ns", ["m"]).length;
+      const ew = getRC(grid, target.id, "ew", ["m"]).length;
+      let announce = "";
+      if (ns>ew) {
+        announce="📏:↔️<↕️"
+      }
+      else if (ns<ew) {
+        announce="📏:↔️>↕️"
+      }
+      else {
+        announce="📏:↔️=↕️"
+      }
+      if (lc) {
+        if (announce=="📏:↔️<↕️") {announce="📏:↔️>↕️";}
+        else if (announce=="📏:↔️>↕️") {announce="📏:↕↔️<↕️";}
+      }
+      return announce;
+    }
+    else if (app=="🪕BA") {
+      let n = getInPlay(grid).filter(c => debuffStat(c.corrupt,"c")).length;
+      if (lc) {
+        if (n==0) {n==1;}
+        else if (n==getInPlay(grid).length) {n-=1;}
+        else {n+=(Math.random()<0.5 ? -1 : 1);}
+      }
+      return("🪕:😵"+n)
+    }
+    else if (app=="⚜️BI") {
+      const v = getInPlay(grid, ["v"], [target.id], [], 1);
+      const o = getInPlay(grid, ["o"], [target.id], [], 1);
+      let m;
+      if (lc) {
+        m = getInPlay(grid, ["v","o"], [target.id, v.id, o.id], [], 1);
+      }
+      else {
+        m = getInPlay(grid, ["m"], [target.id], [], 1);
+      }
+      if (v && o && m) {
+        ids = [v,o,m].sort((a, b) => a.id - b.id);
+        return ("⚜️#"+ids[0].id+","+ids[1].id+","+ids[2].id)
+      }
+      else {
+        return ("⚜️⚠️")
+      }
+    }
+    else if (app=="🍞BK") {
+      let announce;
+      let n;
+      if (target.ramnote=="") {
+        announce = "🍞1:🍞";
+        n=1;
+      }
+      else {
+        announce = target.ramnote[0];
+        n=target.ramnote[1];
+      }
+      let baked;
+      if (lc) {
+        baked = getInPlay(grid, ["v"], [target.id]).filter(c => (c.app == c.char && c.revealed==-2))[0];
+      }
+      else {
+        baked = getInPlay(grid, ["o", "m"], [target.id]).filter(c => (nbV.includes(c.app) && c.revealed==-2))[0];
+      }
+      if (baked) {
+        const nplus = n+1;
+        baked.ramnote = ["🍞"+nplus+":"+baked.app.slice(0,-2),nplus];
+        baked.app = "🍞BK";
+      }
+    }
+    else if (app=="🙏CF") {
+      if (lc) {
+        return("🙏👎");
+      }
+      else {
+        return("🙏👍");
+      }
+    }
+    else if (app=="🍖CB") {
+      return abilityannounce(app);
+    }
+    else if (app=="🗺️CG") {
+      let os = nearest(grid, target.id, ["o"]).map(c => c.reg);
+      let ms = nearest(grid, target.id, ["o"]).map(c => c.reg);
+      if (lc) {
+        os = nbO.filter(c => !os.includes(c));
+        ms = nbM.filter(c => !ms.includes(c));
+      }
+      if (os.length==0 || ms.length==0) {
+        return("🗺️⚠️");
+      }
+      else {
+        return("🗺️:"+os[0].slice(0,-2)+ms[0].slice(0,-2));
+      }
+      /*
+      (<>The <b>Cartography (🗺️CG)</b> locates a nearby Outcast and Minion.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> if possible, announces "🗺️:pq", where p is the character of the nearest non-self Outcast and q is the character of the nearest non-self Minion.<br/>
+              <b>When lying or corrupted,</b> announces "🗺️:pq", where p is an Outcast w from that above and q is a Minion different from that above. Note that p and q can both independently be either in play or not in-play.
+              </>)
+              */
+    }
+    else if (app=="📸CM") {
+      return abilityannounce(app);
+    }
+    else if (app=="🎭CP") {
+      let n = getInPlay(grid).filter(c => (c.char !== c.app)).length;
+      if (lc) {
+        if (n==0) {n==1;}
+        else if (n==getInPlay(grid).length) {n-=1;}
+        else {n+=(Math.random()<0.5 ? -1 : 1);}
+      }
+      return("🎭:"+n)
+    }
+    else if (app=="🎀CU") {
+      return abilityannounce(app);
+    }
+    else if (app=="💭DM") {
+      return abilityannounce(app);
+    }
+    else if (app=="🩺DR") {
+      return abilityannounce(app);
+    }
+    else if (app=="📝DT") {
+      return ("📝TBC")
+    }
+    else if (app=="🛠️EG") {}
+    else if (app=="🧠EL") {
+      if (nbO.includes(target.char)) {
+        return(Math.random()<0.5 ? "🧠:👍" : "🧠:👎");
+      }
+      else if (nbV.includes(target.char)) {
+        return(lc ? "🧠:👎" : "🧠:👍");
+      }
+      else {
+        return(lc ? "🧠:👍" : "🧠:👎");
+      }
+    }
+    else if (app=="😎EV") {
+      let v = getInPlay(grid, ["v"], [], [], 1);
+      if (v) {v=v.char;}
+      let o = getInPlay(grid, ["o"], [], [], 1);
+      if (o) {o=o.char;}
+      let m = getInPlay(grid, ["o"], [], [], 1);
+      if (m) {m=m.char;}
+      if (lc) {
+        if (!v) {v = getNotInPlay(grid, ["v"])[0];}
+        else if (!o) {o = getNotInPlay(grid, ["o"])[0];}
+        else if (!m) {m = getNotInPlay(grid, ["m"])[0];}
+        else {
+          const change = shuffle(["v","o","m"])[0];
+          if (change=="v") {v = getNotInPlay(grid, ["v"])[0];}
+          else if (change=="o") {o = getNotInPlay(grid, ["o"])[0];}
+          else if (change=="m") {m = getNotInPlay(grid, ["m"])[0];}
+        }
+      }
+      if (v && o && m) {
+        return("😎:"+v.slice(0,-2)+o.slice(0,-2)+m.slice(0,-2));
+      }
+      else {
+        return("😎⚠️")
+      }
+    }
+    else if (app=="🔮FT") {
+      return abilityannounce(app);
+    }
+    else if (app=="🔨FX") {
+      return abilityannounce(app);
+    }
+    else if (app=="💎GC") {
+      let x;
+      if (lc) {
+        x=getInPlay(grid, ["v", "o"]).filter([...nbV, ...nbO].includes(x.app));
+      }
+      else {
+        x=getInPlay(grid, ["m"]).filter([...nbV, ...nbO].includes(x.app));
+      }
+      if (x.length==0) {
+        return("💎⚠️");
+      }
+      else {
+        return("💎👍#"+x.id);
+      }
+    }
+    else if (app=="⚰️GK") {
+      return abilityannounce(app);
+    }
+    else if (app=='🐐GO') {
+      let n=nearest(grid, target.id);
+      let f=furthest(grid, target.id);
+      let nm=nearest(grid, target.id,["m"]);
+      if (n.length==0 || f.length==0 || nm.length==0) {
+        announce = "🐐⚠️";
+      }
+      n=tiledist(grid,target.id,n[0].id);
+      f=tiledist(grid,target.id,f[0].id);
+      nm=tiledist(grid,target.id,nm[0].id);
+      let announce;
+      if (lc) {
+        let m = [];
+        if (nm+1<=f) {m.push(nm+1);}
+        if (nm-1>=n) {m.push(nm-1);}
+        if (m.length==0) {announce = "🐐⚠️"}
+        else {announce = "🐐:"+shuffle(m)[0];}
+      }
+      else {
+        announce = "🐐:"+nm;
+      }
+      return(announce);
+    }
+    else if (app=='🛡️GU') {
+      return abilityannounce(app);
+    }
+    else if (app=="💔HB") {
+      let newapp = shuffle(['🙏CF'])[0];
+      let newl = lc ? false : true;
+      return(wake(grid, grididx, newapp, newl));
+    }
+    else if (app=="💖HL") {}
+    else if (app=="🔍IN") {
+      if (!lc) {
+        const vo = getInPlay(grid, ["v","o"], [target.id], [], 1);
+        const m = getInPlay(grid, ["m"], [target.id], [], 1);
+        if (vo && m) {
+          const ids = [vo, m].sort((a, b) => a.id - b.id);
+          return("🔍"+m.reg.slice(0,-2)+"#"+ids[0].id+","+ids[1].id);
+        }
+        else {return "🔍⚠️"}
+      }
+      else {
+        vos = getInPlay(grid, ["v","o"], [target.id], [], 2).sort((a, b) => a.id - b.id);
+        if (vos.length==2) {
+          return("🔍"+shuffle(nbM)[0].slice(0,-2)+"#"+vos[0].id+","+vos[1].id);
+        }
+      }
+    }
+    else if (app=="🤐IV") {
+      return (<>The <b>Introvert (🤐IV)</b> befriends one of its neighbours.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announces "🤐:p", where p is a character of one of its neighbours.<br/>
+              <b>When lying or corrupted,</b> announces "🤐:p", where p is a character that does not belong to any of its neighbours.
+              </>) 
+    }
+    else if (app=="🤹JE") {
+      return abilityannounce(app);
+    }
+    else if (app=="⚖️JG") {
+      return abilityannounce(app);
+    }
+    else if (app=="💍JS") {
+      return (<>The <b>Jewelsmith (💍JS)</b> finds a honest member.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> if possible, announce "💍👍#x", where x is not lying nor corrupted
+              <b>When lying or corrupted,</b> if possible, announce "💍👍#x", where x is a random member that is lying or corrupted
+              </>) 
+    }
+    else if (app=="👑KI") {}
+    else if (app=="🗡️KN") {}
+    else if (app=="🧵KT") {
+      let c;
+      getInPlay(grid, ["m"]).forEach((member) => {
+        mneighs = getAdjNeighbors(grid, member.id, "", ["m"]);
+        c+=mneighs.length;
+      })
+      c=Math.floor(c/2);
+      if (lc) {
+        if (c==0) {c+=1;}
+        else {c+=(Math.random()<0.5 ? 1 : -1);}
+      }
+      return("🧵:"+c);
+    }
+    else if (app=="🐑LB") {
+      return (<>The <b>Lamb (🐑LB)</b> locates an outcast.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announces "🐑n", where n is the tile-distance between it and the nearest outcast.<br/>
+              <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+              </>)
+    }
+    else if (app=="🧭LC") {
+      return abilityannounce(app);
+    }
+    else if (app=='📚LI') {
+      return abilityannounce(app);
+    }
+    else if (app=='💼LW') {
+      return abilityannounce(app);
+    }
+    else if (app=="🖌️MA") {
+      return (<>The <b>Make-up artist (🖌️MA)</b> finds a disguise used by minions.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "🖌️:p", where p is the appearance of a disguising minion.<br/>
+              <b>When lying or corrupted,</b> announce "🖌️:p", where p is the appearance of a good in-play member.
+              </>) 
+    }
+    else if (app=="📬MM") {
+      return (<>The <b>Mailman (📬MM)</b> finds people in town.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "📬:✅p❌q", where p is an in-play character and q is a not in-play character.<br/>
+              <b>When lying or corrupted,</b> announce "📬:✅p❌q", where p is a not in-play character and q is an in-play character.
+              </>) 
+    }
+    else if (app=="🧮MT") {
+      return (<>The <b>Mathematician (🧮MT)</b> sums up the minions.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "🧮:n", where n is the sum of all minions member ids.<br/>
+              <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+              </>) 
+    }
+    else if (app=='🏛️MY') {
+      return (<>The <b>Mayor (🏛️MY)</b> governs the village.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "🏛️:a😄/b🥴/c😈", where a,b and c are the number of villagers, outcasts and minions respectively.<br/>
+              <b>When lying or corrupted,</b> announce the above but have 2 numbers are off by 1.
+              </>)
+    }
+    else if (app=="☯️NJ") {
+      return (<>The <b>Ninja (☯️NJ)</b> counts adjacent minions.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "☯️:n", where n is the number of adjacent minions.<br/>
+              <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+              </>) 
+    }
+    else if (app=="💊NR") {
+      return (<>The <b>Nurse (💊NR)</b> performs self diagnosis on herself.<br/><br/>
+              <b>When woken,</b><br/>
+              <b>When not lying,</b> announce "💊:pqr", where p is "👍" if it is not corrupted, else p is the source of its corruption, 
+              q is "👍" if it is not jammed, else q is the source of its jamming, r is "👍" if it is not blurred, else r is the source of its blurness.<br/>
+              <b>When lying,</b> choose an adjacent member with id x, announce "💊:pqr", where p is "👍" if x is not corrupted, else p is the source of x's corruption, 
+              q is "👍" if it is not jammed, else q is the source of x's jamming, r is "👍" if it is not blurred, else r is the source of x's blurness.<br/>
+              </>) 
+    }
+    else if (app=="📣PA") {}
+    else if (app=="🕊️PC") {}
+    else if (app=="🎤PF") {
+      return (<>The <b>Performer (🎤PF)</b> gives a speech, but is trembled by evil.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
+              <b>When neither lying nor corrupted and all its neighbours are non-minions,</b> announces whatever p would announce were it truthful and uncorrupted.
+              <b>When lying or corrupted or at least one of its neighbours is a minion,</b> announces whatever p would announce were it lying and corrupted.
+              </>) 
+    }
+    else if (app=="📡RD") {
+      return (<>The <b>Radar (📡RD)</b> detects a disguised member.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.<br/>
+              <b>When lying or corrupted,</b> "📡:p", where p is the role of the nearest member in disguise.
+              </>) 
+    }
+    else if (app=="🕯️RI") {
+      return abilityannounce(app);
+    }
+    else if (app=="🔭RG") {
+      return (<>The <b>Ranger (🔭RG)</b> locates a far minion.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announces "🔭n", where n is the tile-distance between it and the furthest.<br/>
+              <b>When lying or corrupted,</b> announce a reasonable output different from that above.
+              </>)
+    }
+    else if (app=="🐦RK") {}
+    else if (app=="🗿SE") {
+      return (<>The <b>Sentinel (🗿SE)</b> finds corrupted members.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of a corrupted member and a non-corrupted member in random order.<br/>
+              <b>When lying or corrupted,</b> if possible, announces "🗿#x,y", where x and y are the ids of 2 non-corrupted members.
+              </>) 
+    }
+    else if (app=="🎖️SH") {
+      return (<>The <b>Sheriff (🎖️SH)</b> finds corrupted characters.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member who was corrupted by a different member.<br/>
+              <b>When lying or corrupted,</b> if possible, announces "🎖️:p", where p is the character of a member of a non-corrupted member.
+              </>) 
+    }
+    else if (app=="🏹SL") {
+      return abilityannounce(app);
+    }
+    else if (app=="📊ST") {
+      return (<>The <b>Statistician (📊ST)</b> finds the range of minions.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "📊:n", where n is the range of all minions member ids. (max id - min id)<br/>
+              <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+              </>) 
+    }
+    else if (app=="📐SV") {
+      return (<>The <b>Surveyor (📐SV)</b> measures the nearest minions in its range and column<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "📐:⬆️", "📐:⬇️", "📐:⬅️" and "📐:➡️" to indicate the direction of the nearest minion (tile-distance wise) in my row or column. 
+              If the closest minions are of the same distance, announce "📐:🟰", if there are no minions in my row or column, announce "📐:⚠️".<br/>
+              <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+              </>) 
+    }
+    else if (app=="🎓TE") {
+      return (<>The <b>Teacher (🎓TE)</b> checks who is in the villager.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> announce "🎓:pqr=n", where p, q and r are 3 characters and n is the number of in-play characters among p, q and r.<br/>
+              <b>When lying or corrupted,</b> announces a reasonable output different from that above.
+              </>) 
+    }
+    else if (app=="☕TL") {
+      return (<>The <b>Tea Lady (☕TL)</b> protects its neightbours if they are good.<br/><br/>
+              Choose d as "↕️" or "↔️" randomly,<br/>
+              <b>Ability:</b> When woken, or when any neighbour with member id x in the corresponding direction of d is killed for the first time,<br/>
+              When woken, announce "☕:d", and when any neighbour with member id x in the corresponding direction of d is killed for the first time,
+              <b>When neither lying nor corrupted, and both neighbours in the corresponding direction of d are non-minions,</b>
+              announces "☕#x:p", where p is the source of x's death, and x does not die.<br/>
+              </>) 
+    }
+    else if (app=="☂️WM") {
+      return abilityannounce(app);
+    }
+    else if (app=="✏️WR") {
+      return (<>The <b>Writer (✏️WR)</b> writes down random information.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              If possible, choses an information gaining villager character p, preferably not-in-play.<br/>
+              <b>When neither lying nor corrupted,</b> announces whatever p would announce were it truthful and uncorrupted.
+              <b>When lying or corrupted,</b> announces whatever p would announce were it lying and corrupted.
+              </>)
+    }
+    else if (app=='🧙🏻WZ') {
+      return (<>The <b>Wizard (🧙🏻WZ)</b> finds hidden members.<br/><br/>
+              <b>Ability:</b> When woken,<br/>
+              <b>When neither lying nor corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of a disguising member and a non-disguising member in random order and p is the character of the member who was disguising.<br/>
+              <b>When lying or corrupted,</b> if possible, announces "🧙🏻p#x,y", where x and y are the ids of 2 non-disguising members in random order and p is a random character that can disguise itself and preferably in-play.
+              </>) 
+    }
+    else if (app=='🎞️XR') {
+      return abilityannounce(app);
+    }
+    return "";
+  }
+
   const getCellStateClass = (cell, gm) => {
     if (cell.type === 'empty') return 'cell-empty';
     
-    const isRevealed = cell.revealed !== -1;
+    const isRevealed = cell.revealed !== -2;
     const isAlive = cell.killed === -1;
     const isDead = !isAlive;
 
@@ -2144,10 +2700,11 @@ function App() {
         triggerAnimation([idx], 'fade', nextGrid, cost);
       }
     } else if (gameMode === 'Default') {
-      if (cell.revealed !== -1 && cell.killed === -1 && selectcount[cell.app] > 0) {
+      if (cell.revealed !== -2 && cell.killed === -1 && selectcount[cell.app] >= 0) {
         setGameMode('Ability'); setAbilityUserIdx(idx); setSelectedIndices([]);
-      } else if (cell.revealed === -1 && cell.killed === -1) {
-        const nG = [...grid]; nG[idx] = { ...cell, revealed: turns };
+      } else if (cell.revealed === -2 && cell.killed === -1) {
+        const info = getInfo(grid, idx);
+        const nG = [...grid]; nG[idx] = { ...cell, revealed: turns, announce: info};
         triggerAnimation([idx], 'flip', nG, 2);
       }
     } else if (gameMode === 'Ability') {
@@ -2210,20 +2767,20 @@ function App() {
           {grid.map((cell, index) => {
              const hSource = hoveredIdx !== null ? grid[hoveredIdx] : null;
              const isSel = gameMode === 'Ability' && selectedIndices.includes(index);
-             const isTar = gameMode === 'Default' && hSource?.revealed !== -1 && hSource?.highlight?.includes(cell.id);
+             const isTar = gameMode === 'Default' && hSource?.revealed !== -2 && hSource?.highlight?.includes(cell.id);
              const bCls = isSel || isTar ? 'b-lime' : (hoveredIdx === index ? 'b-yellow' : '');
              return (
                <div key={index} className={`cell ${getCellStateClass(cell, gameMode)} cell-${cell.type} ${cell.type !== 'empty' ? 'is-clickable' : ''} ${bCls} ${animatingIndices.has(index) ? `anim-${animType}` : ''}`}
                  onClick={() => handleCellClick(index)} onMouseEnter={() => cell.type !== 'empty' && setHoveredIdx(index)} onMouseLeave={() => setHoveredIdx(null)}>
                  <div className="cell-inner">
                    {cell.type !== 'empty' && <div className={`id-triangle ${cell.killed !== -1 ? 'id-triangle-dead' : ''}`}><span className={abilityUserIdx === index ? 'id-number-y-txt' : 'id-number'}>{cell.id}</span></div>}
-                   {cell.type === 'empty' ? <span className="text-xl"></span> : (cell.revealed === -1 && cell.killed === -1 && gameMode!=="Ended") ? <span className="text-xl">?</span> : (
+                   {cell.type === 'empty' ? <span className="text-xl"></span> : (cell.revealed === -2 && cell.killed === -1 && gameMode!=="Ended") ? <span className="text-xl">?</span> : (
                      <><span className="text-xs-cellstat" style={{"fontSize": (gridlength == 6 ? "0.45" : "0.55")+"rem"}}>{cell.convert}{cell.corrupt}{cell.jammed}{cell.blurred}{cell.reg===cell.char ? '✅' : cell.reg.slice(0, -2)}</span>
                      <div className="c-info">
                       <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}></span>
                       <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.char!==cell.app ? cell.char+" ("+cell.app+")" : cell.char}</span>
                       <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.announce}</span>
-                      <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.revealed !== -1 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
+                      <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.revealed !== -2 ? `🗝️${cell.revealed}` : ""}{cell.used > 0 ? `💡${cell.used}` : ""}{cell.killed !== -1 ? `🔪${cell.killed}` : ""}</span>
                       <span className="text-xs" style={{"fontSize": (gridlength == 6 ? "0.5" : "0.65")+"rem"}}>{cell.note}</span>
                      </div>
                      </>
