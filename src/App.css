@@ -39,7 +39,7 @@ html, body {
   max-width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
   text-align: center;
 }
 
@@ -102,12 +102,14 @@ html, body {
 .tool-btn:active:not(:disabled) { transform: scale(0.96); }
 .tool-btn:disabled { opacity: 0.5; cursor: default; }
 
+.extrainfo:disabled { opacity: 1; cursor: default; }
+
 .bg-paint   { background-color: #4CAF50; }
 .bg-kill    { background-color: #f44336; }
 .bg-neutral { background-color: #8f7a66; }
 .bg-ended   { background-color: #776e65; cursor: default; opacity: 0.9; }
 
-.ability-tools { display: flex; width: 100%; gap: 8px; }
+.ability-tools { display: flex; width: 100%; gap: 0px; }
 .bg-use { background-color: #4CAF50; flex: 2; }
 
 /* ============================================================
@@ -442,7 +444,7 @@ h2 {margin: 0px 0px 10px 0px;}
 @media (max-height: 650px) {
   .title { font-size: 2rem; }
   .subtitle { font-size: 0.5rem;}
-  .game-container { gap: 8px; }
+  .game-container { gap: 4px; }
   .grid-layer { gap: 4px; padding: 4px; }
   .tool-btn { padding: 10px 0; }
 }
