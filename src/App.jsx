@@ -54,25 +54,32 @@ const disguises =
 '🥼SC', '💉SG', '🦑SQ',
 '🧸VD', '👦🏻YS'];
 
-
 const selectcount = {
-  '👁️AB': 1, '😇AG': -1, '📏AR': -1, '🪕BA': -1, '⚜️BI': -1, 
+  '👁️AB': -1, '😇AG': -1, '📏AR': -1, '🪕BA': -1, '⚜️BI': -1, 
   '🍞BK': -1, '🍖CB': 1, '🙏CF': -1, '🗺️CG': -1, '📸CM': 0, 
   '🎭CP': -1, '🎀CU': 2, '💭DM': 1, '📝DT': -1, '🩺DR': 1, 
   '🛠️EG': -1, '🧠EL': -1, '😎EV': -1, '🔮FT': 2, '🔨FX': 1, 
   '💎GC': -1, '⚰️GK': 1, '🐐GO': -1, '🛡️GU': 1, '💔HB': -1, 
   '💖HL': -1, '🔍IN': -1, '🤐IV': -1, '🤹JE': 3, '⚖️JG': 1, 
-  '💍JS': -1, '👑KI': -1, '🗡️KN': -1, '🧵KT': -1, '🐑LB': -1, 
+  '💍JS': -1, '👑KI': -2, '🗡️KN': -1, '🧵KT': -1, '🐑LB': -1, 
   '🧭LC': 1, '📚LI': 3, '💼LW': 3, '🖌️MA': -1, '📬MM': -1, 
-  '🧮MT': -1, '🏛️MY': -1, '☯️NJ': -1, '💊NR': -1, '📣PA': -1, 
+  '🧮MT': -1, '🏛️MY': -1, '☯️NJ': -1, '💊NR': -2, '📣PA': -2, 
   '🕊️PC': -1, '🎤PF': -1, '📡RD': -1, '🕯️RI': 3, '🔭RG': -1, 
-  '🐦RK': -1, '🗿SE': -1, '🎖️SH': -1, '🏹SL': 1, '📊ST': -1, 
+  '🐦RK': -2, '🗿SE': -1, '🎖️SH': -1, '🏹SL': 1, '📊ST': -1, 
   '📐SV': -1, '🎓TE': -1, '☕TL': -1, '☂️WM': 0, '✏️WR': -1, 
   '🧙🏻WZ': -1, '🎞️XR': 3, '🍷AC': -1, '🚨AL': -1, '💰BH': -1, 
-  '💣BM': -1, '🤵🏻BT': -1, '🔊EC': -1, '🔌EE': -1, '🔗FG': -1, 
-  '🎲GB': -1, '🎮GM': -1, '🤝GT': -1, '⚡JM': -1, '🤡JX': -1, 
+  '💣BM': -2, '🤵🏻BT': -1, '🔊EC': -1, '🔌EE': -1, '🔗FG': -1, 
+  '🎲GB': -2, '🎮GM': -1, '🤝GT': -1, '⚡JM': -1, '🤡JX': -2, 
   '💕LV': -1, '🌙MC': -1, '🎵NM': -1, '✝️PR': -1, '🥼SC': -1, 
-  '💉SG': -1, '🦑SQ': -1, '🧸VD': -1, '👦🏻YS': -1};
+  '💉SG': -1, '🦑SQ': -1, '🧸VD': -1, '👦🏻YS': -2, '🤖AI': -2, 
+  '🐱CC': -2, '🍺DK': -2, '😔DP': -2, '🤢FP': -2, '🦴GR': -2, 
+  '🐙MI': -2, '😝PD': -2, '🤪PV': -2, '🍬SH': -2, '❓SS': -2, 
+  '🦇VB': -2, '👮🏻‍♂️BC': -2, '🧬CL': -2, '🤬CR': -2, '👹DE': -2, 
+  '👥ET': -1, '👗FD': -2, '👻GH': -2, '👽HK': -2, '🔫HM': -2, 
+  '🃏JK': -2, '🎃MB': -2, '🎩MG': -2, '🐺MU': -2, '🧪PN': -2, 
+  '🐛PS': -2, '🔔RC': -2, '🕹️SB': -2, '👤SD': -2, '🪓SK': -2, 
+  '🚬SM': -2, '🐍SN': -2, '🦊TK': -2, '🌀TP': -2, '🧛🏻‍♀️VP': -2, 
+  '👾VR': -2, '🧹WI': -2, '🧟ZB': -2}
 
 function shortdetails(app, ram="") {
   if (ram!=="") {
@@ -525,18 +532,20 @@ function details(app) {
   else if (app=="🍞BK") {
     return (<>The <b>Baker (🍞BK)</b> keep baking unrevealed villagers into itself.<br/><br/>
             A member who was not baked by any baker is defined as an original baker. Let the baker count of an original baker be 0, and the baker count of a non-original baker be 1 more than the baker count of the baker that baked it.<br/>
-            <b>Ability:</b> When woken,<br/>
-            Announces "🍞n:p", where p is my original appearance and n is the baker count of the baker.<br/>
+            
+            When woken,<br/>
             <b>When neither lying nor corrupted,</b> if possible, a random unwoken villager that is not in a disguise, will be baked and now disguise as a baker.<br/>
             <b>When lying or corrupted,</b> if possible, a random unwoken non-villager who was disguising as a villager, will be baked and now disguise as a baker.<br/><br/>
             Note: An original baker can be baked by another baker.
+            
+            <b>Ability:</b> When woken,<br/>
+            Announces "🍞n:p", where p is my original appearance and n is the baker count of the baker.<br/>
             </>)
   }
   else if (app=="🙏CF") {
     return (<>The <b>Confesser (🙏CF)</b> confesses if it's a liar or not.<br/><br/>
             <b>Ability:</b> When woken,<br/>
-            <b>When neither lying nor corrupted,</b> announces "🙏👍"<br/>
-            <b>When lying or corrupted,</b> announces "🙏👎"
+            Announce "🙏👍" when I am neither lying nor corrupted, else announce "🙏👎".
             </>)
   }
   else if (app=="🍖CB") {
@@ -2626,12 +2635,35 @@ function App() {
     const app = newapp ? newapp : target.app;
     const lc = newl==null ? debuffStat(target.corrupt,"lcf") : newl;
     const l = newl==null ? debuffStat(target.corrupt,"lf") : newl;
-    function abilityannounce(app) {
-      return (app.slice(0,-2)+"➤");
+    if (selectcount[target.app]>-2) {return (app.slice(0,-2)+"➤");}
+    else {
+      if (app=="💊NR") {
+        let p = debuffStat(target.corrupt,"c") ? target.corrupt : "👍";
+        let q = debuffStat(target.jammed,"j") ? target.jammed : "👍";
+        let r = debuffStat(target.blurred,"b") ? target.blurred : "👍";
+        if (l) {
+          const x = getRandNeighbor(grid, target.id);
+          p = debuffStat(x.corrupt,"c") ? x.corrupt : "👍";
+          q = debuffStat(x.jammed,"j") ? x.jammed : "👍";
+          r = debuffStat(x.blurred,"b") ? x.blurred : "👍";
+        }
+        return ("💊:"+p+q+r);
+      }
+      else if (app=="🐦RK") {
+        return("🐦🔪➤");
+      }
+      else {
+        return(target.announce);
+      }
     }
-    if (app=="👁️AB") {
-      return abilityannounce(app);
-    }
+  }
+
+  function announceinfo(grid, grididx, newapp = null, newl = null) {
+    const target = grid[grididx];
+    const app = newapp ? newapp : target.app;
+    const lc = newl==null ? debuffStat(target.corrupt,"lcf") : newl;
+    const l = newl==null ? debuffStat(target.corrupt,"lf") : newl;
+    if (app=="👁️AB") {}
     else if (app=="😇AG") {
       if (lc) {
         if (target.announce == "") {
@@ -2717,12 +2749,10 @@ function App() {
       return announce;
     }
     else if (app=="🙏CF") {
-      if (lc) {return("🙏👎");}
+      if (debuffStat(target.corrupt,"lc")) {return("🙏👎");}
       else {return("🙏👍");}
     }
-    else if (app=="🍖CB") {
-      return abilityannounce(app);
-    }
+    else if (app=="🍖CB") {}
     else if (app=="🗺️CG") {
       let os = nearest(grid, target.id, ["o"]).map(c => c.reg);
       let ms = nearest(grid, target.id, ["m"]).map(c => c.reg);
@@ -2737,9 +2767,7 @@ function App() {
         return("🗺️:"+os[0].slice(0,-2)+ms[0].slice(0,-2));
       }
     }
-    else if (app=="📸CM") {
-      return abilityannounce(app);
-    }
+    else if (app=="📸CM") {}
     else if (app=="🎭CP") {
       let n = getInPlay(grid).filter(c => (c.char !== c.app)).length;
       if (lc) {
@@ -2749,15 +2777,9 @@ function App() {
       }
       return("🎭:"+n)
     }
-    else if (app=="🎀CU") {
-      return abilityannounce(app);
-    }
-    else if (app=="💭DM") {
-      return abilityannounce(app);
-    }
-    else if (app=="🩺DR") {
-      return abilityannounce(app);
-    }
+    else if (app=="🎀CU") {}
+    else if (app=="💭DM") {}
+    else if (app=="🩺DR") {}
     else if (app=="📝DT") {
       return ("📝TBC")
     }
@@ -2790,12 +2812,8 @@ function App() {
       }
       return("😎:"+v.slice(0,-2)+o.slice(0,-2)+m.slice(0,-2));
     }
-    else if (app=="🔮FT") {
-      return abilityannounce(app);
-    }
-    else if (app=="🔨FX") {
-      return abilityannounce(app);
-    }
+    else if (app=="🔮FT") {}
+    else if (app=="🔨FX") {}
     else if (app=="💎GC") {
       let x;
       if (!lc) {
@@ -2812,9 +2830,7 @@ function App() {
         return("💎👍#"+x[0].id);
       }
     }
-    else if (app=="⚰️GK") {
-      return abilityannounce(app);
-    }
+    else if (app=="⚰️GK") {}
     else if (app=='🐐GO') {
       let n=nearest(grid, target.id);
       let f=furthest(grid, target.id);
@@ -2841,9 +2857,7 @@ function App() {
         .forEach((c) => {target.highlight.push(c.id)});
       return(announce);
     }
-    else if (app=='🛡️GU') {
-      return abilityannounce(app);
-    }
+    else if (app=='🛡️GU') {}
     else if (app=="💔HB") {
       let newapp = shuffle(['🙏CF'])[0];
       let newl = !lc;
@@ -2875,12 +2889,8 @@ function App() {
     else if (app=="🤐IV") {
       return "🤐";
     }
-    else if (app=="🤹JE") {
-      return abilityannounce(app);
-    }
-    else if (app=="⚖️JG") {
-      return abilityannounce(app);
-    }
+    else if (app=="🤹JE") {}
+    else if (app=="⚖️JG") {}
     else if (app=="💍JS") {
       let x;
       if (!lc) {
@@ -2942,15 +2952,9 @@ function App() {
       }
       return(announce);
     }
-    else if (app=="🧭LC") {
-      return abilityannounce(app);
-    }
-    else if (app=='📚LI') {
-      return abilityannounce(app);
-    }
-    else if (app=='💼LW') {
-      return abilityannounce(app);
-    }
+    else if (app=="🧭LC") {}
+    else if (app=='📚LI') {}
+    else if (app=='💼LW') {}
     else if (app=="🖌️MA") {
       let n = getInPlay(grid).filter(c => c.char!==c.app);
       if (lc) {
@@ -3043,9 +3047,7 @@ function App() {
       if (p) {return("📡:"+p.slice(0,-2));}
       else {return("📡⚠️");}
     }
-    else if (app=="🕯️RI") {
-      return abilityannounce(app);
-    }
+    else if (app=="🕯️RI") {}
     else if (app=="🔭RG") {
       let x = tiledist(grid, target.id, furthest(grid, target.id, ["m"])[0].id);
       const mx = tiledist(grid, target.id, furthest(grid, target.id)[0].id);
@@ -3093,9 +3095,7 @@ function App() {
       }
       else {return "🎖️⚠️"}
     }
-    else if (app=="🏹SL") {
-      return abilityannounce(app);
-    }
+    else if (app=="🏹SL") {}
     else if (app=="📊ST") {
       let n = Math.max(...getInPlay(grid,["m"]).map(c => c.id))-Math.min(...getInPlay(grid,["m"]).map(c => c.id));
       const mx = Math.max(...getInPlay(grid).map(c => c.id))-Math.min(...getInPlay(grid).map(c => c.id));
@@ -3157,20 +3157,14 @@ function App() {
       target.ramnote = Math.random()<0.5 ? "↕️" : "↔️";
       return("☕:"+target.ramnote);
     }
-    else if (app=="☂️WM") {
-      return abilityannounce(app);
-    }
+    else if (app=="☂️WM") {}
     else if (app=="✏️WR") {
       let newapp = shuffle(['🙏CF'])[0];
       let newl = lc;
       return(wakeAndInfo(grid, grididx, newapp, newl));
     }
-    else if (app=='🧙🏻WZ') {
-      return abilityannounce(app);
-    }
-    else if (app=='🎞️XR') {
-      return abilityannounce(app);
-    }
+    else if (app=='🧙🏻WZ') {}
+    else if (app=='🎞️XR') {}
     else if (app=='💰BH') {
       if (lc || target.ramnote=="") {
         const y = getInPlay(grid, ["v","o"], [target.id], [], 1);
@@ -3209,6 +3203,7 @@ function App() {
 
   function triggerAbility(grid, abilityUserIdx, turns) {
     const newgrid = grid.map((c,i)=>i===abilityUserIdx?{...c,used:turns}:c);
+    announceinfo(newgrid, grididx, newapp = null, newl = null);
     triggerAnimation([abilityUserIdx], 'fade', newgrid, 1);
     setGameMode('Default');
   }
@@ -3273,19 +3268,14 @@ function App() {
         // Standard kill logic
         triggerAnimation([idx], 'fade', nextGrid, cost);
       }
-    } else if (gameMode === 'Default') {
-      if (cell.revealed !== -2 && cell.killed === -1 && cell.used=== -2 && selectcount[cell.app] >= 0) {
+    } else if (gameMode === 'Default' || (gameMode === 'Ability' && selectcount[selectedCell.app]==-1)) {
+      if (cell.revealed !== -2 && cell.killed === -1 && cell.used=== -2 && selectcount[cell.app] >= -1) {
         setSelectedCell(cell); setGameMode('Ability'); setAbilityUserIdx(idx); setSelectedIndices([]);
       } else if (cell.revealed === -2 && cell.killed === -1) {
+        setSelectedCell(null); setGameMode('Default'); setAbilityUserIdx(null);
         const info = wakeAndInfo(grid, idx);
         const nG = [...grid]; nG[idx] = { ...cell, revealed: turns, announce: info};
         triggerAnimation([idx], 'flip', nG, 1);
-      } else if (cell.revealed !== -2) {
-        if (selectedCell==null || selectedCell.id !== cell.id) {
-          setSelectedCell(cell);
-        } else if (selectedCell.id === cell.id) {
-          setSelectedCell(null);
-        }
       }
     } else if (gameMode === 'Ability') {
       const limit = selectcount[grid[abilityUserIdx].app];
@@ -3372,17 +3362,28 @@ function App() {
         </div>
 
         <div className="tool-bar">
-          {gameMode === 'Default' && <><button className="tool-btn bg-paint">🎨 Paint</button><button className="tool-btn bg-kill" onClick={() => {setSelectedCell(null); setGameMode('Kill')}}>⚔️ Execute</button></>}
+          {gameMode === 'Default' && <><button className="tool-btn bg-green">🎨 Paint</button><button className="tool-btn bg-kill" onClick={() => {setSelectedCell(null); setGameMode('Kill')}}>⚔️ Execute</button></>}
           {gameMode === 'Kill' && <button className="tool-btn bg-neutral" onClick={() => {setGameMode('Default');}}>Back</button>}
-          {gameMode === 'Ability' && (
+          {gameMode === 'Ability' ? (selectcount[grid[abilityUserIdx].app]>0 ? (
             <div className="ability-tools">
               <button className="tool-btn bg-neutral" onClick={() => {setGameMode('Default'); setAbilityUserIdx(null); setSelectedCell(null);}}>Back</button>
               <button className="tool-btn bg-neutral" onClick={() => setSelectedIndices([])}>Reset</button>
-              <button className="tool-btn bg-use" onClick={() => triggerAbility(grid, abilityUserIdx, turns)} disabled={selectedIndices.length !== selectcount[grid[abilityUserIdx]?.app]}>
+              <button className="tool-btn bg-green" style={{"flex":"2"}} onClick={() => triggerAbility(grid, abilityUserIdx, turns)} disabled={selectedIndices.length !== selectcount[grid[abilityUserIdx]?.app]}>
                 Use {grid[abilityUserIdx]?.app} ({selectedIndices.length}/{selectcount[grid[abilityUserIdx]?.app]})
               </button>
             </div>
-          )}
+            ) : (selectcount[grid[abilityUserIdx].app]==-1 ? 
+            <div className="ability-tools">
+              <button className="tool-btn bg-green">🎨 Paint</button>
+              <button className="tool-btn bg-kill" onClick={() => {setSelectedCell(null); setGameMode('Kill')}}>⚔️ Execute</button>
+              <button className="tool-btn bg-green" onClick={() => triggerAbility(grid, abilityUserIdx, turns)}>
+                Use {grid[abilityUserIdx]?.app}
+              </button>
+            </div>
+              : <>Replace me with:{"(true ? : <>Replace me with:{}</>)"}</>)
+
+            ) : <></>
+          }
           {gameMode === 'Ended' && <button className="tool-btn bg-ended" disabled>Game Over: 🕒{turns} 🩸{wrongs}</button>}
         </div>
 

@@ -104,13 +104,12 @@ html, body {
 
 .extrainfo:disabled { opacity: 1; cursor: default; }
 
-.bg-paint   { background-color: #4CAF50; }
+.bg-green   { background-color: #4CAF50; }
 .bg-kill    { background-color: #f44336; }
 .bg-neutral { background-color: #8f7a66; }
 .bg-ended   { background-color: #776e65; cursor: default; opacity: 0.9; }
 
 .ability-tools { display: flex; width: 100%; gap: 0px; }
-.bg-use { background-color: #4CAF50; flex: 2; }
 
 /* ============================================================
    4. THE GRID & CELLS 
